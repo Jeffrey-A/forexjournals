@@ -40,6 +40,46 @@ app.get("/", (req, res) => {
   res.send(html);
 });
 
+app.post('/login', (req, res) => {
+  res.send('login')
+});
+
+app.post('/logout', (req, res) => {
+  res.send('logout')
+});
+
+app.post('/register', (req, res) => {
+  res.send('register')
+});
+
+app.route('/journals/:userId')
+   .get((req, res) => {
+      res.send('send all journals')
+   })
+   .post((req, res) => {
+      res.send('create a journal')
+   })
+   .put((req, res) => {
+      res.send('update a journal')
+   })
+   .delete((req, res) => {
+      res.send('delete a journal')
+   });
+
+app.route('/strategies/:userId')
+   .get((req, res) => {
+      res.send('send all strategies')
+   })
+   .post((req, res) => {
+      res.send('create a strategy')
+   })
+   .put((req, res) => {
+      res.send('update a strategy')
+   })
+   .delete((req, res) => {
+      res.send('delete a strategy')
+   });
+
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
 });
