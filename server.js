@@ -47,7 +47,13 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  res.send("login");
+  Users.findAll()
+    .then((journals) => {
+      res.json(journals);
+    })
+    .catch((err) => {
+      res.send("Error " + err);
+    });
 });
 
 app.post("/logout", (req, res) => {
@@ -55,7 +61,18 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  res.send("register");
+  const { user_name, email, pass_word } = req.body;
+  //TODO: user_name and email need to be unique
+  /*
+   If the user or email exist send a 409, if another error occurs, send a 500.
+   Send a 200 if everything is ok.
+  */
+  Users.create({ user_name, email, pass_word }).then(()=> {
+    res.sendStatus(200);
+  }).catch(err => {
+    res.send(500);
+  })
+  
 });
 
 app
