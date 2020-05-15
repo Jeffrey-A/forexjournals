@@ -80,12 +80,12 @@ app.post("/register", (req, res) => {
 app
   .route("/journals/:userId")
   .get((req, res) => {
-    Journals.findAll()
+    Journals.findAll({ where: { user_id: req.params.userId } })
       .then((journals) => {
         res.json(journals);
       })
       .catch((err) => {
-        res.send("Error " + err);
+        res.sendStatus(500);
       });
   })
   .post((req, res) => {
@@ -101,12 +101,12 @@ app
 app
   .route("/strategies/:userId")
   .get((req, res) => {
-    Strategies.findAll()
+    Strategies.findAll({ where: { user_id: req.params.userId } })
       .then((strategies) => {
         res.json(strategies);
       })
       .catch((err) => {
-        res.send("Error " + err);
+        res.sendStatus(500);
       });
   })
   .post((req, res) => {
