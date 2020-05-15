@@ -77,25 +77,48 @@ app.post("/register", (req, res) => {
     });
 });
 
+app.get("/journals/:userId/", (req, res) => {
+  Journals.findAll({ where: { user_id: req.params.userId } })
+    .then((journals) => {
+      res.json(journals);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+    });
+});
+
 app
-  .route("/journals/:userId")
-  .get((req, res) => {
-    Journals.findAll({ where: { user_id: req.params.userId } })
-      .then((journals) => {
-        res.json(journals);
+  .route("/journals/:userId/:strategyId")
+  .post((req, res) => {
+    const payload = {
+      user_id: req.params.userId,
+      strategy_id: req.params.strategyId,
+      pair: req.body.pair,
+      comments: req.body.comments,
+      order_type: req.body.order_type,
+      pips_gained_lost: req.body.pips_gained_lost,
+      img_link: req.body.img_link,
+    };
+
+    Journals.create(payload)
+      .then(() => {
+        res.sendStatus(200);
       })
       .catch((err) => {
-        res.sendStatus(500);
+        res.send(err);
       });
-  })
-  .post((req, res) => {
-    res.send("create a journal");
   })
   .put((req, res) => {
     res.send("update a journal");
   })
   .delete((req, res) => {
-    res.send("delete a journal");
+    const strategy_id = req.params.strategyId;
+    const user_id = req.params.userId;
+    const { journal_id } = req.body;
+
+    Journals.destroy({ where: { journal_id, user_id, strategy_id } })
+      .then(() => res.sendStatus(200))
+      .catch((err) => res.sendStatus(500));
   });
 
 app
