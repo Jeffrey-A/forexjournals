@@ -68,12 +68,13 @@ app.post("/register", (req, res) => {
    If the user or email exist send a 409, if another error occurs, send a 500.
    Send a 200 if everything is ok.
   */
-  Users.create({ user_name, email, pass_word }).then(()=> {
-    res.sendStatus(200);
-  }).catch(err => {
-    res.send(500);
-  })
-  
+  Users.create({ user_name, email, pass_word })
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      res.send(500);
+    });
 });
 
 app
@@ -109,9 +110,8 @@ app
       });
   })
   .post((req, res) => {
-
     const payload = {
-      user_id: req.params.user_id,
+      user_id: req.params.userId,
       name: req.body.name,
       description: req.body.description,
       entry_conditions: req.body.entry_conditions,
@@ -120,8 +120,8 @@ app
       time_frames: req.body.time_frames,
       risk_per_trade: req.body.risk_per_trade,
       risk_to_reward: req.body.risk_to_reward,
-      indicators: req.body.indicators
-    }
+      indicators: req.body.indicators,
+    };
 
     Strategies.create(payload)
       .then((strategies) => {
@@ -134,8 +134,17 @@ app
   .put((req, res) => {
     res.send("update a strategy");
   })
-  .delete((req, res) => {
-    res.send("delete a strategy");
+  .delete(async (req, res) => {
+    const { strategy_id } = req.body;
+    const { userId } = req.params;
+    await Journals.destroy({ where: { strategy_id, user_id: userId } });
+
+    Strategies.destroy({ where: { strategy_id, user_id: userId } })
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
   });
 
 app.listen(PORT, () => {
