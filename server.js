@@ -19,6 +19,7 @@ app.use(express.static("build/public"));
 
 db.sync().then(() => console.log("connected to database successfully"));
 
+// Routes
 app.get("/", (req, res) => {
   const context = {};
 
@@ -108,7 +109,27 @@ app
       });
   })
   .post((req, res) => {
-    res.send("create a strategy");
+
+    const payload = {
+      user_id: req.params.user_id,
+      name: req.body.name,
+      description: req.body.description,
+      entry_conditions: req.body.entry_conditions,
+      exit_conditions: req.body.exit_conditions,
+      market_conditions: req.body.market_conditions,
+      time_frames: req.body.time_frames,
+      risk_per_trade: req.body.risk_per_trade,
+      risk_to_reward: req.body.risk_to_reward,
+      indicators: req.body.indicators
+    }
+
+    Strategies.create(payload)
+      .then((strategies) => {
+        res.sendStatus(200);
+      })
+      .catch((err) => {
+        res.send(500);
+      });
   })
   .put((req, res) => {
     res.send("update a strategy");
