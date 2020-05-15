@@ -132,7 +132,28 @@ app
       });
   })
   .put((req, res) => {
-    res.send("update a strategy");
+    const { strategy_id } = req.body;
+    const { userId } = req.params;
+
+    const updatedPayload = {
+      name: req.body.name,
+      description: req.body.description,
+      entry_conditions: req.body.entry_conditions,
+      exit_conditions: req.body.exit_conditions,
+      market_conditions: req.body.market_conditions,
+      time_frames: req.body.time_frames,
+      risk_per_trade: req.body.risk_per_trade,
+      risk_to_reward: req.body.risk_to_reward,
+      indicators: req.body.indicators,
+    };
+
+    Strategies.update(updatedPayload, {
+      where: { strategy_id, user_id: userId },
+    })
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch((err) => res.sendStatus(500));
   })
   .delete(async (req, res) => {
     const { strategy_id } = req.body;
