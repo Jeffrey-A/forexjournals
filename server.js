@@ -109,7 +109,24 @@ app
       });
   })
   .put((req, res) => {
-    res.send("update a journal");
+    const strategy_id = req.params.strategyId;
+    const user_id = req.params.userId;
+    const { journal_id } = req.body;
+    const updatedPayload = {
+      pair: req.body.pair,
+      comments: req.body.comments,
+      order_type: req.body.order_type,
+      pips_gained_lost: req.body.pips_gained_lost,
+      img_link: req.body.img_link,
+    };
+
+    Journals.update(updatedPayload, {
+      where: { journal_id, strategy_id, user_id },
+    })
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch((err) => res.sendStatus(500));
   })
   .delete((req, res) => {
     const strategy_id = req.params.strategyId;
