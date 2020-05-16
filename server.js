@@ -77,13 +77,22 @@ app.post("/logout", (req, res) => {
   res.send("logout");
 });
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   const { user_name, email, pass_word } = req.body;
-  //TODO: user_name and email need to be unique
-  /*
-   If the user or email exist send a 409, if another error occurs, send a 500.
-   Send a 200 if everything is ok.
-  */
+
+  // Checks user_name does not exist
+  const isUsernameInUse = await Users.findAll({ where: { user_name } });
+  
+  if (isUsernameInUse.length) {
+    return res.sendStatus(409);
+  }
+  // Check email is not being used
+  const isEmailInUse = await Users.findAll({ where: { email } });
+ 
+  if (isEmailInUse.length) {
+    return res.sendStatus(409);
+  }
+  // Create the user
   Users.create({ user_name, email, pass_word })
     .then(() => {
       res.sendStatus(200);
