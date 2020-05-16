@@ -10,6 +10,7 @@ import db from "./database/db";
 import Users from "./database/models/users";
 import Strategies from "./database/models/strategies";
 import Journals from "./database/models/journals";
+import { Sequelize } from "sequelize";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,6 +20,7 @@ app.use(express.static("build/public"));
 
 db.sync().then(() => console.log("connected to database successfully"));
 
+// Routes
 app.get("/", (req, res) => {
   const context = {};
 
@@ -47,74 +49,197 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  Users.findAll()
+  const user_name = req.body.user_name ? req.body.user_name : "";
+  const pass_word = req.body.pass_word ? req.body.pass_word : "";
+  const email = req.body.email ? req.body.email : "";
+  // SELECT * FROM "users" WHERE (("user_name" = '$user_name' AND "pass_word" = '$password') OR (("pass_word" = '$password' AND email" = '$email')));
+  Users.findAll({
+    where: Sequelize.or(
+      { user_name, pass_word },
+      Sequelize.and({ pass_word, email })
+    ),
+  })
     .then((journals) => {
-      res.json(journals);
+      // user does not exist or either username, email or password are not valid.
+      if (!journals.length) {
+        res.sendStatus(404);
+      } else {
+        res.json(journals);
+      }
     })
     .catch((err) => {
-      res.send("Error " + err);
+      console.log(err);
+      res.sendStatus(500);
     });
 });
 
-app.post("/logout", (req, res) => {
-  res.send("logout");
-});
-
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   const { user_name, email, pass_word } = req.body;
-  //TODO: user_name and email need to be unique
-  /*
-   If the user or email exist send a 409, if another error occurs, send a 500.
-   Send a 200 if everything is ok.
-  */
-  Users.create({ user_name, email, pass_word }).then(()=> {
-    res.sendStatus(200);
-  }).catch(err => {
-    res.send(500);
-  })
-  
+
+  // Checks user_name does not exist
+  const usersWithUserName = await Users.findAll({ where: { user_name } });
+
+  if (usersWithUserName.length) {
+    return res.sendStatus(409);
+  }
+  // Check email is not being used
+  const usersUsingEmail = await Users.findAll({ where: { email } });
+
+  if (usersUsingEmail.length) {
+    return res.sendStatus(409);
+  }
+  // Create the user
+  Users.create({ user_name, email, pass_word })
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      res.send(500);
+    });
 });
 
-app
-  .route("/journals/:userId")
-  .get((req, res) => {
-    Journals.findAll()
+app.get("/journals/:userId/:strategyId?", (req, res) => {
+  const user_id = req.params.userId;
+  const strategy_id = req.params.strategyId;
+
+  if (strategy_id) {
+    Journals.findAll({ where: { user_id, strategy_id } })
       .then((journals) => {
         res.json(journals);
       })
       .catch((err) => {
-        res.send("Error " + err);
+        res.sendStatus(500);
+      });
+  } else {
+    Journals.findAll({ where: { user_id } })
+      .then((journals) => {
+        res.json(journals);
+      })
+      .catch((err) => {
+        res.sendStatus(500);
+      });
+  }
+});
+
+app
+  .route("/journals/:userId/:strategyId")
+  .post((req, res) => {
+    const payload = {
+      user_id: req.params.userId,
+      strategy_id: req.params.strategyId,
+      pair: req.body.pair,
+      comments: req.body.comments,
+      order_type: req.body.order_type,
+      pips_gained_lost: req.body.pips_gained_lost,
+      img_link: req.body.img_link,
+    };
+
+    Journals.create(payload)
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch((err) => {
+        res.send(err);
       });
   })
-  .post((req, res) => {
-    res.send("create a journal");
-  })
   .put((req, res) => {
-    res.send("update a journal");
+    const strategy_id = req.params.strategyId;
+    const user_id = req.params.userId;
+    const journal_id = req.body.journal_id ? req.body.journal_id : "";
+    const updatedPayload = {
+      pair: req.body.pair,
+      comments: req.body.comments,
+      order_type: req.body.order_type,
+      pips_gained_lost: req.body.pips_gained_lost,
+      img_link: req.body.img_link,
+    };
+
+    Journals.update(updatedPayload, {
+      where: { journal_id, strategy_id, user_id },
+    })
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch((err) => res.sendStatus(500));
   })
   .delete((req, res) => {
-    res.send("delete a journal");
+    const strategy_id = req.params.strategyId;
+    const user_id = req.params.userId;
+    const journal_id = req.body.journal_id ? req.body.journal_id : "";
+
+    Journals.destroy({ where: { journal_id, user_id, strategy_id } })
+      .then(() => res.sendStatus(200))
+      .catch((err) => res.sendStatus(500));
   });
 
 app
   .route("/strategies/:userId")
   .get((req, res) => {
-    Strategies.findAll()
+    Strategies.findAll({ where: { user_id: req.params.userId } })
       .then((strategies) => {
         res.json(strategies);
       })
       .catch((err) => {
-        res.send("Error " + err);
+        res.sendStatus(500);
       });
   })
   .post((req, res) => {
-    res.send("create a strategy");
+    const payload = {
+      user_id: req.params.userId,
+      name: req.body.name,
+      description: req.body.description,
+      entry_conditions: req.body.entry_conditions,
+      exit_conditions: req.body.exit_conditions,
+      market_conditions: req.body.market_conditions,
+      time_frames: req.body.time_frames,
+      risk_per_trade: req.body.risk_per_trade,
+      risk_to_reward: req.body.risk_to_reward,
+      indicators: req.body.indicators,
+    };
+
+    Strategies.create(payload)
+      .then((strategies) => {
+        res.sendStatus(200);
+      })
+      .catch((err) => {
+        res.send(500);
+      });
   })
   .put((req, res) => {
-    res.send("update a strategy");
+    const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
+    const userId  = req.params.userId;
+
+    const updatedPayload = {
+      name: req.body.name,
+      description: req.body.description,
+      entry_conditions: req.body.entry_conditions,
+      exit_conditions: req.body.exit_conditions,
+      market_conditions: req.body.market_conditions,
+      time_frames: req.body.time_frames,
+      risk_per_trade: req.body.risk_per_trade,
+      risk_to_reward: req.body.risk_to_reward,
+      indicators: req.body.indicators,
+    };
+
+    Strategies.update(updatedPayload, {
+      where: { strategy_id, user_id: userId },
+    })
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch((err) => res.sendStatus(500));
   })
-  .delete((req, res) => {
-    res.send("delete a strategy");
+  .delete(async (req, res) => {
+    const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
+    const userId  = req.params.userId;
+    await Journals.destroy({ where: { strategy_id, user_id: userId } });
+
+    Strategies.destroy({ where: { strategy_id, user_id: userId } })
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
   });
 
 app.listen(PORT, () => {
