@@ -11,6 +11,7 @@ import Users from "./database/models/users";
 import Strategies from "./database/models/strategies";
 import Journals from "./database/models/journals";
 import { Sequelize } from "sequelize";
+const bcrypt = require("bcrypt");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -52,19 +53,23 @@ app.post("/login", (req, res) => {
   const user_name = req.body.user_name ? req.body.user_name : "";
   const pass_word = req.body.pass_word ? req.body.pass_word : "";
   const email = req.body.email ? req.body.email : "";
-  // SELECT * FROM "users" WHERE (("user_name" = '$user_name' AND "pass_word" = '$password') OR (("pass_word" = '$password' AND email" = '$email')));
-  Users.findAll({
-    where: Sequelize.or(
-      { user_name, pass_word },
-      Sequelize.and({ pass_word, email })
-    ),
+  // SELECT * FROM "users" WHERE "user_name" = '$user_name' or "email" = '$email';
+  Users.findOne({
+    where: Sequelize.or({ user_name }, Sequelize.and({ email })),
   })
-    .then((journals) => {
-      // user does not exist or either username, email or password are not valid.
-      if (!journals.length) {
+    .then((user) => {
+      if (!user) {
         res.sendStatus(404);
       } else {
-        res.json(journals);
+        bcrypt.compare(pass_word, user.pass_word, (err, isMatch) => {
+          if (err) throw err;
+
+          if (isMatch) {
+            res.json(user);
+          } else {
+            res.sendStatus(404);
+          }
+        });
       }
     })
     .catch((err) => {
@@ -88,14 +93,20 @@ app.post("/register", async (req, res) => {
   if (usersUsingEmail.length) {
     return res.sendStatus(409);
   }
-  // Create the user
-  Users.create({ user_name, email, pass_word })
-    .then(() => {
-      res.sendStatus(200);
+  // Create the user with hashed password
+  bcrypt.genSalt(10, (err, salt) =>
+    bcrypt.hash(pass_word, salt, (err, hashedPassword) => {
+      if (err) throw err;
+
+      Users.create({ user_name, email, pass_word: hashedPassword })
+        .then(() => {
+          res.sendStatus(200);
+        })
+        .catch((err) => {
+          res.send(500);
+        });
     })
-    .catch((err) => {
-      res.send(500);
-    });
+  );
 });
 
 app.get("/journals/:userId/:strategyId?", (req, res) => {
@@ -207,7 +218,7 @@ app
   })
   .put((req, res) => {
     const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
-    const userId  = req.params.userId;
+    const userId = req.params.userId;
 
     const updatedPayload = {
       name: req.body.name,
@@ -231,7 +242,7 @@ app
   })
   .delete(async (req, res) => {
     const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
-    const userId  = req.params.userId;
+    const userId = req.params.userId;
     await Journals.destroy({ where: { strategy_id, user_id: userId } });
 
     Strategies.destroy({ where: { strategy_id, user_id: userId } })
