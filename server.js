@@ -52,7 +52,7 @@ app.post("/login", (req, res) => {
   const user_name = req.body.user_name ? req.body.user_name : "";
   const pass_word = req.body.pass_word ? req.body.pass_word : "";
   const email = req.body.email ? req.body.email : "";
-
+  // SELECT * FROM "users" WHERE (("user_name" = '$user_name' AND "pass_word" = '$password') OR (("pass_word" = '$password' AND email" = '$email')));
   Users.findAll({
     where: Sequelize.or(
       { user_name, pass_word },
@@ -72,24 +72,20 @@ app.post("/login", (req, res) => {
       res.sendStatus(500);
     });
 });
-// Not sure if this will be needed
-app.post("/logout", (req, res) => {
-  res.send("logout");
-});
 
 app.post("/register", async (req, res) => {
   const { user_name, email, pass_word } = req.body;
 
   // Checks user_name does not exist
-  const isUsernameInUse = await Users.findAll({ where: { user_name } });
-  
-  if (isUsernameInUse.length) {
+  const usersWithUserName = await Users.findAll({ where: { user_name } });
+
+  if (usersWithUserName.length) {
     return res.sendStatus(409);
   }
   // Check email is not being used
-  const isEmailInUse = await Users.findAll({ where: { email } });
- 
-  if (isEmailInUse.length) {
+  const usersUsingEmail = await Users.findAll({ where: { email } });
+
+  if (usersUsingEmail.length) {
     return res.sendStatus(409);
   }
   // Create the user
@@ -102,14 +98,27 @@ app.post("/register", async (req, res) => {
     });
 });
 
-app.get("/journals/:userId/", (req, res) => {
-  Journals.findAll({ where: { user_id: req.params.userId } })
-    .then((journals) => {
-      res.json(journals);
-    })
-    .catch((err) => {
-      res.sendStatus(500);
-    });
+app.get("/journals/:userId/:strategyId?", (req, res) => {
+  const user_id = req.params.userId;
+  const strategy_id = req.params.strategyId;
+
+  if (strategy_id) {
+    Journals.findAll({ where: { user_id, strategy_id } })
+      .then((journals) => {
+        res.json(journals);
+      })
+      .catch((err) => {
+        res.sendStatus(500);
+      });
+  } else {
+    Journals.findAll({ where: { user_id } })
+      .then((journals) => {
+        res.json(journals);
+      })
+      .catch((err) => {
+        res.sendStatus(500);
+      });
+  }
 });
 
 app
@@ -136,7 +145,7 @@ app
   .put((req, res) => {
     const strategy_id = req.params.strategyId;
     const user_id = req.params.userId;
-    const { journal_id } = req.body;
+    const journal_id = req.body.journal_id ? req.body.journal_id : "";
     const updatedPayload = {
       pair: req.body.pair,
       comments: req.body.comments,
@@ -156,7 +165,7 @@ app
   .delete((req, res) => {
     const strategy_id = req.params.strategyId;
     const user_id = req.params.userId;
-    const { journal_id } = req.body;
+    const journal_id = req.body.journal_id ? req.body.journal_id : "";
 
     Journals.destroy({ where: { journal_id, user_id, strategy_id } })
       .then(() => res.sendStatus(200))
@@ -197,8 +206,8 @@ app
       });
   })
   .put((req, res) => {
-    const { strategy_id } = req.body;
-    const { userId } = req.params;
+    const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
+    const userId  = req.params.userId;
 
     const updatedPayload = {
       name: req.body.name,
@@ -221,8 +230,8 @@ app
       .catch((err) => res.sendStatus(500));
   })
   .delete(async (req, res) => {
-    const { strategy_id } = req.body;
-    const { userId } = req.params;
+    const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
+    const userId  = req.params.userId;
     await Journals.destroy({ where: { strategy_id, user_id: userId } });
 
     Strategies.destroy({ where: { strategy_id, user_id: userId } })
