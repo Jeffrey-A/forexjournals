@@ -10,6 +10,7 @@ import db from "./database/db";
 import Users from "./database/models/users";
 import Strategies from "./database/models/strategies";
 import Journals from "./database/models/journals";
+import { Sequelize } from "sequelize";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -48,15 +49,30 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  Users.findAll()
+  const user_name = req.body.user_name ? req.body.user_name : "";
+  const pass_word = req.body.pass_word ? req.body.pass_word : "";
+  const email = req.body.email ? req.body.email : "";
+
+  Users.findAll({
+    where: Sequelize.or(
+      { user_name, pass_word },
+      Sequelize.and({ pass_word, email })
+    ),
+  })
     .then((journals) => {
-      res.json(journals);
+      // user does not exist or either username, email or password are not valid.
+      if (!journals.length) {
+        res.sendStatus(404);
+      } else {
+        res.json(journals);
+      }
     })
     .catch((err) => {
-      res.send("Error " + err);
+      console.log(err);
+      res.sendStatus(500);
     });
 });
-
+// Not sure if this will be needed
 app.post("/logout", (req, res) => {
   res.send("logout");
 });
