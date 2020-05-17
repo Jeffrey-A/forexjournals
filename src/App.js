@@ -12,18 +12,6 @@ import NoFound from "./pages/NoFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-const fakeAuthCentralState = {
-  isAuthenticated: false,
-  authenticate(callback) {
-    this.isAuthenticated = true;
-    setTimeout(callback, 300);
-  },
-  signout(callback) {
-    this.isAuthenticated = false;
-    setTimeout(callback, 300);
-  },
-};
-
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -64,12 +52,20 @@ class App extends React.Component {
         <Route
           exact
           path="/login"
-          render={(props) => <Login isAuthenticated={isAuthenticated} login={this.login} {...props} />}
+          render={(props) => (
+            <Login
+              isAuthenticated={isAuthenticated}
+              login={this.login}
+              {...props}
+            />
+          )}
         />
         <Route
           exact
           path="/register"
-          render={(props) => <Register isAuthenticated={isAuthenticated} {...props} />}
+          render={(props) => (
+            <Register isAuthenticated={isAuthenticated} {...props} />
+          )}
         />
         <ProtectedRoute
           exact
