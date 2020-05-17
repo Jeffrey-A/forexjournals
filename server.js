@@ -22,9 +22,9 @@ app.use(express.static("build/public"));
 db.sync().then(() => console.log("connected to database successfully"));
 
 // Routes
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   const context = {};
-
+  console.log(req.url)
   const content = ReactDOMServer.renderToString(
     <StaticRouter location={req.url} context={context}>
       <App />

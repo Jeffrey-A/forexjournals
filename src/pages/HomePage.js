@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import {Link} from 'react-router-dom';
 
 export default class HomePage extends React.Component {
   head() {
@@ -14,6 +15,8 @@ export default class HomePage extends React.Component {
       <div>
           {this.head()}
         <h1>Home Page</h1>
+        <Link to='/journals' >Journals</Link>
+        <Link to='/strategies' >Strategies</Link>
       </div>
     );
   }
