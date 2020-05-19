@@ -11,14 +11,17 @@ import Users from "./database/models/users";
 import Strategies from "./database/models/strategies";
 import Journals from "./database/models/journals";
 import { Sequelize } from "sequelize";
+const passport = require('passport-local').Strategy;
 const bcrypt = require("bcrypt");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middlewares
 app.use(bodyParser.json());
 app.use(express.static("build/public"));
 
+// Check database connection
 db.sync().then(() => console.log("connected to database successfully"));
 
 // Routes
