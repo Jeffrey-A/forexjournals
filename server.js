@@ -74,42 +74,12 @@ app.post("/test", ensureAuthenticated, (req, res) => {
   res.send("Ok");
 });
 
-// working fine
-app.post("/testLogin", (req, res, next) => {
+app.post("/login", (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
     failureFlash: false,
   })(req, res, next);
-});
-
-app.post("/login", (req, res) => {
-  const user_name = req.body.user_name ? req.body.user_name : "";
-  const pass_word = req.body.pass_word ? req.body.pass_word : "";
-  const email = req.body.email ? req.body.email : "";
-  // SELECT * FROM "users" WHERE "user_name" = '$user_name' or "email" = '$email';
-  Users.findOne({
-    where: Sequelize.or({ user_name }, Sequelize.and({ email })),
-  })
-    .then((user) => {
-      if (!user) {
-        res.sendStatus(404);
-      } else {
-        bcrypt.compare(pass_word, user.pass_word, (err, isMatch) => {
-          if (err) throw err;
-
-          if (isMatch) {
-            res.json(user);
-          } else {
-            res.sendStatus(404);
-          }
-        });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500);
-    });
 });
 
 app.post("/register", async (req, res) => {
