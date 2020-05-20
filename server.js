@@ -11,18 +11,20 @@ import Users from "./database/models/users";
 import Strategies from "./database/models/strategies";
 import Journals from "./database/models/journals";
 import { Sequelize } from "sequelize";
+import ensureAuthenticated from './config/auth';
 var session = require("express-session");
 var passport = require("passport");
 const bcrypt = require("bcrypt");
-// Passport Config
-require('./config/passport')(passport);
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// TODO: ORGANIZE CODE
-
 // Middlewares
+
+// Passport Config
+require('./config/passport')(passport);
+
 app.use(bodyParser.json());
 app.use(express.static("build/public"));
 // Express session
@@ -33,47 +35,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-// working
-// passport.use(
-//   new LocalStrategy(function (username, password, done) {
-//     Users.findOne({
-//       where: { user_name: username },
-//     }).then((user) => {
-//       if (!user) {
-//         return done(null, false, { message: "That email is not registered" });
-//       }
-
-//       bcrypt.compare(password, user.pass_word, (err, isMatch) => {
-//         if (err) throw err;
-
-//         if (isMatch) {
-//           console.log("Success login");
-//           return done(null, user);
-//         } else {
-//           console.log("failed login");
-//           return done(null, false, { message: "Password incorrect" });
-//         }
-//       });
-//     });
-
-//     passport.serializeUser(function (user, done) {
-//       done(null, user.id);
-//     });
-
-//     passport.deserializeUser(function (id, done) {
-//       Users.findByPk(id).then(function (user) {
-//         if (user) {
-//           done(null, user.get());
-//         } else {
-//           done(user.errors, null);
-//         }
-//       });
-//     });
-//   })
-// );
-
-//const { forwardAuthenticated, ensureAuthenticated } = require('./config/auth');
 
 // Passport middleware
 app.use(passport.initialize());
@@ -108,14 +69,6 @@ app.get("*", (req, res) => {
     `;
   res.send(html);
 });
-
-function ensureAuthenticated(req, res, next) {
-  console.log(req.isAuthenticated());
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.send("noo");
-}
 
 app.post("/test", ensureAuthenticated, (req, res) => {
   res.send("Ok");
