@@ -70,10 +70,6 @@ app.get("*", (req, res) => {
   res.send(html);
 });
 
-app.post("/test", ensureAuthenticated, (req, res) => {
-  res.send("Ok");
-});
-
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/",
@@ -113,7 +109,7 @@ app.post("/register", async (req, res) => {
   );
 });
 
-app.get("/journals/:userId/:strategyId?", (req, res) => {
+app.get("/journals/:userId/:strategyId?", ensureAuthenticated, (req, res) => {
   const user_id = req.params.userId;
   const strategy_id = req.params.strategyId;
 
@@ -137,7 +133,7 @@ app.get("/journals/:userId/:strategyId?", (req, res) => {
 });
 
 app
-  .route("/journals/:userId/:strategyId")
+  .route("/journals/:userId/:strategyId", ensureAuthenticated)
   .post((req, res) => {
     const payload = {
       user_id: req.params.userId,
@@ -188,7 +184,7 @@ app
   });
 
 app
-  .route("/strategies/:userId")
+  .route("/strategies/:userId", ensureAuthenticated)
   .get((req, res) => {
     Strategies.findAll({ where: { user_id: req.params.userId } })
       .then((strategies) => {
