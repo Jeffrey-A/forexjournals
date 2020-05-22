@@ -11,11 +11,10 @@ import Users from "./database/models/users";
 import Strategies from "./database/models/strategies";
 import Journals from "./database/models/journals";
 import { Sequelize } from "sequelize";
-import ensureAuthenticated from './config/auth';
+import ensureAuthenticated from "./config/auth";
 var session = require("express-session");
 var passport = require("passport");
 const bcrypt = require("bcrypt");
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +22,7 @@ const PORT = process.env.PORT || 3000;
 // Middlewares
 
 // Passport Config
-require('./config/passport')(passport);
+require("./config/passport")(passport);
 
 app.use(bodyParser.json());
 app.use(express.static("build/public"));
@@ -44,47 +43,20 @@ app.use(passport.session());
 db.sync().then(() => console.log("connected to database successfully"));
 
 // Routes
-app.get("*", (req, res) => {
-  const context = {};
-  const content = ReactDOMServer.renderToString(
-    <StaticRouter location={req.url} context={context}>
-      <App />
-    </StaticRouter>
-  );
-  const helmet = Helmet.renderStatic();
-  const html = `
-        <html>
-            <head>
-               ${helmet.meta.toString()}
-               ${helmet.title.toString()}
-            </head>
-
-            <body>
-                <div id="root">
-                   ${content}
-                </div>
-                <script src="client_bundle.js"></script>
-            </body>
-        </html>
-    `;
-  res.send(html);
-});
-
 app.post("/login", passport.authenticate("local"), (req, res) => {
-  const {id, user_name, email} = req.user;
-  res.send({id, user_name, email});
+  const { id, user_name, email } = req.user;
+  res.send({ id, user_name, email });
 });
 
 app.post("/register", async (req, res) => {
   const { user_name, email, pass_word } = req.body;
 
-  // Checks user_name does not exist
   const usersWithUserName = await Users.findAll({ where: { user_name } });
 
   if (usersWithUserName.length) {
     return res.sendStatus(409);
   }
-  // Check email is not being used
+
   const usersUsingEmail = await Users.findAll({ where: { email } });
 
   if (usersUsingEmail.length) {
@@ -130,8 +102,8 @@ app.get("/journals/:userId/:strategyId?", ensureAuthenticated, (req, res) => {
 });
 
 app
-  .route("/journals/:userId/:strategyId", ensureAuthenticated)
-  .post((req, res) => {
+  .route("/journals/:userId/:strategyId")
+  .post(ensureAuthenticated, (req, res) => {
     const payload = {
       user_id: req.params.userId,
       strategy_id: req.params.strategyId,
@@ -150,7 +122,7 @@ app
         res.send(err);
       });
   })
-  .put((req, res) => {
+  .put(ensureAuthenticated, (req, res) => {
     const strategy_id = req.params.strategyId;
     const user_id = req.params.userId;
     const journal_id = req.body.journal_id ? req.body.journal_id : "";
@@ -170,7 +142,7 @@ app
       })
       .catch((err) => res.sendStatus(500));
   })
-  .delete((req, res) => {
+  .delete(ensureAuthenticated, (req, res) => {
     const strategy_id = req.params.strategyId;
     const user_id = req.params.userId;
     const journal_id = req.body.journal_id ? req.body.journal_id : "";
@@ -181,8 +153,8 @@ app
   });
 
 app
-  .route("/strategies/:userId", ensureAuthenticated)
-  .get((req, res) => {
+  .route("/strategies/:userId")
+  .get(ensureAuthenticated, (req, res) => {
     Strategies.findAll({ where: { user_id: req.params.userId } })
       .then((strategies) => {
         res.json(strategies);
@@ -191,7 +163,7 @@ app
         res.sendStatus(500);
       });
   })
-  .post((req, res) => {
+  .post(ensureAuthenticated, (req, res) => {
     const payload = {
       user_id: req.params.userId,
       name: req.body.name,
@@ -213,7 +185,7 @@ app
         res.send(500);
       });
   })
-  .put((req, res) => {
+  .put(ensureAuthenticated, (req, res) => {
     const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
     const userId = req.params.userId;
 
@@ -237,7 +209,7 @@ app
       })
       .catch((err) => res.sendStatus(500));
   })
-  .delete(async (req, res) => {
+  .delete(ensureAuthenticated, async (req, res) => {
     const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
     const userId = req.params.userId;
     await Journals.destroy({ where: { strategy_id, user_id: userId } });
@@ -249,6 +221,33 @@ app
         res.sendStatus(500);
       });
   });
+
+// Handle react-router routes 
+app.get("*", (req, res) => {
+  const context = {};
+  const content = ReactDOMServer.renderToString(
+    <StaticRouter location={req.url} context={context}>
+      <App jeff={req} />
+    </StaticRouter>
+  );
+  const helmet = Helmet.renderStatic();
+  const html = `
+          <html>
+              <head>
+                 ${helmet.meta.toString()}
+                 ${helmet.title.toString()}
+              </head>
+  
+              <body>
+                  <div id="root">
+                     ${content}
+                  </div>
+                  <script src="client_bundle.js"></script>
+              </body>
+          </html>
+      `;
+  res.send(html);
+});
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
