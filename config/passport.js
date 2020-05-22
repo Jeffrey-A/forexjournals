@@ -10,7 +10,7 @@ module.exports = function (passport) {
         where: { user_name: username },
       }).then((user) => {
         if (!user) {
-          return done(null, false, { message: "That email is not registered" });
+          return done(null, false);
         }
 
         bcrypt.compare(password, user.pass_word, (err, isMatch) => {
@@ -19,7 +19,7 @@ module.exports = function (passport) {
           if (isMatch) {
             return done(null, user);
           } else {
-            return done(null, false, { message: "Password incorrect" });
+            return done(null, false);
           }
         });
       });
