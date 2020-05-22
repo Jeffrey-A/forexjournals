@@ -70,12 +70,9 @@ app.get("*", (req, res) => {
   res.send(html);
 });
 
-app.post("/login", (req, res, next) => {
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-    failureFlash: false,
-  })(req, res, next);
+app.post("/login", passport.authenticate("local"), (req, res) => {
+  const {id, user_name, email} = req.user;
+  res.send({id, user_name, email});
 });
 
 app.post("/register", async (req, res) => {
