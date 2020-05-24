@@ -1,5 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+// Styles
+import './styles/Main.css';
 // Pages
 import HomePage from "./pages/HomePage";
 import Journals from "./pages/Journals";
