@@ -236,6 +236,7 @@ app.get("*", (req, res) => {
               <head>
                  ${helmet.meta.toString()}
                  ${helmet.title.toString()}
+                 <meta name="viewport" content="width=device-width,initial-scale=1">
               </head>
   
               <body>

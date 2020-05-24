@@ -1,72 +1,81 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
- 
- 
- /* Navigation  */
+
+/* Utils */
+.hide {
+  display: none !important;
+}
+
+/* Navigation  */
 .nav-main-container {
-    display: flex;
-    justify-content: space-between;
-    background-color: gray;
-    padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: gray;
+  padding: 1rem;
 }
 
-.nav-main-container a{
-    text-decoration: none;
-    color: black;
-}
-.nav-main-container a:visited{
-    text-decoration: none;
-    color: black;
+.mobile-nav-right-container {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.nav-main-container a:hover{
-    text-decoration: underline;  
+.mobile-nav-right-container li {
+  text-align: center;
 }
 
-.nav-left-container,
-.nav-right-container{
-    width: 100%;
-    list-style: none;
-    display: flex;
+.nav-main-container a {
+  text-decoration: none;
+  color: black;
 }
-.nav-left-container{
-    justify-content: flex-start;
-}
-
-.nav-right-container{
-    justify-content: flex-end;
+.nav-main-container a:visited {
+  text-decoration: none;
+  color: black;
 }
 
-.nav-right-container li {
-    margin-right: 0.5rem;
-}
-
-.nav-main-container ul .active-page{
+.nav-main-container a:hover {
   text-decoration: underline;
 }
 
-
-
-/* Media */
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) { 
-
+.nav-left-container,
+.nav-right-container {
+  width: 100%;
+  list-style: none;
+  display: flex;
+}
+.nav-left-container {
+  justify-content: flex-start;
 }
 
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
+.nav-right-container {
+  justify-content: flex-end;
+}
 
- }
+.nav-right-container li {
+  margin-right: 0.5rem;
+}
 
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
+.nav-main-container ul .active-page {
+  text-decoration: underline;
+}
 
- }
+/* Media */
 
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
-
- }
+/* Small-Medium devices*/
+@media (max-width: 900px) {
+  .nav-right-container {
+    display: none;
+  }
+  .mobile-nav-right-container {
+    display: flex;
+  }
+}
+/* Bigger devices */
+@media (min-width: 900px) {
+  .mobile-nav-right-container {
+    display: none;
+  }
+}
