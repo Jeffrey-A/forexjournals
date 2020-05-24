@@ -36,9 +36,8 @@ class Nav extends React.Component {
       activePage.classList.add("active-page");
     }
 
-    //Show menu
+    //Show menu in mobile 
     const mobileNav = document.querySelector(".mobile-nav-right-container");
-    const { showMobileNavClicks } = this.state;
 
     if (!mobileNav.classList.contains("hide")) {
       mobileNav.classList.add("hide");
@@ -68,6 +67,9 @@ class Nav extends React.Component {
               Home
             </Link>
           </li>
+          <button className="show-links-in-mobile" onClick={this.showLinks}>
+            Show Links
+          </button>
         </ul>
         {/* Desktop */}
         <ul className="nav-right-container">
@@ -103,40 +105,38 @@ class Nav extends React.Component {
         </ul>
 
         {/* Mobile */}
-        <div>
-          <button onClick={this.showLinks}>Show Links</button>
-          <ul className="mobile-nav-right-container hide">
-            <li>
-              <Link
-                onClick={() => this.changeActivePage("/journals")}
-                to="/journals"
-              >
-                Journals
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={() => this.changeActivePage("/strategies")}
-                to="/strategies"
-              >
-                Strategies
-              </Link>
-            </li>
-            <li>
-              <Link onClick={() => this.changeActivePage("/login")} to="/login">
-                Log in
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={() => this.changeActivePage("/register")}
-                to="/register"
-              >
-                Register
-              </Link>
-            </li>
-          </ul>
-        </div>
+
+        <ul className="mobile-nav-right-container hide">
+          <li>
+            <Link
+              onClick={() => this.changeActivePage("/journals")}
+              to="/journals"
+            >
+              Journals
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={() => this.changeActivePage("/strategies")}
+              to="/strategies"
+            >
+              Strategies
+            </Link>
+          </li>
+          <li>
+            <Link onClick={() => this.changeActivePage("/login")} to="/login">
+              Log in
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={() => this.changeActivePage("/register")}
+              to="/register"
+            >
+              Register
+            </Link>
+          </li>
+        </ul>
       </div>
     );
   }

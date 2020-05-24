@@ -21,10 +21,14 @@
   display: none;
   flex-direction: column;
   justify-content: center;
+  list-style: none;
+  border-top: 1px solid black;
+  padding-top: 1rem;
 }
 
 .mobile-nav-right-container li {
   text-align: center;
+  margin-bottom: 1rem;
 }
 
 .nav-main-container a {
@@ -47,7 +51,7 @@
   display: flex;
 }
 .nav-left-container {
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 .nav-right-container {
@@ -72,10 +76,17 @@
   .mobile-nav-right-container {
     display: flex;
   }
+  .nav-main-container{
+      display: block;
+  }
 }
 /* Bigger devices */
 @media (min-width: 900px) {
   .mobile-nav-right-container {
     display: none;
+  }
+
+  .show-links-in-mobile{
+      display: none;
   }
 }
