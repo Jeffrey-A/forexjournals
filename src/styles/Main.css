@@ -13,7 +13,7 @@
 .nav-main-container {
   display: flex;
   justify-content: space-between;
-  background-color: gray;
+  background-color: #1f2833;
   padding: 1rem;
 }
 
@@ -22,7 +22,7 @@
   flex-direction: column;
   justify-content: center;
   list-style: none;
-  border-top: 1px solid black;
+  border-top: 1px solid #66fcf1;
   padding-top: 1rem;
 }
 
@@ -33,11 +33,11 @@
 
 .nav-main-container a {
   text-decoration: none;
-  color: black;
+  color: #66fcf1;
 }
 .nav-main-container a:visited {
   text-decoration: none;
-  color: black;
+  color: #66fcf1;
 }
 
 .nav-main-container a:hover {
