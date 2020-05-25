@@ -86,8 +86,26 @@ class Nav extends React.Component {
             Strategies
           </Link>
         </li>,
+        <li key={nextId()}>
+          <Link onClick={() => this.props.logout()} to="/">
+            Log out
+          </Link>
+        </li>,
       ];
     }
+
+    return [
+      <li key={nextId()}>
+        <Link onClick={() => this.changeActivePage("/login")} to="/login">
+          Log in
+        </Link>
+      </li>,
+      <li key={nextId()}>
+        <Link onClick={() => this.changeActivePage("/register")} to="/register">
+          Register
+        </Link>
+      </li>,
+    ];
   }
 
   displayDesktopProtectedRoutesIfAuthenticated() {
@@ -110,9 +128,25 @@ class Nav extends React.Component {
             Strategies
           </Link>
         </li>,
+        <li key={nextId()}>
+          <Link onClick={() => this.props.logout()} to="/">
+            Log out
+          </Link>
+        </li>,
       ];
     }
-    return [];
+    return [
+      <li key={nextId()}>
+        <Link onClick={() => this.changeActivePage("/login")} to="/login">
+          Log in
+        </Link>
+      </li>,
+      <li key={nextId()}>
+        <Link onClick={() => this.changeActivePage("/register")} to="/register">
+          Register
+        </Link>
+      </li>,
+    ];
   }
 
   render() {
@@ -128,41 +162,15 @@ class Nav extends React.Component {
             <img src={MenuIcon} alt="show nav links" />
           </span>
         </ul>
+
         {/* Desktop */}
         <ul className="nav-right-container">
           {this.displayDesktopProtectedRoutesIfAuthenticated()}
-          <li>
-            <Link onClick={() => this.changeActivePage("/login")} to="/login">
-              Log in
-            </Link>
-          </li>
-          <li>
-            <Link
-              onClick={() => this.changeActivePage("/register")}
-              to="/register"
-            >
-              Register
-            </Link>
-          </li>
         </ul>
 
         {/* Mobile */}
-
         <ul className="mobile-nav-right-container hide">
           {this.displayMobileProtectedRoutesIfAuthenticated()}
-          <li>
-            <Link onClick={() => this.changeActivePage("/login")} to="/login">
-              Log in
-            </Link>
-          </li>
-          <li>
-            <Link
-              onClick={() => this.changeActivePage("/register")}
-              to="/register"
-            >
-              Register
-            </Link>
-          </li>
         </ul>
       </div>
     );

@@ -40,10 +40,15 @@ class App extends React.Component {
       isAuthenticated: false,
     };
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   login() {
     this.setState({ isAuthenticated: true });
+  }
+
+  logout() {
+    this.setState({ isAuthenticated: false });
   }
 
   render() {
@@ -51,7 +56,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <Nav isAuthenticated={isAuthenticated} />
+        <Nav logout={this.logout} isAuthenticated={isAuthenticated} />
         <Switch>
           <Route exact path="/" render={(props) => <HomePage {...props} />} />
           <Route
