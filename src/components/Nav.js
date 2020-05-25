@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MenuIcon from '../assets/menu.png';
+import MenuIcon from "../assets/menu.png";
+import nextId from "react-id-generator";
 
 class Nav extends React.Component {
   constructor(props) {
@@ -12,15 +13,21 @@ class Nav extends React.Component {
 
     this.changeActivePage = this.changeActivePage.bind(this);
     this.showLinks = this.showLinks.bind(this);
+    this.displayDesktopProtectedRoutesIfAuthenticated = this.displayDesktopProtectedRoutesIfAuthenticated.bind(
+      this
+    );
+    this.displayMobileProtectedRoutesIfAuthenticated = this.displayMobileProtectedRoutesIfAuthenticated.bind(
+      this
+    );
   }
 
   componentDidMount() {
-    const activePage = document.querySelector(
+    const activePages = document.querySelectorAll(
       `a[href="${window.location.pathname}"]`
     );
 
-    if (activePage) {
-      activePage.classList.add("active-page");
+    if (activePages.length) {
+      activePages.forEach((link) => link.classList.add("active-page"));
     }
   }
 
@@ -29,15 +36,15 @@ class Nav extends React.Component {
       link.classList.remove("active-page");
     });
 
-    const activePage = document.querySelector(
+    const activePages = document.querySelectorAll(
       `a[href="${window.location.pathname}"]`
     );
 
-    if (activePage) {
-      activePage.classList.add("active-page");
+    if (activePages.length) {
+      activePages.forEach((link) => link.classList.add("active-page"));
     }
-
-    //Show menu in mobile 
+    
+    //Show menu in mobile
     const mobileNav = document.querySelector(".mobile-nav-right-container");
 
     if (!mobileNav.classList.contains("hide")) {
@@ -59,6 +66,55 @@ class Nav extends React.Component {
     });
   }
 
+  displayMobileProtectedRoutesIfAuthenticated() {
+    const { isAuthenticated } = this.props;
+    if (isAuthenticated) {
+      return [
+        <li>
+          <Link
+            onClick={() => this.changeActivePage("/journals")}
+            to="/journals"
+          >
+            Journals
+          </Link>
+        </li>,
+        <li>
+          <Link
+            onClick={() => this.changeActivePage("/strategies")}
+            to="/strategies"
+          >
+            Strategies
+          </Link>
+        </li>,
+      ];
+    }
+  }
+
+  displayDesktopProtectedRoutesIfAuthenticated() {
+    const { isAuthenticated } = this.props;
+    if (isAuthenticated) {
+      return [
+        <li key={nextId()}>
+          <Link
+            onClick={() => this.changeActivePage("/journals")}
+            to="/journals"
+          >
+            Journals
+          </Link>
+        </li>,
+        <li key={nextId()}>
+          <Link
+            onClick={() => this.changeActivePage("/strategies")}
+            to="/strategies"
+          >
+            Strategies
+          </Link>
+        </li>,
+      ];
+    }
+    return [];
+  }
+
   render() {
     return (
       <div className="nav-main-container">
@@ -74,22 +130,7 @@ class Nav extends React.Component {
         </ul>
         {/* Desktop */}
         <ul className="nav-right-container">
-          <li>
-            <Link
-              onClick={() => this.changeActivePage("/journals")}
-              to="/journals"
-            >
-              Journals
-            </Link>
-          </li>
-          <li>
-            <Link
-              onClick={() => this.changeActivePage("/strategies")}
-              to="/strategies"
-            >
-              Strategies
-            </Link>
-          </li>
+          {this.displayDesktopProtectedRoutesIfAuthenticated()}
           <li>
             <Link onClick={() => this.changeActivePage("/login")} to="/login">
               Log in
@@ -108,22 +149,7 @@ class Nav extends React.Component {
         {/* Mobile */}
 
         <ul className="mobile-nav-right-container hide">
-          <li>
-            <Link
-              onClick={() => this.changeActivePage("/journals")}
-              to="/journals"
-            >
-              Journals
-            </Link>
-          </li>
-          <li>
-            <Link
-              onClick={() => this.changeActivePage("/strategies")}
-              to="/strategies"
-            >
-              Strategies
-            </Link>
-          </li>
+          {this.displayMobileProtectedRoutesIfAuthenticated()}
           <li>
             <Link onClick={() => this.changeActivePage("/login")} to="/login">
               Log in
