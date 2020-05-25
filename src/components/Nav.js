@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MenuIcon from '../assets/menu.png';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -68,7 +69,7 @@ class Nav extends React.Component {
             </Link>
           </li>
           <button className="show-links-in-mobile" onClick={this.showLinks}>
-            Show Links
+            <img src={MenuIcon} alt="show nav links" />
           </button>
         </ul>
         {/* Desktop */}
