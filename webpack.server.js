@@ -12,7 +12,11 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ["css-loader"]
+        use: ["css-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
       },
       {
         test: /\.js/,
@@ -35,5 +39,5 @@ module.exports = {
       },
     ],
   },
-  externals: [webpackNodeExternals()]
+  externals: [webpackNodeExternals()],
 };
