@@ -15,6 +15,9 @@
   justify-content: space-between;
   background-color: #1f2833;
   padding: 1rem;
+  position: fixed; 
+  top: 0; 
+  width: 100%;
 }
 
 .mobile-nav-right-container {
@@ -64,6 +67,10 @@
 
 .nav-main-container ul .active-page {
   text-decoration: underline;
+}
+
+.show-links-in-mobile {
+
 }
 
 /* Media */

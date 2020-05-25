@@ -43,7 +43,7 @@ class Nav extends React.Component {
     if (activePages.length) {
       activePages.forEach((link) => link.classList.add("active-page"));
     }
-    
+
     //Show menu in mobile
     const mobileNav = document.querySelector(".mobile-nav-right-container");
 
@@ -124,9 +124,9 @@ class Nav extends React.Component {
               Home
             </Link>
           </li>
-          <button className="show-links-in-mobile" onClick={this.showLinks}>
+          <span className="show-links-in-mobile" onClick={this.showLinks}>
             <img src={MenuIcon} alt="show nav links" />
-          </button>
+          </span>
         </ul>
         {/* Desktop */}
         <ul className="nav-right-container">
