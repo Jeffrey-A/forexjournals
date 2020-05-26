@@ -11,6 +11,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [{loader: "url-loader"}],
+      },
+      {
         test: /\.js/,
         loader: "babel-loader",
         exclude: "/node_modules/",
@@ -30,5 +38,5 @@ module.exports = {
         },
       },
     ],
-  }
+  },
 };
