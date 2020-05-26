@@ -52,6 +52,7 @@
   width: 100%;
   list-style: none;
   display: flex;
+  align-items: center;
 }
 .nav-left-container {
   justify-content: space-between;
