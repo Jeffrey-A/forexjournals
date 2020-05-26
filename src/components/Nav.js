@@ -7,11 +7,9 @@ class Nav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activePage: "/",
       isShowingMobile: false,
     };
 
-    this.changeActivePage = this.changeActivePage.bind(this);
     this.showLinks = this.showLinks.bind(this);
     this.displayDesktopProtectedRoutesIfAuthenticated = this.displayDesktopProtectedRoutesIfAuthenticated.bind(
       this
@@ -21,29 +19,7 @@ class Nav extends React.Component {
     );
   }
 
-  componentDidMount() {
-    const activePages = document.querySelectorAll(
-      `a[href="${window.location.pathname}"]`
-    );
-
-    if (activePages.length) {
-      activePages.forEach((link) => link.classList.add("active-page"));
-    }
-  }
-
   componentDidUpdate() {
-    document.querySelectorAll(".active-page").forEach((link) => {
-      link.classList.remove("active-page");
-    });
-
-    const activePages = document.querySelectorAll(
-      `a[href="${window.location.pathname}"]`
-    );
-
-    if (activePages.length) {
-      activePages.forEach((link) => link.classList.add("active-page"));
-    }
-
     //Show menu in mobile
     const mobileNav = document.querySelector(".mobile-nav-right-container");
 
@@ -52,10 +28,6 @@ class Nav extends React.Component {
     } else {
       mobileNav.classList.remove("hide");
     }
-  }
-
-  changeActivePage(route) {
-    this.setState({ activePage: route });
   }
 
   showLinks() {
@@ -71,20 +43,10 @@ class Nav extends React.Component {
     if (isAuthenticated) {
       return [
         <li>
-          <Link
-            onClick={() => this.changeActivePage("/journals")}
-            to="/journals"
-          >
-            Journals
-          </Link>
+          <Link to="/journals">Journals</Link>
         </li>,
         <li>
-          <Link
-            onClick={() => this.changeActivePage("/strategies")}
-            to="/strategies"
-          >
-            Strategies
-          </Link>
+          <Link to="/strategies">Strategies</Link>
         </li>,
         <li key={nextId()}>
           <Link onClick={() => this.props.logout()} to="/">
@@ -96,14 +58,10 @@ class Nav extends React.Component {
 
     return [
       <li key={nextId()}>
-        <Link onClick={() => this.changeActivePage("/login")} to="/login">
-          Log in
-        </Link>
+        <Link to="/login">Log in</Link>
       </li>,
       <li key={nextId()}>
-        <Link onClick={() => this.changeActivePage("/register")} to="/register">
-          Register
-        </Link>
+        <Link to="/register">Register</Link>
       </li>,
     ];
   }
@@ -113,20 +71,10 @@ class Nav extends React.Component {
     if (isAuthenticated) {
       return [
         <li key={nextId()}>
-          <Link
-            onClick={() => this.changeActivePage("/journals")}
-            to="/journals"
-          >
-            Journals
-          </Link>
+          <Link to="/journals">Journals</Link>
         </li>,
         <li key={nextId()}>
-          <Link
-            onClick={() => this.changeActivePage("/strategies")}
-            to="/strategies"
-          >
-            Strategies
-          </Link>
+          <Link to="/strategies">Strategies</Link>
         </li>,
         <li key={nextId()}>
           <Link onClick={() => this.props.logout()} to="/">
@@ -137,14 +85,10 @@ class Nav extends React.Component {
     }
     return [
       <li key={nextId()}>
-        <Link onClick={() => this.changeActivePage("/login")} to="/login">
-          Log in
-        </Link>
+        <Link to="/login">Log in</Link>
       </li>,
       <li key={nextId()}>
-        <Link onClick={() => this.changeActivePage("/register")} to="/register">
-          Register
-        </Link>
+        <Link to="/register">Register</Link>
       </li>,
     ];
   }
@@ -154,9 +98,7 @@ class Nav extends React.Component {
       <div className="nav-main-container">
         <ul className="nav-left-container">
           <li>
-            <Link onClick={() => this.changeActivePage("/")} to="/">
-              FX JOURNALS
-            </Link>
+            <Link to="/">FX JOURNALS</Link>
           </li>
           <span className="show-links-in-mobile" onClick={this.showLinks}>
             <img src={MenuIcon} alt="show nav links" />
