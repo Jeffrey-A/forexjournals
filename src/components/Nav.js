@@ -11,12 +11,7 @@ class Nav extends React.Component {
     };
 
     this.showLinks = this.showLinks.bind(this);
-    this.displayDesktopProtectedRoutesIfAuthenticated = this.displayDesktopProtectedRoutesIfAuthenticated.bind(
-      this
-    );
-    this.displayMobileProtectedRoutesIfAuthenticated = this.displayMobileProtectedRoutesIfAuthenticated.bind(
-      this
-    );
+    this.displayRoutes = this.displayRoutes.bind(this);
   }
 
   componentDidUpdate() {
@@ -38,35 +33,7 @@ class Nav extends React.Component {
     });
   }
 
-  displayMobileProtectedRoutesIfAuthenticated() {
-    const { isAuthenticated } = this.props;
-    if (isAuthenticated) {
-      return [
-        <li>
-          <Link to="/journals">Journals</Link>
-        </li>,
-        <li>
-          <Link to="/strategies">Strategies</Link>
-        </li>,
-        <li key={nextId()}>
-          <Link onClick={() => this.props.logout()} to="/">
-            Log out
-          </Link>
-        </li>,
-      ];
-    }
-
-    return [
-      <li key={nextId()}>
-        <Link to="/login">Log in</Link>
-      </li>,
-      <li key={nextId()}>
-        <Link to="/register">Register</Link>
-      </li>,
-    ];
-  }
-
-  displayDesktopProtectedRoutesIfAuthenticated() {
+  displayRoutes() {
     const { isAuthenticated } = this.props;
     if (isAuthenticated) {
       return [
@@ -85,10 +52,10 @@ class Nav extends React.Component {
     }
     return [
       <li key={nextId()}>
-        <Link to="/login">Log in</Link>
+        <Link to="/register">Register</Link>
       </li>,
       <li key={nextId()}>
-        <Link to="/register">Register</Link>
+        <Link to="/login">Log in</Link>
       </li>,
     ];
   }
@@ -106,13 +73,11 @@ class Nav extends React.Component {
         </ul>
 
         {/* Desktop */}
-        <ul className="nav-right-container">
-          {this.displayDesktopProtectedRoutesIfAuthenticated()}
-        </ul>
+        <ul className="nav-right-container">{this.displayRoutes()}</ul>
 
         {/* Mobile */}
         <ul className="mobile-nav-right-container hide">
-          {this.displayMobileProtectedRoutesIfAuthenticated()}
+          {this.displayRoutes()}
         </ul>
       </div>
     );
