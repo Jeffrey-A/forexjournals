@@ -155,7 +155,7 @@ class Nav extends React.Component {
         <ul className="nav-left-container">
           <li>
             <Link onClick={() => this.changeActivePage("/")} to="/">
-              Home
+              FX JOURNALS
             </Link>
           </li>
           <span className="show-links-in-mobile" onClick={this.showLinks}>
