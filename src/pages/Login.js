@@ -7,9 +7,15 @@ class Login extends React.Component {
       return <Redirect from="/login" to="/" />;
     }
     return (
-      <div>
-        <h1>Login</h1>
-        <button onClick={this.props.login}>LogIn</button>
+      <div className="login-register-container container">
+        <div>
+          <h1 className='login-register-header'>Login</h1>
+        </div>
+        <div className='login-inputs-container'>
+          <input />
+          <input />
+          <button onClick={this.props.login}>LogIn</button>
+        </div>
       </div>
     );
   }
