@@ -1,6 +1,15 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+/* TO DO: 
 
+* I need to decide if I'll allow the user to login using either username or email.
+If both ways are allowed then I'll need to refactor /config/passport.js.
+
+* I need to incorporate a more robust input validation.
+
+* Find a way to store user session in the front-end(using cookies or local-store or something else)
+
+*/
 class Login extends React.Component {
   constructor(props) {
     super(props);
