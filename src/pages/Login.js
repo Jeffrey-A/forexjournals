@@ -10,6 +10,7 @@ class Login extends React.Component {
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.performLogin = this.performLogin.bind(this);
   }
 
   handleEmailChange(event) {
@@ -22,6 +23,13 @@ class Login extends React.Component {
     console.log(event)
     if (event.target) {
       this.setState({ password: event.target.value });
+    }
+  }
+
+  performLogin(event) {
+    const {usernameOrEmail, password} = this.state;
+    if (usernameOrEmail || password) {
+      this.props.login(this.state);
     }
   }
 
@@ -39,7 +47,7 @@ class Login extends React.Component {
         <div className="login-inputs-container">
           <input onChange={this.handleEmailChange} />
           <input onChange={this.handlePasswordChange} />
-          <button onClick={this.props.login}>LogIn</button>
+          <button onClick={this.performLogin}>LogIn</button>
         </div>
       </div>
     );

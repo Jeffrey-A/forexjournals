@@ -43,8 +43,22 @@ class App extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
-  login() {
-    this.setState({ isAuthenticated: true });
+  login(userInfo) {
+    const { usernameOrEmail, password } = userInfo;
+
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: usernameOrEmail, password }),
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        if (user.id) {
+          this.setState({ isAuthenticated: true });
+        }
+      });
   }
 
   logout() {
