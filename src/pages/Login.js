@@ -28,15 +28,18 @@ class Login extends React.Component {
     }
   }
 
-  handlePasswordChange(event){
-    console.log(event)
+  handlePasswordChange(event) {
+    console.log(event);
     if (event.target) {
       this.setState({ password: event.target.value });
     }
   }
 
   performLogin(event) {
-    const {usernameOrEmail, password} = this.state;
+    let { usernameOrEmail, password } = this.state;
+    usernameOrEmail =  usernameOrEmail.trim();
+    password = password.trim();
+
     if (usernameOrEmail && password) {
       this.props.login(this.state);
     }
