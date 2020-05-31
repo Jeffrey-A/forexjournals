@@ -37,7 +37,7 @@ class Login extends React.Component {
 
   performLogin(event) {
     const {usernameOrEmail, password} = this.state;
-    if (usernameOrEmail || password) {
+    if (usernameOrEmail && password) {
       this.props.login(this.state);
     }
   }
