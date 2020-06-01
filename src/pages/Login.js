@@ -20,6 +20,7 @@ class Login extends React.Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.performLogin = this.performLogin.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   handleEmailChange(event) {
@@ -29,9 +30,14 @@ class Login extends React.Component {
   }
 
   handlePasswordChange(event) {
-    console.log(event);
     if (event.target) {
       this.setState({ password: event.target.value });
+    }
+  }
+
+  handleKeyDown(event) {
+    if(event.key == 'Enter') {
+      this.performLogin({});
     }
   }
 
@@ -58,7 +64,7 @@ class Login extends React.Component {
         </div>
         <div className="login-inputs-container">
           <input onChange={this.handleEmailChange} />
-          <input onChange={this.handlePasswordChange} />
+          <input onKeyDown={this.handleKeyDown} onChange={this.handlePasswordChange} />
           <button onClick={this.performLogin}>LogIn</button>
         </div>
       </div>
