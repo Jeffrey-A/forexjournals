@@ -38,6 +38,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       isAuthenticated: false,
+      loginFailed: false,
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -53,10 +54,18 @@ class App extends React.Component {
       },
       body: JSON.stringify({ username: usernameOrEmail, password }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status > 200) {
+          this.setState({ loginFailed: true });
+          return;
+        }
+        return response.json();
+      })
       .then((user) => {
         if (user.id) {
-          this.setState({ isAuthenticated: true });
+          this.setState({ isAuthenticated: true, loginFailed: false, user });
+        } else {
+          this.setState({ loginFailed: true });
         }
       });
   }
@@ -79,6 +88,7 @@ class App extends React.Component {
             render={(props) => (
               <Login
                 isAuthenticated={isAuthenticated}
+                loginFailed={this.state.loginFailed}
                 login={this.login}
                 {...props}
               />

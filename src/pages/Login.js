@@ -1,21 +1,15 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-/* TO DO: 
-
-* I need to decide if I'll allow the user to login using either username or email.
-If both ways are allowed then I'll need to refactor /config/passport.js.
-
-* I need to incorporate a more robust input validation.
-
-* Find a way to store user session in the front-end(using cookies or local-store or something else)
-
-*/
+/* TO DO:
+ * Find a way to store user session in the front-end(using cookies or local-store or something else)
+ */
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       usernameOrEmail: "",
       password: "",
+      isFieldEmpty: false,
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -36,23 +30,35 @@ class Login extends React.Component {
   }
 
   handleKeyDown(event) {
-    if(event.key == 'Enter') {
+    if (event.key == "Enter") {
       this.performLogin({});
     }
   }
 
   performLogin(event) {
     let { usernameOrEmail, password } = this.state;
-    usernameOrEmail =  usernameOrEmail.trim();
+    usernameOrEmail = usernameOrEmail.trim();
     password = password.trim();
 
     if (usernameOrEmail && password) {
-      this.props.login(this.state);
+      this.setState({ isFieldEmpty: false }, () => {
+        this.props.login(this.state);
+      });
+    } else {
+      this.setState({ isFieldEmpty: true });
     }
   }
 
   render() {
-    const { usernameOrEmail, password } = this.state;
+    const { isFieldEmpty } = this.state;
+    const { loginFailed } = this.props;
+    let errorMessage = "";
+
+    if (isFieldEmpty) {
+      errorMessage = "All fields are required";
+    } else if (loginFailed) {
+      errorMessage = "Either email/username or password is not valid";
+    }
 
     if (this.props.isAuthenticated) {
       return <Redirect from="/login" to="/" />;
@@ -64,8 +70,12 @@ class Login extends React.Component {
         </div>
         <div className="login-inputs-container">
           <input onChange={this.handleEmailChange} />
-          <input onKeyDown={this.handleKeyDown} onChange={this.handlePasswordChange} />
+          <input
+            onKeyDown={this.handleKeyDown}
+            onChange={this.handlePasswordChange}
+          />
           <button onClick={this.performLogin}>LogIn</button>
+          <p>{errorMessage}</p>
         </div>
       </div>
     );
