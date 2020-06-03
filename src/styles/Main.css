@@ -79,7 +79,7 @@
 }
 
 /* Login/ Register */
-.login-inputs-container {
+.login-register-inputs-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -88,7 +88,7 @@
   margin-right: auto;
 }
 
-.login-inputs-container input, button {
+.login-register-inputs-container input, button {
   margin-bottom: 2rem;
   padding: 0.5rem 0.3rem;
   font-size: 1.5rem;
