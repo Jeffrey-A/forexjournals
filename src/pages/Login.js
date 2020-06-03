@@ -69,8 +69,12 @@ class Login extends React.Component {
           <h1 className="login-register-header">Login</h1>
         </div>
         <div className="login-inputs-container">
-          <input onChange={this.handleEmailChange} />
           <input
+            placeholder="Username or email"
+            onChange={this.handleEmailChange}
+          />
+          <input
+            placeholder="Password"
             onKeyDown={this.handleKeyDown}
             onChange={this.handlePasswordChange}
           />
