@@ -42,6 +42,19 @@ class App extends React.Component {
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.register = this.register.bind(this);
+  }
+
+  register(userInfo) {
+    const { username, email, password } = userInfo;
+
+    fetch("/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user_name: username, pass_word: password, email }),
+    }).then(response => console.log(response));
   }
 
   login(userInfo) {
@@ -98,7 +111,7 @@ class App extends React.Component {
             exact
             path="/register"
             render={(props) => (
-              <Register isAuthenticated={isAuthenticated} {...props} />
+              <Register register={this.register} isAuthenticated={isAuthenticated} {...props} />
             )}
           />
           <ProtectedRoute

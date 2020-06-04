@@ -26,7 +26,9 @@ class Register extends React.Component {
   }
 
   createUser(event) {
-    console.log("create");
+    // TODO: validate inputs
+    const { username, email, password, confirmed_password } = this.state;
+    this.props.register(this.state);
   }
   render() {
     return (
