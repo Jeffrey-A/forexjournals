@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router";
 
 class Register extends React.Component {
   constructor(props) {
@@ -58,6 +59,9 @@ class Register extends React.Component {
   }
 
   render() {
+    if (this.props.wasRegistrationSuccessful) {
+      return <Redirect from="register" to="/login" />;
+    }
     return (
       <div className="login-register-container container">
         <div>

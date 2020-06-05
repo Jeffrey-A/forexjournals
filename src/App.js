@@ -54,7 +54,13 @@ class App extends React.Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ user_name: username, pass_word: password, email }),
-    }).then(response => console.log(response));
+    }).then((response) => {
+      if (response.status > 200) {
+        this.setState({ wasRegistrationSuccessful: false });
+      } else {
+        this.setState({ wasRegistrationSuccessful: true });
+      }
+    });
   }
 
   login(userInfo) {
@@ -88,7 +94,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isAuthenticated } = this.state;
+    const { isAuthenticated, wasRegistrationSuccessful } = this.state;
 
     return (
       <div>
@@ -111,7 +117,12 @@ class App extends React.Component {
             exact
             path="/register"
             render={(props) => (
-              <Register register={this.register} isAuthenticated={isAuthenticated} {...props} />
+              <Register
+                wasRegistrationSuccessful={wasRegistrationSuccessful}
+                register={this.register}
+                isAuthenticated={isAuthenticated}
+                {...props}
+              />
             )}
           />
           <ProtectedRoute
