@@ -7,28 +7,17 @@ class Nav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowingMobile: false,
+      isMobileMenuExpanded: false,
     };
 
-    this.showLinks = this.showLinks.bind(this);
+    this.expandMobileNav = this.expandMobileNav.bind(this);
     this.displayRoutes = this.displayRoutes.bind(this);
   }
 
-  componentDidUpdate() {
-    //Show menu in mobile
-    const mobileNav = document.querySelector(".mobile-nav-right-container");
-
-    if (!mobileNav.classList.contains("hide")) {
-      mobileNav.classList.add("hide");
-    } else {
-      mobileNav.classList.remove("hide");
-    }
-  }
-
-  showLinks() {
+  expandMobileNav() {
     this.setState((state, props) => {
       return {
-        isShowingMobile: !state.isShowingMobile,
+        isMobileMenuExpanded: !state.isMobileMenuExpanded,
       };
     });
   }
@@ -61,13 +50,19 @@ class Nav extends React.Component {
   }
 
   render() {
+    const { isMobileMenuExpanded } = this.state;
+
+    const mobileNavClasses = !isMobileMenuExpanded
+      ? "mobile-nav-right-container hide"
+      : "mobile-nav-right-container";
+
     return (
       <div className="nav-main-container">
         <ul className="nav-left-container">
           <li>
             <Link to="/">FX JOURNALS</Link>
           </li>
-          <span className="show-links-in-mobile" onClick={this.showLinks}>
+          <span className="show-links-in-mobile" onClick={this.expandMobileNav}>
             <img src={MenuIcon} alt="show nav links" />
           </span>
         </ul>
@@ -76,9 +71,7 @@ class Nav extends React.Component {
         <ul className="nav-right-container">{this.displayRoutes()}</ul>
 
         {/* Mobile */}
-        <ul className="mobile-nav-right-container hide">
-          {this.displayRoutes()}
-        </ul>
+        <ul className={mobileNavClasses}>{this.displayRoutes()}</ul>
       </div>
     );
   }
