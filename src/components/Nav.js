@@ -11,7 +11,7 @@ class Nav extends React.Component {
     };
 
     this.expandMobileNav = this.expandMobileNav.bind(this);
-    this.displayRoutes = this.displayRoutes.bind(this);
+    this.displayLinks = this.displayLinks.bind(this);
   }
 
   expandMobileNav() {
@@ -22,7 +22,7 @@ class Nav extends React.Component {
     });
   }
 
-  displayRoutes() {
+  displayLinks() {
     const { isAuthenticated } = this.props;
     if (isAuthenticated) {
       return [
@@ -68,10 +68,10 @@ class Nav extends React.Component {
         </ul>
 
         {/* Desktop */}
-        <ul className="nav-right-container">{this.displayRoutes()}</ul>
+        <ul className="nav-right-container">{this.displayLinks()}</ul>
 
         {/* Mobile */}
-        <ul className={mobileNavClasses}>{this.displayRoutes()}</ul>
+        <ul className={mobileNavClasses}>{this.displayLinks()}</ul>
       </div>
     );
   }
