@@ -9,7 +9,7 @@ class Login extends React.Component {
     this.state = {
       usernameOrEmail: "",
       password: "",
-      isFieldEmpty: false,
+      isFieldEmptyAfterSubmittingForm: false,
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -41,20 +41,33 @@ class Login extends React.Component {
     password = password.trim();
 
     if (usernameOrEmail && password) {
-      this.setState({ isFieldEmpty: false }, () => {
+      this.setState({ isFieldEmptyAfterSubmittingForm: false }, () => {
         this.props.login(this.state);
       });
     } else {
-      this.setState({ isFieldEmpty: true });
+      this.setState({ isFieldEmptyAfterSubmittingForm: true });
     }
   }
 
   render() {
-    const { isFieldEmpty } = this.state;
+    const {
+      isFieldEmptyAfterSubmittingForm,
+      usernameOrEmail,
+      password,
+    } = this.state;
     const { loginFailed } = this.props;
     let errorMessage = "";
 
-    if (isFieldEmpty) {
+    const emailUsernameErrorClass =
+      !usernameOrEmail.length && isFieldEmptyAfterSubmittingForm
+        ? "input-error"
+        : null;
+    const passwordErrorClass =
+      !password.length && isFieldEmptyAfterSubmittingForm
+        ? "input-error"
+        : null;
+
+    if (isFieldEmptyAfterSubmittingForm) {
       errorMessage = "All fields are required";
     } else if (loginFailed) {
       errorMessage = "Either email/username or password is not valid";
@@ -70,10 +83,12 @@ class Login extends React.Component {
         </div>
         <div className="login-register-inputs-container">
           <input
+            className={emailUsernameErrorClass}
             placeholder="Username or email"
             onChange={this.handleEmailChange}
           />
           <input
+            className={passwordErrorClass}
             placeholder="Password"
             onKeyDown={this.handleKeyDown}
             onChange={this.handlePasswordChange}
