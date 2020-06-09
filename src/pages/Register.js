@@ -33,26 +33,46 @@ class Register extends React.Component {
 
   areInputsValid() {
     return (
-      this.isEmailValid() && this.isPasswordValid() && this.isUserNameValid()
+      this.isUserNameValid() && this.isEmailValid() && this.isPasswordValid()
     );
   }
 
   isUserNameValid() {
     // TODO: find a proper way to check if an username is valid.
     const { username } = this.state;
-    return username.length > 3;
+    if (username.length > 3) {
+      console.log("true");
+      return true;
+    }
+
+    document.getElementById("username").classList.add("input-error");
+    return false;
   }
 
   isEmailValid() {
     // TODO: find a proper way to check if an email is valid.
     const { email } = this.state;
-    return email.length > 7;
+    if (email.length > 7) {
+      return true;
+    }
+
+    const emailInput = document.getElementById("email");
+    emailInput.classList.add("input-error");
+    return false;
   }
 
   isPasswordValid() {
     // TODO: find a proper way to check if a password is valid.
     const { password, confirmed_password } = this.state;
-    return password === confirmed_password && password.length > 3;
+
+    if (password !== confirmed_password || !password.length) {
+      document.getElementById("password").classList.add("input-error");
+      document
+        .getElementById("confirmed_password")
+        .classList.add("input-error");
+      return false;
+    }
+    return true;
   }
 
   createUser(event) {
@@ -72,21 +92,25 @@ class Register extends React.Component {
         </div>
         <div className="login-register-inputs-container">
           <input
+            id="username"
             onKeyDown={this.handleKeyDown}
             placeholder="Username"
             onChange={(e) => this.handleInputChange(e, "username")}
           />
           <input
+            id="email"
             onKeyDown={this.handleKeyDown}
             placeholder="Email address"
             onChange={(e) => this.handleInputChange(e, "email")}
           />
           <input
+            id="password"
             onKeyDown={this.handleKeyDown}
             placeholder="Password"
             onChange={(e) => this.handleInputChange(e, "password")}
           />
           <input
+            id="confirmed_password"
             placeholder="Confirm password"
             onKeyDown={this.handleKeyDown}
             onChange={(e) => this.handleInputChange(e, "confirmed_password")}
