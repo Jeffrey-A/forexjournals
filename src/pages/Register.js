@@ -15,7 +15,9 @@ class Register extends React.Component {
     this.createUser = this.createUser.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.areInputsValid = this.areInputsValid.bind(this);
-    this.areFieldsEmpty = this.areFieldsEmpty.bind(this);
+    this.isUserNameValid = this.isUserNameValid.bind(this);
+    this.isPasswordValid = this.isPasswordValid.bind(this);
+    this.isEmailValid = this.isEmailValid.bind(this);
   }
 
   handleInputChange(event, inputName) {
@@ -30,26 +32,27 @@ class Register extends React.Component {
   }
 
   areInputsValid() {
-    // TODO: use regex or other tools to check whether username and email are valid
-    const { confirmed_password, password } = this.state;
-    if (confirmed_password === password && !this.areFieldsEmpty()) {
-      return true;
-    }
-    return false;
+    return (
+      this.isEmailValid() && this.isPasswordValid() && this.isUserNameValid()
+    );
   }
 
-  areFieldsEmpty() {
-    let { username, email, password, confirmed_password } = this.state;
-    if (
-      username.length &&
-      email.length &&
-      password.length &&
-      confirmed_password.length
-    ) {
-      return false;
-    }
+  isUserNameValid() {
+    // TODO: find a proper way to check if an username is valid.
+    const { username } = this.state;
+    return username.length > 3;
+  }
 
-    return true;
+  isEmailValid() {
+    // TODO: find a proper way to check if an email is valid.
+    const { email } = this.state;
+    return email.length > 7;
+  }
+
+  isPasswordValid() {
+    // TODO: find a proper way to check if a password is valid.
+    const { password, confirmed_password } = this.state;
+    return password === confirmed_password && password.length > 3;
   }
 
   createUser(event) {
