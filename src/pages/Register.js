@@ -38,10 +38,8 @@ class Register extends React.Component {
   }
 
   isUserNameValid() {
-    // TODO: find a proper way to check if an username is valid.
     const { username } = this.state;
-    if (username.length > 3) {
-      console.log("true");
+    if (/^[a-zA-Z_]\w{4,29}$/.test(username)) {
       return true;
     }
 
