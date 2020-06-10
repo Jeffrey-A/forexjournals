@@ -50,9 +50,8 @@ class Register extends React.Component {
   }
 
   isEmailValid() {
-    // TODO: find a proper way to check if an email is valid.
     const { email } = this.state;
-    if (email.length > 7) {
+    if ( /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return true;
     }
 
