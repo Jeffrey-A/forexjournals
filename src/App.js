@@ -38,13 +38,55 @@ class App extends React.Component {
     super(props);
     this.state = {
       isAuthenticated: false,
+      loginFailed: false,
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.register = this.register.bind(this);
   }
 
-  login() {
-    this.setState({ isAuthenticated: true });
+  register(userInfo) {
+    const { username, email, password } = userInfo;
+
+    fetch("/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user_name: username, pass_word: password, email }),
+    }).then((response) => {
+      if (response.status > 200) {
+        this.setState({ wasRegistrationSuccessful: false });
+      } else {
+        this.setState({ wasRegistrationSuccessful: true });
+      }
+    });
+  }
+
+  login(userInfo) {
+    const { usernameOrEmail, password } = userInfo;
+
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: usernameOrEmail, password }),
+    })
+      .then((response) => {
+        if (response.status > 200) {
+          this.setState({ loginFailed: true });
+          return;
+        }
+        return response.json();
+      })
+      .then((user) => {
+        if (user.id) {
+          this.setState({ isAuthenticated: true, loginFailed: false, user });
+        } else {
+          this.setState({ loginFailed: true });
+        }
+      });
   }
 
   logout() {
@@ -52,7 +94,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isAuthenticated } = this.state;
+    const { isAuthenticated, wasRegistrationSuccessful } = this.state;
 
     return (
       <div>
@@ -65,6 +107,7 @@ class App extends React.Component {
             render={(props) => (
               <Login
                 isAuthenticated={isAuthenticated}
+                loginFailed={this.state.loginFailed}
                 login={this.login}
                 {...props}
               />
@@ -74,7 +117,12 @@ class App extends React.Component {
             exact
             path="/register"
             render={(props) => (
-              <Register isAuthenticated={isAuthenticated} {...props} />
+              <Register
+                wasRegistrationSuccessful={wasRegistrationSuccessful}
+                register={this.register}
+                isAuthenticated={isAuthenticated}
+                {...props}
+              />
             )}
           />
           <ProtectedRoute

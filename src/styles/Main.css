@@ -9,6 +9,18 @@
   display: none !important;
 }
 
+.container{
+  margin-top: 6rem;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.input-error {
+  border-color: red;
+}
+
 /* Navigation  */
 .nav-main-container {
   display: flex;
@@ -68,6 +80,27 @@
 
 .show-links-in-mobile {
 
+}
+
+/* Login/ Register */
+.login-register-inputs-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-register-inputs-container input, button {
+  margin-bottom: 2rem;
+  padding: 0.5rem 0.3rem;
+  font-size: 1.5rem;
+}
+
+.login-register-header {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 /* Media */
