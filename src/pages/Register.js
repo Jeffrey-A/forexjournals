@@ -59,10 +59,9 @@ class Register extends React.Component {
   }
 
   isPasswordValid() {
-    // TODO: find a proper way to check if a password is valid.
     const { password, confirmed_password } = this.state;
 
-    if (password !== confirmed_password || !password.length) {
+    if (password !== confirmed_password || !password.length > 4) {
       document.getElementById("password").classList.add("input-error");
       document
         .getElementById("confirmed_password")
