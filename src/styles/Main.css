@@ -5,6 +5,23 @@
 }
 
 /* Utils */
+.modal-container {
+  width: 60%;
+  border: 1px solid black;
+  z-index: 1000;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+
+.modal-overlay {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 500;
+  margin-top: -6rem; /* this is the top margin of the container class */
+}
+
 .hide {
   display: none !important;
 }

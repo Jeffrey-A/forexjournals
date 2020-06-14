@@ -10,8 +10,10 @@ class CreateStrategy extends React.Component {
   render() {
     return (
       <div>
-        <div>
+        <div className='modal-overlay'></div>
+        <div className='modal-container'>
           <h1>Create Strategy</h1>
+          <button>X</button>
           <div className="create-strategy-inputs-container">
             <input />
             <textarea></textarea>
