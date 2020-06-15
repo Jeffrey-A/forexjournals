@@ -3,17 +3,31 @@ import React from "react";
 class CreateStrategy extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isShowingModal: false,
+    };
+
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
-  closeModal() {}
+  toggleModal() {
+    this.setState({isShowingModal: !this.state.isShowingModal});
+  }
 
   render() {
+    const { isShowingModal } = this.state;
+
+    if (!isShowingModal) {
+      return <button onClick={this.toggleModal}>Create Strategy</button>;
+    }
+
     return (
       <div>
-        <div className='modal-overlay'></div>
-        <div className='modal-container'>
+        <div className="modal-overlay"></div>
+        <div className="modal-container">
           <h1>Create Strategy</h1>
-          <button>X</button>
+          <button onClick={this.toggleModal}>X</button>
           <div className="create-strategy-inputs-container">
             <input />
             <textarea></textarea>
