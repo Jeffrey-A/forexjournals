@@ -23,11 +23,11 @@ class CreateStrategy extends React.Component {
     }
 
     return (
-      <div>
+      <div className='modal-main-container'>
         <div className="modal-overlay"></div>
+        <span className='close-modal-btn' onClick={this.toggleModal}>X</span>
         <div className="modal-container">
           <h1 className='modal-header'>Create Strategy</h1>
-          <span className='close-modal-btn' onClick={this.toggleModal}>X</span>
           <div className="create-strategy-inputs-container">
             <input className='modal-input' placeholder='Name'/>
             <textarea className='modal-textarea' placeholder='Description'></textarea>

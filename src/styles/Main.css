@@ -163,8 +163,17 @@
   margin-top: -6rem; /* this is the top margin of the container class */
 }
 
+.modal-main-container {
+  position: relative;
+}
+
 .close-modal-btn {
   cursor: pointer;
+  position: absolute;
+  top: 15%;
+  margin-right: 5rem;
+  font-size: 1.5rem;
+  right: 0;
 }
 
 /* Media */
