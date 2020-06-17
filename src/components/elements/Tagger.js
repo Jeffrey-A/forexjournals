@@ -36,7 +36,7 @@ class Tagger extends React.Component {
               className="tagger-input"
               placeholder={placeholder}
             />
-            <span className="tagger-add-btn">Add</span>
+            <button className="tagger-add-btn">Add</button>
           </div>
           <ul className='tagger-suggestions-ul'>{this.state.isActive ? this.state.suggestions : null }</ul>
         </div>

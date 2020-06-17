@@ -10,7 +10,7 @@
   display: none !important;
 }
 
-.container{
+.container {
   margin-top: 6rem;
 }
 
@@ -28,8 +28,8 @@
   justify-content: space-between;
   background-color: #1f2833;
   padding: 1rem;
-  position: fixed; 
-  top: 0; 
+  position: fixed;
+  top: 0;
   width: 100%;
 }
 
@@ -80,7 +80,6 @@
 }
 
 .show-links-in-mobile {
-
 }
 
 /* Login/ Register */
@@ -93,7 +92,7 @@
   margin-right: auto;
 }
 
-.login-register-inputs-container input, 
+.login-register-inputs-container input,
 .login-register-inputs-container button {
   margin-bottom: 2rem;
   padding: 0.5rem 0.3rem;
@@ -111,8 +110,7 @@
   text-align: center;
 }
 
-
-.modal-textarea{
+.modal-textarea {
   display: block;
   width: 60%;
   height: 50px;
@@ -125,9 +123,10 @@
   padding: 2px 5px;
   margin: 1rem;
   width: 60%;
+  height: 27px;
 }
 
-.modal-input:focus{
+.modal-input:focus {
   outline-width: 5px;
 }
 
@@ -179,18 +178,25 @@
 /* Tagger */
 .tagger-input {
   display: block;
-  width: 70%; 
+  width: 70%;
   padding: 2px 5px;
+  height: 27px;
 }
 
 .tagger-add-btn {
   width: 30%;
-
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+  height: 27px;
+  padding: 2px;
+  border-style: none;
 }
 
 .tagger-top-container {
   width: 60%;
   position: relative;
+  margin-bottom: 1rem;
 }
 .tagger-container {
   display: flex !important;
@@ -204,6 +210,11 @@
   list-style: none;
   width: 70%;
   z-index: 1000;
+  padding-left: 5px;
+}
+
+.tagger-suggestions-ul li {
+  cursor: pointer;
 }
 
 /* Media */
@@ -216,8 +227,8 @@
   .mobile-nav-right-container {
     display: flex;
   }
-  .nav-main-container{
-      display: block;
+  .nav-main-container {
+    display: block;
   }
 }
 /* Bigger devices */
@@ -226,7 +237,7 @@
     display: none;
   }
 
-  .show-links-in-mobile{
-      display: none;
+  .show-links-in-mobile {
+    display: none;
   }
 }
