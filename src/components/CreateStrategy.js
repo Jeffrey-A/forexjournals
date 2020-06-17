@@ -1,4 +1,5 @@
 import React from "react";
+import Tagger from './elements/Tagger';
 
 class CreateStrategy extends React.Component {
   constructor(props) {
@@ -72,16 +73,8 @@ class CreateStrategy extends React.Component {
               className="modal-textarea"
               placeholder="Description"
             ></textarea>
-            <select>
-              <option>Indicators</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
-            </select>
-            <select>
-              <option>Time frames</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
-            </select>
+            <Tagger placeholder='Indicators' suggestions={['option 1', 'option 2', 'option 3']} />
+            <Tagger placeholder='Times Frames' suggestions={['H1', 'H4', 'M5']} />
             <textarea
               className="modal-textarea"
               placeholder="Entry conditions"

@@ -176,6 +176,36 @@
   right: 0;
 }
 
+/* Tagger */
+.tagger-input {
+  display: block;
+  width: 70%; 
+  padding: 2px 5px;
+}
+
+.tagger-add-btn {
+  width: 30%;
+
+}
+
+.tagger-top-container {
+  width: 60%;
+  position: relative;
+}
+.tagger-container {
+  display: flex !important;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.tagger-suggestions-ul {
+  position: absolute;
+  background-color: blanchedalmond;
+  list-style: none;
+  width: 70%;
+  z-index: 1000;
+}
+
 /* Media */
 
 /* Small-Medium devices*/
