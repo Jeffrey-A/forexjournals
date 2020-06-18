@@ -213,8 +213,13 @@
   padding-left: 5px;
 }
 
-.tagger-suggestions-ul li {
+.tagger-suggestion-li {
   cursor: pointer;
+}
+
+.tagger-selected-option {
+  display: flex !important;
+  justify-content: space-around;
 }
 
 /* Media */
