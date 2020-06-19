@@ -16,7 +16,21 @@ class Tagger extends React.Component {
     this.removeOptionFromTagger = this.removeOptionFromTagger.bind(this);
   }
 
-  displaySuggestions() {
+  componentDidMount() {
+    document.removeEventListener("click", () => {});
+
+    document.addEventListener("click", (e) => {
+      const shouldHideSuggestions =
+        e.target.tagName.toLowerCase() !== "input" ||
+        e.target.placeholder !== this.props.placeholder;
+      if (shouldHideSuggestions) {
+        this.hideSuggestions();
+      }
+    });
+  }
+
+  displaySuggestions(e) {
+    e.stopPropagation();
     this.setState({ isActive: true });
   }
 
@@ -49,6 +63,7 @@ class Tagger extends React.Component {
   }
 
   removeOptionFromTagger(e) {
+    e.stopPropagation();
     const option = e.target.previousSibling.textContent;
     const { selectedOptions } = this.state;
     this.setState({
