@@ -13,6 +13,7 @@ class Tagger extends React.Component {
     this.hideSuggestions = this.hideSuggestions.bind(this);
     this.displaySelectedOptions = this.displaySelectedOptions.bind(this);
     this.selectOption = this.selectOption.bind(this);
+    this.removeOptionFromTagger = this.removeOptionFromTagger.bind(this);
   }
 
   displaySuggestions() {
@@ -24,7 +25,12 @@ class Tagger extends React.Component {
     const listItems = selectedOptions.map((option) => (
       <li className="tagger-selected-option" key={nextId()}>
         <span>{option}</span>
-        <span>X</span>
+        <span
+          className="tagger-remove-btn"
+          onClick={this.removeOptionFromTagger}
+        >
+          X
+        </span>
       </li>
     ));
     return listItems;
@@ -40,6 +46,16 @@ class Tagger extends React.Component {
 
   hideSuggestions() {
     this.setState({ isActive: false });
+  }
+
+  removeOptionFromTagger(e) {
+    const option = e.target.previousSibling.textContent;
+    const { selectedOptions } = this.state;
+    this.setState({
+      selectedOptions: selectedOptions.filter(
+        (selectedOption) => selectedOption !== option
+      ),
+    });
   }
 
   render() {

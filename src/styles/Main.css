@@ -222,6 +222,10 @@
   justify-content: space-around;
 }
 
+.tagger-remove-btn {
+  cursor: pointer;
+}
+
 /* Media */
 
 /* Small-Medium devices*/
