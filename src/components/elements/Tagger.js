@@ -9,6 +9,7 @@ class Tagger extends React.Component {
       isExpanded: false,
       suggestions: this.props.suggestions,
       selectedOptions: [],
+      inputText: "",
     };
 
     this.hideSuggestions = this.hideSuggestions.bind(this);
@@ -16,6 +17,9 @@ class Tagger extends React.Component {
     this.removeOptionFromTagger = this.removeOptionFromTagger.bind(this);
     this.displaySuggestions = this.displaySuggestions.bind(this);
     this.selectOption = this.selectOption.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.appendSuggestion = this.appendSuggestion.bind(this);
+    this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
   }
 
   componentDidMount() {
@@ -75,19 +79,50 @@ class Tagger extends React.Component {
     });
   }
 
+  appendSuggestion() {
+    const { suggestions, inputText, selectedOptions } = this.state;
+
+    if (inputText.length) {
+      suggestions.push(inputText);
+
+      this.setState({
+        suggestions: [...suggestions, inputText],
+        selectedOptions: [...selectedOptions, inputText],
+        inputText: "",
+        isExpanded: false,
+      });
+    }
+  }
+
+  handleInputChange(e) {
+    this.setState({ inputText: e.target.value });
+  }
+
+  handleInputKeyDown(e) {
+    if (e.key === "Enter") {
+      this.appendSuggestion();
+    }
+  }
+
   render() {
     const { placeholder } = this.props;
+    const { inputText } = this.state;
+
     return (
       <div className="tagger-top-container">
         <div>
           <div className="tagger-container">
             <input
-              // onBlur={this.hideSuggestions}
+              value={inputText}
+              onKeyDown={this.handleInputKeyDown}
+              onChange={this.handleInputChange}
               onClick={this.displaySuggestions}
               className="tagger-input"
               placeholder={placeholder}
             />
-            <button className="tagger-add-btn">Add</button>
+            <button onClick={this.appendSuggestion} className="tagger-add-btn">
+              Add
+            </button>
           </div>
           <ul className="tagger-suggestions-ul">
             {this.state.isExpanded
