@@ -4,19 +4,22 @@ import nextId from "react-id-generator";
 class Tagger extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      isActive: false,
+      isExpanded: false,
       suggestions: this.props.suggestions,
       selectedOptions: [],
     };
-    this.displaySuggestions = this.displaySuggestions.bind(this);
+
     this.hideSuggestions = this.hideSuggestions.bind(this);
     this.displaySelectedOptions = this.displaySelectedOptions.bind(this);
-    this.selectOption = this.selectOption.bind(this);
     this.removeOptionFromTagger = this.removeOptionFromTagger.bind(this);
+    this.displaySuggestions = this.displaySuggestions.bind(this);
+    this.selectOption = this.selectOption.bind(this);
   }
 
   componentDidMount() {
+    // For some reason the event was binding twice.
     document.removeEventListener("click", () => {});
 
     document.addEventListener("click", (e) => {
@@ -29,9 +32,8 @@ class Tagger extends React.Component {
     });
   }
 
-  displaySuggestions(e) {
-    e.stopPropagation();
-    this.setState({ isActive: true });
+  hideSuggestions() {
+    this.setState({ isExpanded: false });
   }
 
   displaySelectedOptions() {
@@ -50,18 +52,6 @@ class Tagger extends React.Component {
     return listItems;
   }
 
-  selectOption(e) {
-    console.log(e.target);
-    this.setState({
-      selectedOptions: [...this.state.selectedOptions, e.target.textContent],
-      isActive: false,
-    });
-  }
-
-  hideSuggestions() {
-    this.setState({ isActive: false });
-  }
-
   removeOptionFromTagger(e) {
     e.stopPropagation();
     const option = e.target.previousSibling.textContent;
@@ -70,6 +60,18 @@ class Tagger extends React.Component {
       selectedOptions: selectedOptions.filter(
         (selectedOption) => selectedOption !== option
       ),
+    });
+  }
+
+  displaySuggestions(e) {
+    e.stopPropagation();
+    this.setState({ isExpanded: true });
+  }
+
+  selectOption(e) {
+    this.setState({
+      selectedOptions: [...this.state.selectedOptions, e.target.textContent],
+      isExpanded: false,
     });
   }
 
@@ -88,7 +90,7 @@ class Tagger extends React.Component {
             <button className="tagger-add-btn">Add</button>
           </div>
           <ul className="tagger-suggestions-ul">
-            {this.state.isActive
+            {this.state.isExpanded
               ? this.state.suggestions.map((content) => (
                   <l1
                     className="tagger-suggestion-li"
