@@ -36,13 +36,17 @@ class CreateStrategy extends React.Component {
   }
 
   createStrategy() {
-    // TODO: Validate all inputs
+    // TODO: pass textarea content
+    const payload = Object.assign({}, this.state);
+    payload.indicators = payload.indicators.join(',');
+    payload.time_frames = payload.time_frames.join(',');
+    
     fetch("/strategies/11", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(payload),
     }).then((response) => {
       if (response.status > 200) {
         console.log("success");
