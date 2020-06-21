@@ -1,5 +1,5 @@
 import React from "react";
-import Tagger from './elements/Tagger';
+import Tagger from "./elements/Tagger";
 
 class CreateStrategy extends React.Component {
   constructor(props) {
@@ -11,15 +11,19 @@ class CreateStrategy extends React.Component {
       description: "",
       entry_conditions: "",
       exit_conditions: "",
-      time_frames: "",
+      time_frames: [],
       risk_per_trade: "",
       risk_to_reward: "",
-      indicators: "",
+      indicators: [],
+      indicators_suggestions: ["option 1", "option 2", "option 3"],
+      time_frames_suggestions: ['H1', 'H2', 'H4'],
     };
 
     this.toggleModal = this.toggleModal.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.createStrategy = this.createStrategy.bind(this);
+    this.updateIndicators = this.updateIndicators.bind(this);
+    this.updateTimeFrames = this.updateTimeFrames.bind(this);
   }
 
   toggleModal() {
@@ -32,7 +36,7 @@ class CreateStrategy extends React.Component {
   }
 
   createStrategy() {
-    // TODO: Validate all inputs 
+    // TODO: Validate all inputs
     fetch("/strategies/11", {
       method: "POST",
       headers: {
@@ -48,8 +52,21 @@ class CreateStrategy extends React.Component {
     });
   }
 
+  updateIndicators(indicators) {
+    this.setState({indicators})
+  }
+  updateTimeFrames(time_frames) {
+    this.setState({time_frames})
+  }
+
   render() {
-    const { isShowingModal } = this.state;
+    const {
+      isShowingModal,
+      indicators,
+      time_frames,
+      indicators_suggestions,
+      time_frames_suggestions,
+    } = this.state;
 
     if (!isShowingModal) {
       return <button onClick={this.toggleModal}>Create Strategy</button>;
@@ -73,8 +90,18 @@ class CreateStrategy extends React.Component {
               className="modal-textarea"
               placeholder="Description"
             ></textarea>
-            <Tagger placeholder='Indicators' suggestions={['option 1', 'option 2', 'option 3']} />
-            <Tagger placeholder='Times Frames' suggestions={['H1', 'H4', 'M5']} />
+            <Tagger
+              placeholder="Indicators"
+              updateSelectedOptions={this.updateIndicators}
+              selectedOptions={indicators}
+              suggestions={indicators_suggestions}
+            />
+            <Tagger
+              placeholder="Times Frames"
+              updateSelectedOptions={this.updateTimeFrames}
+              selectedOptions={time_frames}
+              suggestions={time_frames_suggestions}
+            />
             <textarea
               className="modal-textarea"
               placeholder="Entry conditions"

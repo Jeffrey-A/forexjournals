@@ -7,8 +7,6 @@ class Tagger extends React.Component {
 
     this.state = {
       isExpanded: false,
-      suggestions: this.props.suggestions,
-      selectedOptions: [],
       inputText: "",
     };
 
@@ -41,7 +39,7 @@ class Tagger extends React.Component {
   }
 
   displaySelectedOptions() {
-    const { selectedOptions } = this.state;
+    const { selectedOptions } = this.props;
     const listItems = selectedOptions.map((option) => (
       <li className="tagger-selected-option" key={nextId()}>
         <span>{option}</span>
@@ -58,13 +56,14 @@ class Tagger extends React.Component {
 
   removeOptionFromTagger(e) {
     e.stopPropagation();
+
     const option = e.target.previousSibling.textContent;
-    const { selectedOptions } = this.state;
-    this.setState({
-      selectedOptions: selectedOptions.filter(
-        (selectedOption) => selectedOption !== option
-      ),
-    });
+    const { selectedOptions } = this.props;
+    const updatedSelections = selectedOptions.filter(
+      (selectedOption) => selectedOption !== option
+    );
+  
+    this.props.updateSelectedOptions(updatedSelections);
   }
 
   displaySuggestions(e) {
@@ -73,24 +72,35 @@ class Tagger extends React.Component {
   }
 
   selectOption(e) {
-    this.setState({
-      selectedOptions: [...this.state.selectedOptions, e.target.textContent],
-      isExpanded: false,
-    });
+    const { selectedOptions } = this.props;
+    const clickedOption = e.target.textContent;
+
+    this.setState(
+      {
+        isExpanded: false,
+      },
+      () => {
+        this.props.updateSelectedOptions([...selectedOptions, clickedOption]);
+      }
+    );
   }
 
   appendSuggestion() {
-    const { suggestions, inputText, selectedOptions } = this.state;
+    const { inputText } = this.state;
+    const { suggestions, selectedOptions } = this.props;
 
     if (inputText.length) {
       suggestions.push(inputText);
 
-      this.setState({
-        suggestions: [...suggestions, inputText],
-        selectedOptions: [...selectedOptions, inputText],
-        inputText: "",
-        isExpanded: false,
-      });
+      this.setState(
+        {
+          inputText: "",
+          isExpanded: false,
+        },
+        () => {
+          this.props.updateSelectedOptions([...selectedOptions, inputText]);
+        }
+      );
     }
   }
 
@@ -105,7 +115,7 @@ class Tagger extends React.Component {
   }
 
   render() {
-    const { placeholder } = this.props;
+    const { placeholder, suggestions } = this.props;
     const { inputText } = this.state;
 
     return (
@@ -126,7 +136,7 @@ class Tagger extends React.Component {
           </div>
           <ul className="tagger-suggestions-ul">
             {this.state.isExpanded
-              ? this.state.suggestions.map((content) => (
+              ? suggestions.map((content) => (
                   <l1
                     className="tagger-suggestion-li"
                     onClick={this.selectOption}
