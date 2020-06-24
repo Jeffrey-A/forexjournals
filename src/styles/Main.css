@@ -139,6 +139,7 @@
 }
 
 .modal-container {
+  padding-top: 1rem;
   width: 60%;
   border: 1px solid black;
   z-index: 1000;
@@ -198,6 +199,7 @@
   position: relative;
   margin-bottom: 1rem;
 }
+
 .tagger-container {
   display: flex !important;
   width: 100%;
