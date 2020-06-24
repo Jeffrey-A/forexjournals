@@ -16,11 +16,11 @@ class CreateStrategy extends React.Component {
       risk_to_reward: "",
       indicators: [],
       indicators_suggestions: ["option 1", "option 2", "option 3"],
-      time_frames_suggestions: ['H1', 'H2', 'H4'],
+      time_frames_suggestions: ["H1", "H2", "H4"],
     };
 
     this.toggleModal = this.toggleModal.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     this.createStrategy = this.createStrategy.bind(this);
     this.updateIndicators = this.updateIndicators.bind(this);
     this.updateTimeFrames = this.updateTimeFrames.bind(this);
@@ -30,17 +30,17 @@ class CreateStrategy extends React.Component {
     this.setState({ isShowingModal: !this.state.isShowingModal });
   }
 
-  handleInputChange(event, inputName) {
+  handleTextFieldChange(event, fieldName) {
     const value = event.target.value;
-    this.setState({ [inputName]: value.trim() });
+    this.setState({ [fieldName]: value.trim() });
   }
 
   createStrategy() {
     // TODO: pass textarea content
     const payload = Object.assign({}, this.state);
-    payload.indicators = payload.indicators.join(',');
-    payload.time_frames = payload.time_frames.join(',');
-    
+    payload.indicators = payload.indicators.join(",");
+    payload.time_frames = payload.time_frames.join(",");
+
     fetch("/strategies/11", {
       method: "POST",
       headers: {
@@ -57,10 +57,10 @@ class CreateStrategy extends React.Component {
   }
 
   updateIndicators(indicators) {
-    this.setState({indicators})
+    this.setState({ indicators });
   }
   updateTimeFrames(time_frames) {
-    this.setState({time_frames})
+    this.setState({ time_frames });
   }
 
   render() {
@@ -86,11 +86,12 @@ class CreateStrategy extends React.Component {
           <h1 className="modal-header">Create Strategy</h1>
           <div className="create-strategy-inputs-container">
             <input
-              onChange={(e) => this.handleInputChange(e, "name")}
+              onChange={(e) => this.handleTextFieldChange(e, "name")}
               className="modal-input"
               placeholder="Name"
             />
             <textarea
+              onChange={(e) => this.handleTextFieldChange(e, 'description')}
               className="modal-textarea"
               placeholder="Description"
             ></textarea>
@@ -107,20 +108,22 @@ class CreateStrategy extends React.Component {
               suggestions={time_frames_suggestions}
             />
             <textarea
+              onChange={(e) => this.handleTextFieldChange(e, 'entry_conditions')}
               className="modal-textarea"
               placeholder="Entry conditions"
             ></textarea>
             <textarea
+              onChange={(e) => this.handleTextFieldChange(e, 'exit_conditions')}
               className="modal-textarea"
               placeholder="Exit conditions"
             ></textarea>
             <input
-              onChange={(e) => this.handleInputChange(e, "risk_per_trade")}
+              onChange={(e) => this.handleTextFieldChange(e, "risk_per_trade")}
               className="modal-input"
               placeholder="Risk per trade"
             />
             <input
-              onChange={(e) => this.handleInputChange(e, "risk_to_reward")}
+              onChange={(e) => this.handleTextFieldChange(e, "risk_to_reward")}
               className="modal-input"
               placeholder="Risk to reward"
             />

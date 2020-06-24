@@ -228,6 +228,10 @@
   cursor: pointer;
 }
 
+.create-strategy-inputs-container *{
+  display: block;
+} 
+
 /* Media */
 
 /* Small-Medium devices*/
