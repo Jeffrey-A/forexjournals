@@ -36,7 +36,6 @@ class CreateStrategy extends React.Component {
   }
 
   createStrategy() {
-    // TODO: pass textarea content
     const payload = Object.assign({}, this.state);
     payload.indicators = payload.indicators.join(",");
     payload.time_frames = payload.time_frames.join(",");
