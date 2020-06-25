@@ -105,6 +105,7 @@ class Tagger extends React.Component {
   }
 
   handleInputChange(e) {
+    // TODO: update suggestions here as well
     this.setState({ inputText: e.target.value });
   }
 
