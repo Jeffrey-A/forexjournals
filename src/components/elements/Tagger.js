@@ -15,8 +15,12 @@ class Tagger extends React.Component {
     this.removeOptionFromTagger = this.removeOptionFromTagger.bind(this);
     this.displaySuggestions = this.displaySuggestions.bind(this);
     this.selectOption = this.selectOption.bind(this);
-    this.handleInputChangeAndUpdateSuggestions = this.handleInputChangeAndUpdateSuggestions.bind(this);
-    this.appendSuggestion = this.appendSuggestion.bind(this);
+    this.handleInputChangeAndUpdateSu = this.handleInputChangeAndUpdateSu.bind(
+      this
+    );
+    this.appendSuggestionAndResetSuggestions = this.appendSuggestionAndResetSuggestions.bind(
+      this
+    );
     this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
   }
 
@@ -85,26 +89,30 @@ class Tagger extends React.Component {
     );
   }
 
-  appendSuggestion() {
+  appendSuggestionAndResetSuggestions() {
     const { inputText } = this.state;
-    const { suggestions, selectedOptions } = this.props;
+    const {
+      selectedOptions,
+      updateSelectedOptions,
+      updateSuggestions,
+      defaultSuggestions,
+    } = this.props;
 
     if (inputText.length) {
-      suggestions.push(inputText);
-
       this.setState(
         {
           inputText: "",
           isExpanded: false,
         },
         () => {
-          this.props.updateSelectedOptions([...selectedOptions, inputText]);
+          updateSelectedOptions([...selectedOptions, inputText]);
+          updateSuggestions(defaultSuggestions);
         }
       );
     }
   }
 
-  handleInputChangeAndUpdateSuggestions(e) {
+  handleInputChangeAndUpdateSu(e) {
     const inputValue = e.target.value;
 
     this.setState({ inputText: inputValue }, () => {
@@ -123,7 +131,7 @@ class Tagger extends React.Component {
 
   handleInputKeyDown(e) {
     if (e.key === "Enter") {
-      this.appendSuggestion();
+      this.appendSuggestionAndResetSuggestions();
     }
   }
 
@@ -138,12 +146,15 @@ class Tagger extends React.Component {
             <input
               value={inputText}
               onKeyDown={this.handleInputKeyDown}
-              onChange={this.handleInputChangeAndUpdateSuggestions}
+              onChange={this.handleInputChangeAndUpdateSu}
               onClick={this.displaySuggestions}
               className="tagger-input"
               placeholder={placeholder}
             />
-            <button onClick={this.appendSuggestion} className="tagger-add-btn">
+            <button
+              onClick={this.appendSuggestionAndResetSuggestions}
+              className="tagger-add-btn"
+            >
               Add
             </button>
           </div>
