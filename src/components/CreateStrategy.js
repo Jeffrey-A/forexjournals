@@ -1,5 +1,6 @@
 import React from "react";
 import Tagger from "./elements/Tagger";
+import { suggestedIndicators, suggestedTimeFrames } from '../utils/constants';
 
 class CreateStrategy extends React.Component {
   constructor(props) {
@@ -15,8 +16,8 @@ class CreateStrategy extends React.Component {
       risk_per_trade: "",
       risk_to_reward: "",
       indicators: [],
-      indicators_suggestions: ["option 1", "option 2", "option 3"],
-      time_frames_suggestions: ["H1", "H2", "H4"],
+      indicators_suggestions: suggestedIndicators,
+      time_frames_suggestions: suggestedTimeFrames,
     };
 
     this.toggleModal = this.toggleModal.bind(this);
@@ -24,6 +25,8 @@ class CreateStrategy extends React.Component {
     this.createStrategy = this.createStrategy.bind(this);
     this.updateIndicators = this.updateIndicators.bind(this);
     this.updateTimeFrames = this.updateTimeFrames.bind(this);
+    this.updateIndicatorSuggestions = this.updateIndicatorSuggestions.bind(this);
+    this.updateTimeFrameSuggestions = this.updateTimeFrameSuggestions.bind(this); 
   }
 
   toggleModal() {
@@ -58,8 +61,17 @@ class CreateStrategy extends React.Component {
   updateIndicators(indicators) {
     this.setState({ indicators });
   }
+
+  updateIndicatorSuggestions(indicators) {
+    this.setState({indicators_suggestions: indicators});
+  }
+
   updateTimeFrames(time_frames) {
     this.setState({ time_frames });
+  }
+
+  updateTimeFrameSuggestions(timeFrames) {
+    this.setState({time_frames_suggestions: timeFrames});
   }
 
   render() {
@@ -97,14 +109,18 @@ class CreateStrategy extends React.Component {
             <Tagger
               placeholder="Indicators"
               updateSelectedOptions={this.updateIndicators}
+              updateSuggestions={this.updateIndicatorSuggestions}
               selectedOptions={indicators}
               suggestions={indicators_suggestions}
+              defaultSuggestions={suggestedIndicators}
             />
             <Tagger
               placeholder="Times Frames"
               updateSelectedOptions={this.updateTimeFrames}
+              updateSuggestions={this.updateTimeFrameSuggestions}
               selectedOptions={time_frames}
               suggestions={time_frames_suggestions}
+              defaultSuggestions={suggestedTimeFrames}
             />
             <textarea
               onChange={(e) => this.handleTextFieldChange(e, 'entry_conditions')}

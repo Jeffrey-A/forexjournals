@@ -62,7 +62,7 @@ class Tagger extends React.Component {
     const updatedSelections = selectedOptions.filter(
       (selectedOption) => selectedOption !== option
     );
-  
+
     this.props.updateSelectedOptions(updatedSelections);
   }
 
@@ -105,8 +105,20 @@ class Tagger extends React.Component {
   }
 
   handleInputChange(e) {
-    // TODO: update suggestions here as well
-    this.setState({ inputText: e.target.value });
+    const inputValue = e.target.value;
+
+    this.setState({ inputText: inputValue }, () => {
+      const { defaultSuggestions, updateSuggestions } = this.props;
+      const filteredSuggestions = defaultSuggestions.filter((suggestion) => {
+        return suggestion.toLowerCase().includes(inputValue.toLowerCase());
+      });
+
+      if (inputValue != "") {
+        updateSuggestions(filteredSuggestions);
+      } else {
+        updateSuggestions(defaultSuggestions);
+      }
+    });
   }
 
   handleInputKeyDown(e) {
