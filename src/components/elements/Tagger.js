@@ -15,7 +15,7 @@ class Tagger extends React.Component {
     this.removeOptionFromTagger = this.removeOptionFromTagger.bind(this);
     this.displaySuggestions = this.displaySuggestions.bind(this);
     this.selectOption = this.selectOption.bind(this);
-    this.handleInputChangeAndUpdateSu = this.handleInputChangeAndUpdateSu.bind(
+    this.handleInputChangeAndUpdateSuggestions = this.handleInputChangeAndUpdateSuggestions.bind(
       this
     );
     this.appendSuggestionAndResetSuggestions = this.appendSuggestionAndResetSuggestions.bind(
@@ -112,7 +112,7 @@ class Tagger extends React.Component {
     }
   }
 
-  handleInputChangeAndUpdateSu(e) {
+  handleInputChangeAndUpdateSuggestions(e) {
     const inputValue = e.target.value;
 
     this.setState({ inputText: inputValue }, () => {
@@ -146,7 +146,7 @@ class Tagger extends React.Component {
             <input
               value={inputText}
               onKeyDown={this.handleInputKeyDown}
-              onChange={this.handleInputChangeAndUpdateSu}
+              onChange={this.handleInputChangeAndUpdateSuggestions}
               onClick={this.displaySuggestions}
               className="tagger-input"
               placeholder={placeholder}
