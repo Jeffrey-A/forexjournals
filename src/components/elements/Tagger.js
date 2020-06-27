@@ -84,7 +84,9 @@ class Tagger extends React.Component {
         isExpanded: false,
       },
       () => {
-        this.props.updateSelectedOptions([...selectedOptions, clickedOption]);
+        if (!selectedOptions.includes(clickedOption)) {
+          this.props.updateSelectedOptions([...selectedOptions, clickedOption]);
+        }
       }
     );
   }
