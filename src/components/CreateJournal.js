@@ -29,14 +29,14 @@ class CreateJournal extends React.Component {
         </span>
         <div className="modal-container">
           <h1 className="modal-header">Create Journal</h1>
-          <div>
-            <select>
-              <option>Pair</option>
+          <div className='create-journal-input-container'>
+            <select className='journal-select'>
+              <option selected="true" disabled="disabled">Pair</option>
               <option>EURUSD</option>
               <option>USDCAD</option>
             </select>
-            <select>
-              <option>Order type</option>
+            <select className='journal-select'>
+              <option selected="true" disabled="disabled">Order type</option>
               <option>Buy</option>
               <option>Sell</option>
               <option>Buy Stop</option>
@@ -44,10 +44,10 @@ class CreateJournal extends React.Component {
               <option>Buy Limit</option>
               <option>Sell Limit</option>
             </select>
-            <input placeholder="chart link" type="url" />
-            <textarea placeholder="Errors made"></textarea>
-            <textarea placeholder="Comments"></textarea>
-            <button>Create Journal</button>
+            <input className='journal-input' placeholder="chart link" type="url" />
+            <textarea className='journal-textarea' placeholder="Errors made"></textarea>
+            <textarea className='journal-textarea' placeholder="Comments"></textarea>
+            <button className='journal-btn' >Create Journal</button>
           </div>
         </div>
       </div>
