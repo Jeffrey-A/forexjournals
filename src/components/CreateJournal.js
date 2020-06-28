@@ -30,23 +30,24 @@ class CreateJournal extends React.Component {
         <div className="modal-container">
           <h1 className="modal-header">Create Journal</h1>
           <div>
-              <select>
-                  <option>Pair</option>
-                  <option>EURUSD</option>
-                  <option>USDCAD</option>
-              </select>
-              <select>
-                  <option>Order type</option>
-                  <option>Buy</option>
-                  <option>Sell</option>
-                  <option>Buy Stop</option>
-                  <option>Sell Stop</option>
-                  <option>Buy Limit</option>
-                  <option>Sell Limit</option>
-              </select>
-              <input placeholder='chart link' type='url'/>
-              <textarea placeholder='Errors made'></textarea>
-              <textarea placeholder='Comments'></textarea>
+            <select>
+              <option>Pair</option>
+              <option>EURUSD</option>
+              <option>USDCAD</option>
+            </select>
+            <select>
+              <option>Order type</option>
+              <option>Buy</option>
+              <option>Sell</option>
+              <option>Buy Stop</option>
+              <option>Sell Stop</option>
+              <option>Buy Limit</option>
+              <option>Sell Limit</option>
+            </select>
+            <input placeholder="chart link" type="url" />
+            <textarea placeholder="Errors made"></textarea>
+            <textarea placeholder="Comments"></textarea>
+            <button>Create Journal</button>
           </div>
         </div>
       </div>
