@@ -247,6 +247,10 @@
   padding: 2px 5px;
 }
 
+.journal-textarea {
+  height: 100px;
+}
+
 /* Media */
 
 /* Small-Medium devices*/
