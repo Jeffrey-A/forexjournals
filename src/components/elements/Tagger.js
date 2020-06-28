@@ -14,7 +14,9 @@ class Tagger extends React.Component {
     this.displaySelectedOptions = this.displaySelectedOptions.bind(this);
     this.removeOptionFromTagger = this.removeOptionFromTagger.bind(this);
     this.displaySuggestions = this.displaySuggestions.bind(this);
-    this.selectOption = this.selectOption.bind(this);
+    this.selectOptionAndUpdateSelectedOptions = this.selectOptionAndUpdateSelectedOptions.bind(
+      this
+    );
     this.handleInputChangeAndUpdateSuggestions = this.handleInputChangeAndUpdateSuggestions.bind(
       this
     );
@@ -71,7 +73,7 @@ class Tagger extends React.Component {
     this.setState({ isExpanded: true });
   }
 
-  selectOption(e) {
+  selectOptionAndUpdateSelectedOptions(e) {
     const { selectedOptions } = this.props;
     const clickedOption = e.target.textContent;
 
@@ -161,7 +163,7 @@ class Tagger extends React.Component {
               ? suggestions.map((content) => (
                   <l1
                     className="tagger-suggestion-li"
-                    onClick={this.selectOption}
+                    onClick={this.selectOptionAndUpdateSelectedOptions}
                     key={nextId()}
                   >
                     {content}
