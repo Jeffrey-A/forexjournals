@@ -30,9 +30,11 @@ class Tagger extends React.Component {
     // For some reason the event was binding twice.
     document.removeEventListener("click", () => {});
 
-    // Hide tagger's suggestions when click outside 
+    // Hide tagger's suggestions when click outside
     document.addEventListener("click", (e) => {
-      const shouldHideSuggestions = e.target.tagName.toLowerCase() !== "input" || e.target.placeholder !== this.props.placeholder;
+      const shouldHideSuggestions =
+        e.target.tagName.toLowerCase() !== "input" ||
+        e.target.placeholder !== this.props.placeholder;
       if (shouldHideSuggestions) {
         this.hideSuggestions();
       }
