@@ -1,5 +1,5 @@
 import React from "react";
-import { currencies } from "../utils/constants";
+import { currencies, orderTypes } from "../utils/constants";
 
 class CreateJournal extends React.Component {
   constructor(props) {
@@ -66,16 +66,16 @@ class CreateJournal extends React.Component {
                 <option value={currency}>{currency}</option>
               ))}
             </select>
-            <select className="journal-select"  onChange={(e) => this.handleSelectChange(e, "order_type")}>
+            <select
+              className="journal-select"
+              onChange={(e) => this.handleSelectChange(e, "order_type")}
+            >
               <option selected="true" disabled="disabled">
                 Order type
               </option>
-              <option>Buy</option>
-              <option>Sell</option>
-              <option>Buy Stop</option>
-              <option>Sell Stop</option>
-              <option>Buy Limit</option>
-              <option>Sell Limit</option>
+              {orderTypes.map((order) => (
+                <option value={order}>{order}</option>
+              ))}
             </select>
             <input
               className="journal-input"

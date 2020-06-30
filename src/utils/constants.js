@@ -3,6 +3,16 @@
 export const suggestedIndicators = ["option 1", "option 2", "option 3"];
 
 export const suggestedTimeFrames = ["H1", "H2", "H4"];
+
+export const orderTypes = [
+  'Buy',
+  'Sell',
+  'Buy Limit',
+  'Sell Limit',
+  'Buy Stop',
+  'Sell Stop',
+]
+
 export const currencies = [
   "AUDCAD",
   "AUDCHF",
