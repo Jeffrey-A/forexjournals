@@ -6,9 +6,21 @@ class CreateJournal extends React.Component {
     super(props);
     this.state = {
       isShowingModal: false,
+      pair:'',
+      comments:'',
+      order_type: '',
+      pips_gained_lost:'',
+      img_link:'',
+      errors: '',
     };
 
     this.toggleModal = this.toggleModal.bind(this);
+    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
+  }
+
+  handleTextFieldChange(event, fieldName) {
+    const value = event.target.value;
+    this.setState({ [fieldName]: value.trim() });
   }
 
   toggleModal() {
@@ -53,15 +65,18 @@ class CreateJournal extends React.Component {
             <input
               className="journal-input"
               placeholder="chart link"
+              onChange={(e) => this.handleTextFieldChange(e, 'img_link')}
               type="url"
             />
             <textarea
               className="journal-textarea"
               placeholder="Errors made"
+              onChange={(e) => this.handleTextFieldChange(e, 'errors')}
             ></textarea>
             <textarea
               className="journal-textarea"
               placeholder="Comments"
+              onChange={(e) => this.handleTextFieldChange(e, 'comments')}
             ></textarea>
             <button className="journal-btn">Create Journal</button>
           </div>
