@@ -1,6 +1,7 @@
 import React from "react";
 import { currencies, orderTypes } from "../utils/constants";
 
+// TODO: add input validation and perform API request
 class CreateJournal extends React.Component {
   constructor(props) {
     super(props);
