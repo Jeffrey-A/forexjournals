@@ -113,6 +113,7 @@ app
     const payload = {
       user_id: req.params.userId,
       strategy_id: req.params.strategyId,
+      errors: req.body.errors,
       pair: req.body.pair,
       comments: req.body.comments,
       order_type: req.body.order_type,
@@ -137,6 +138,7 @@ app
       pair: req.body.pair,
       comments: req.body.comments,
       order_type: req.body.order_type,
+      errors: req.body.errors,
       pips_gained_lost: req.body.pips_gained_lost,
       img_link: req.body.img_link,
     };

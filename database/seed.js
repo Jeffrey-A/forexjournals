@@ -56,6 +56,7 @@ if (require.main === module) {
     "user_id" int,
     "pair" text,
     "comments" text,
+    "errors" text,
     "order_type" text,
     "pips_gained_lost" int,
     "img_link" text,
@@ -88,7 +89,7 @@ if (require.main === module) {
         `insert into strategies (name, description, user_id) values ('testing strategy', 'this is a test', 1);`
       );
       await executeQuery(
-        `insert into journals (pair, comments, user_id, strategy_id) values ('USDJPY','this is a test', 1, 1);`
+        `insert into journals (pair, comments, user_id, strategy_id, errors) values ('USDJPY','this is a test', 1, 1, 'Item, item 2');`
       );
 
       console.log("Queries executed!");
