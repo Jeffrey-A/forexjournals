@@ -18,6 +18,9 @@ const Journals = database.define(
     order_type: {
       type: Sequelize.TEXT,
     },
+    errors: {
+      type: Sequelize.TEXT,
+    },
     pips_gained_lost: {
       type: Sequelize.TEXT,
     },
