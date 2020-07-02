@@ -18,6 +18,8 @@ class CreateJournal extends React.Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.performAPICall = this.performAPICall.bind(this);
+    this.handlePipsChance = this.handlePipsChance.bind(this);
   }
 
   handleTextFieldChange(event, fieldName) {
@@ -36,8 +38,57 @@ class CreateJournal extends React.Component {
     }
   }
 
+  performAPICall() {
+    // TODO: Perform input Validation
+    const payload = Object.assign({}, this.state);
+
+    fetch("/journals/2/1", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }).then((response) => {
+      if (response.status > 200) {
+        console.log("success");
+      } else {
+        console.log("failed");
+      }
+    });
+  }
+
   toggleModal() {
     this.setState({ isShowingModal: !this.state.isShowingModal });
+  }
+
+  handlePipsChance(e, isSelectEvent = false) {
+    let input;
+    let signs;
+
+    if (isSelectEvent) {
+      input = e.target.nextSibling;
+      signs = e.target.options;
+    } else {
+      input = e.target;
+      signs = input.previousSibling.options;
+    }
+
+    let selectedSign = "";
+
+    for (let i = 0; i < signs.length; i++) {
+      if (signs[i].selected) {
+        selectedSign = signs[i].value;
+        break;
+      }
+    }
+
+    console.log(selectedSign, input.value);
+
+    if (input.value.length) {
+      this.setState({ pips_gained_lost: selectedSign + input.value });
+    } else {
+      this.setState({ pips_gained_lost: "" });
+    }
   }
 
   render() {
@@ -94,7 +145,26 @@ class CreateJournal extends React.Component {
               placeholder="Comments"
               onChange={(e) => this.handleTextFieldChange(e, "comments")}
             ></textarea>
-            <button className="journal-btn">Create Journal</button>
+            <div className="pips-gain-lost-container">
+              <select
+                className="pips-gain-lost-sign"
+                onChange={(e) => this.handlePipsChance(e, true)}
+              >
+                <option selected="true" value="+">
+                  +
+                </option>
+                <option value="-">-</option>
+              </select>
+              <input
+                type="number"
+                placeholder="Pips gain/lost"
+                className="pips-gain-lost-input"
+                onChange={(e) => this.handlePipsChance(e)}
+              />
+            </div>
+            <button onClick={this.performAPICall} className="journal-btn">
+              Create Journal
+            </button>
           </div>
         </div>
       </div>
