@@ -82,8 +82,6 @@ class CreateJournal extends React.Component {
       }
     }
 
-    console.log(selectedSign, input.value);
-
     if (input.value.length) {
       this.setState({ pips_gained_lost: selectedSign + input.value });
     } else {
@@ -153,7 +151,9 @@ class CreateJournal extends React.Component {
                 <option selected="true" value="+">
                   +
                 </option>
-                <option value="-">-</option>
+                <option value="-">
+                  -
+                </option>
               </select>
               <input
                 type="number"
