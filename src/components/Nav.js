@@ -10,11 +10,11 @@ class Nav extends React.Component {
       isMobileMenuExpanded: false,
     };
 
-    this.expandMobileNav = this.expandMobileNav.bind(this);
+    this.expandCloseMobileNav = this.expandCloseMobileNav.bind(this);
     this.displayLinks = this.displayLinks.bind(this);
   }
 
-  expandMobileNav() {
+  expandCloseMobileNav() {
     this.setState((state, props) => {
       return {
         isMobileMenuExpanded: !state.isMobileMenuExpanded,
@@ -62,7 +62,7 @@ class Nav extends React.Component {
           <li>
             <Link to="/">FX JOURNALS</Link>
           </li>
-          <span className="show-links-in-mobile" onClick={this.expandMobileNav}>
+          <span className="show-links-in-mobile" onClick={this.expandCloseMobileNav}>
             <img src={MenuIcon} alt="show nav links" />
           </span>
         </ul>
