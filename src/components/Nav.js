@@ -12,6 +12,8 @@ class Nav extends React.Component {
 
     this.expandCloseMobileNav = this.expandCloseMobileNav.bind(this);
     this.displayLinks = this.displayLinks.bind(this);
+    this.closeMobileNav = this.closeMobileNav.bind(this);
+    this.closeMobileNavAndLogout = this.closeMobileNavAndLogout.bind(this);
   }
 
   expandCloseMobileNav() {
@@ -22,18 +24,28 @@ class Nav extends React.Component {
     });
   }
 
+  closeMobileNav() {
+    this.setState({isMobileMenuExpanded: false})
+  }
+
+  closeMobileNavAndLogout() {
+    this.setState({isMobileMenuExpanded: false}, () => {
+      this.props.logout()
+    })
+  }
+
   displayLinks() {
     const { isAuthenticated } = this.props;
     if (isAuthenticated) {
       return [
         <li key={nextId()}>
-          <Link to="/journals">Journals</Link>
+          <Link onClick={this.closeMobileNav} to="/journals">Journals</Link>
         </li>,
         <li key={nextId()}>
-          <Link to="/strategies">Strategies</Link>
+          <Link onClick={this.closeMobileNav} to="/strategies">Strategies</Link>
         </li>,
         <li key={nextId()}>
-          <Link onClick={() => this.props.logout()} to="/">
+          <Link onClick={this.closeMobileNavAndLogout} to="/">
             Log out
           </Link>
         </li>,
@@ -41,10 +53,10 @@ class Nav extends React.Component {
     }
     return [
       <li key={nextId()}>
-        <Link to="/register">Register</Link>
+        <Link onClick={this.closeMobileNav} to="/register">Register</Link>
       </li>,
       <li key={nextId()}>
-        <Link to="/login">Log in</Link>
+        <Link onClick={this.closeMobileNav} to="/login">Log in</Link>
       </li>,
     ];
   }
@@ -60,7 +72,7 @@ class Nav extends React.Component {
       <div className="nav-main-container">
         <ul className="nav-left-container">
           <li>
-            <Link to="/">FX JOURNALS</Link>
+            <Link  onClick={this.closeMobileNav} to="/">FX JOURNALS</Link>
           </li>
           <span className="show-links-in-mobile" onClick={this.expandCloseMobileNav}>
             <img src={MenuIcon} alt="show nav links" />
