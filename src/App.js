@@ -173,7 +173,7 @@ class App extends React.Component {
             isAuthenticated={isAuthenticated}
             component={ViewStrategy}
           />
-          <Route user={user} path="*" render={(props) => <NoFound />} />
+          <Route path="*" render={(props) => <NoFound user={user} />} />
         </Switch>
       </div>
     );
