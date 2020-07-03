@@ -39,6 +39,7 @@ class App extends React.Component {
     this.state = {
       isAuthenticated: false,
       loginFailed: false,
+      user: {}
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -94,7 +95,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, wasRegistrationSuccessful } = this.state;
+    const { isAuthenticated, wasRegistrationSuccessful, user } = this.state;
 
     return (
       <div>
@@ -128,6 +129,7 @@ class App extends React.Component {
           <ProtectedRoute
             exact
             path="/journals"
+            user={user}
             isAuthenticated={isAuthenticated}
             component={Journals}
           />
@@ -136,12 +138,14 @@ class App extends React.Component {
             exact
             path="/journals/create"
             isAuthenticated={isAuthenticated}
+            user={user}
             component={CreateJournal}
           />
 
           <ProtectedRoute
             exact
             path="/journals/view"
+            user={user}
             isAuthenticated={isAuthenticated}
             component={ViewJournal}
           />
@@ -149,12 +153,14 @@ class App extends React.Component {
           <ProtectedRoute
             exact
             path="/strategies"
+            user={user}
             isAuthenticated={isAuthenticated}
             component={Strategies}
           />
 
           <ProtectedRoute
             exact
+            user={user}
             path="/strategies/create"
             isAuthenticated={isAuthenticated}
             component={CreateStrategy}
@@ -162,11 +168,12 @@ class App extends React.Component {
 
           <ProtectedRoute
             exact
+            user={user}
             path="/strategies/view"
             isAuthenticated={isAuthenticated}
             component={ViewStrategy}
           />
-          <Route path="*" render={(props) => <NoFound />} />
+          <Route path="*" render={(props) => <NoFound user={user} />} />
         </Switch>
       </div>
     );

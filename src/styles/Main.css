@@ -230,7 +230,42 @@
 
 .create-strategy-inputs-container *{
   display: block;
-} 
+}
+
+/* Journal*/
+.create-journal-input-container * {
+  display: block;
+  width: 70%;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.journal-input,
+.journal-textarea,
+.journal-select,
+.journal-btn {
+  padding: 2px 5px;
+}
+
+.journal-textarea {
+  height: 100px;
+}
+
+.pips-gain-lost-sign {
+  width: fit-content;
+  margin: 0;
+  height: 27px;
+}
+
+.pips-gain-lost-container {
+  width: 70%;
+  display: flex;
+}
+
+.pips-gain-lost-input {
+  padding: 2px 5px;
+  height: 27px;
+}
 
 /* Media */
 
