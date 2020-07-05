@@ -104,9 +104,11 @@ class Register extends React.Component {
             onKeyDown={this.handleKeyDown}
             placeholder="Password"
             onChange={(e) => this.handleInputChange(e, "password")}
+            type='password'
           />
           <input
             id="confirmed_password"
+            type='password'
             placeholder="Confirm password"
             onKeyDown={this.handleKeyDown}
             onChange={(e) => this.handleInputChange(e, "confirmed_password")}

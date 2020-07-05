@@ -92,6 +92,7 @@ class Login extends React.Component {
             placeholder="Password"
             onKeyDown={this.handleKeyDown}
             onChange={this.handlePasswordChange}
+            type='password'
           />
           <button onClick={this.performLogin}>LogIn</button>
           <p>{errorMessage}</p>
