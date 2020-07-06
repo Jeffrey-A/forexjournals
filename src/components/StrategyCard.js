@@ -5,7 +5,7 @@ class StrategyCard extends React.Component {
     const { name } = this.props;
 
     return (
-      <div classNAme="strategy-card-main-container">
+      <div className="strategy-card-main-container">
         <div className="strategy-card-name-container">
           <span>{name}</span>
         </div>
