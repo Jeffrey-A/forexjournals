@@ -267,6 +267,21 @@
   height: 27px;
 }
 
+/*Strategy Card */
+.strategy-card-main-container {
+  display:flex;
+  justify-content: space-between;
+  width: 30%;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding: 2px 5px;
+}
+
+.strategy-card-icons-container span {
+  margin-left: 20px;
+}
+
 /* Media */
 
 /* Small-Medium devices*/
