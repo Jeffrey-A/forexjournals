@@ -1,5 +1,9 @@
 import React from "react";
 
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+
 class StrategyCard extends React.Component {
   render() {
     const { name } = this.props;
@@ -10,9 +14,9 @@ class StrategyCard extends React.Component {
           <span>{name}</span>
         </div>
         <div className="strategy-card-icons-container">
-          <span>View</span>
-          <span>Edit</span>
-          <span>Delete</span>
+          <VisibilityIcon />
+          <EditIcon />
+          <DeleteIcon />
         </div>
       </div>
     );
