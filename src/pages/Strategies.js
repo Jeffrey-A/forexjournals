@@ -17,6 +17,10 @@ class Strategies extends React.Component {
     };
   }
 
+  componentDidMount() {
+      // TODO: fetch strategies for the current user
+  }
+
   render() {
     const { strategies } = this.state;
 
