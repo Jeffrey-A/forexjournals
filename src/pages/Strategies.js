@@ -1,24 +1,22 @@
 import React from "react";
 import StrategyCard from "../components/StrategyCard";
 
-const sampleStrategies = [
-  "Strategy one",
-  "Strategy two",
-  "Strategy three",
-  "Strategy four",
-];
-
 class Strategies extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      strategies: sampleStrategies,
+      strategies: [],
     };
   }
 
   componentDidMount() {
-      // TODO: fetch strategies for the current user
+    const { user } = this.props;
+    fetch(`/strategies/${user.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ strategies: data });
+      });
   }
 
   render() {
@@ -29,7 +27,7 @@ class Strategies extends React.Component {
         <h1>Strategies</h1>
         <div className="strategies-container">
           {strategies.map((strategy) => (
-            <StrategyCard name={strategy} />
+            <StrategyCard name={strategy.name} />
           ))}
         </div>
       </div>
