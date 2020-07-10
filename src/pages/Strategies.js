@@ -23,7 +23,7 @@ class Strategies extends React.Component {
     const { strategies } = this.state;
 
     return (
-      <div>
+      <div className="container">
         <h1>Strategies</h1>
         <div className="strategies-container">
           {strategies.map((strategy) => (
