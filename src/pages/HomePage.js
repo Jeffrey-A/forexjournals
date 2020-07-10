@@ -14,10 +14,11 @@ export default class HomePage extends React.Component {
     );
   }
   render() {
+    const{user, isAuthenticated} = this.props;
     return (
       <div className="container">
         {this.head()}
-        <Strategies />
+         <h1>Welcome Page</h1>
       </div>
     );
   }
