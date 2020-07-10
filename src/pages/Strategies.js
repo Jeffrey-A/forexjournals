@@ -1,5 +1,6 @@
 import React from "react";
 import StrategyCard from "../components/StrategyCard";
+import CreateStrategy from "../components/CreateStrategy";
 
 class Strategies extends React.Component {
   constructor(props) {
@@ -24,7 +25,16 @@ class Strategies extends React.Component {
 
     return (
       <div className="container">
-        <h1>Strategies</h1>
+        <div className="strategies-header-container">
+          <div>
+            <h1>Strategies</h1>
+          </div>
+
+          <div>
+            <CreateStrategy />
+          </div>
+        </div>
+
         <div className="strategies-container">
           {strategies.map((strategy) => (
             <StrategyCard name={strategy.name} />

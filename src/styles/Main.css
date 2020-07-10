@@ -138,6 +138,10 @@
   margin-bottom: 1rem;
 }
 
+.create-strategy-flat-btn {
+  display: inline-block;
+}
+
 .modal-container {
   padding-top: 1rem;
   width: 60%;
@@ -281,6 +285,13 @@
 .strategy-card-icons-container svg {
   margin-left: 20px;
 }
+
+/*Strategies */
+.strategies-header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 
 /* Media */
 

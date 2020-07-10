@@ -84,7 +84,7 @@ class CreateStrategy extends React.Component {
     } = this.state;
 
     if (!isShowingModal) {
-      return <button onClick={this.toggleModal}>Create Strategy</button>;
+      return <button className='create-strategy-flat-btn' onClick={this.toggleModal}>Create Strategy</button>;
     }
 
     return (
