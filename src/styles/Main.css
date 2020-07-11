@@ -13,6 +13,8 @@
 .container {
   margin-top: 6rem;
   position: relative;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .center-text {
@@ -28,7 +30,7 @@
   display: flex;
   justify-content: space-between;
   background-color: #1f2833;
-  padding: 1rem;
+  padding: 1rem 3rem;
   position: fixed;
   top: 0;
   width: 100%;
@@ -141,6 +143,13 @@
 
 .create-strategy-flat-btn {
   display: inline-block;
+  font-size: 1rem;
+  background-color: #1f2833;
+  color: #66fcf1;
+  border-style: none;
+  padding: 0.4rem;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .modal-wrapper{
@@ -293,21 +302,40 @@
 .strategy-card-main-container {
   display:flex;
   justify-content: space-between;
-  width: 30%;
+  width: 375px;
   border: 1px solid black;
   border-radius: 5px;
   margin-bottom: 1rem;
   padding: 2px 5px;
+  box-shadow: 0 4px 2px -2px gray;
 }
 
 .strategy-card-icons-container svg {
-  margin-left: 20px;
+  margin-left: 10px;
+}
+
+.strategy-card-link {
+  text-decoration: none;
+  color: black;
+}
+
+.strategy-card-title {
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.strategy-card-link{
+  text-decoration: none;
 }
 
 /*Strategies */
 .strategies-header-container {
     display: flex;
     justify-content: space-between;
+}
+
+.strategies-container {
+  margin-top: 3rem;
 }
 
 

@@ -1,5 +1,4 @@
 import React from "react";
-import ViewStrategy from "../pages/ViewStrategy";
 import { Link } from "react-router-dom";
 
 import EditIcon from "@material-ui/icons/Edit";
@@ -13,18 +12,20 @@ class StrategyCard extends React.Component {
     return (
       <div className="strategy-card-main-container">
         <div className="strategy-card-name-container">
-          <span>{name}</span>
+          <Link className='strategy-card-link' to="/strategies/view">
+            <span className="strategy-card-title">{name}</span>
+          </Link>
         </div>
         <div className="strategy-card-icons-container">
-          <Link to="/strategies/view">
+          <Link className='strategy-card-link' to="/strategies/view">
             <VisibilityIcon />
           </Link>
 
-          <Link to="/strategies/view">
+          <Link className='strategy-card-link' to="/strategies/view">
             <EditIcon />
           </Link>
 
-          <Link to="/strategies/view">
+          <Link className='strategy-card-link' to="/strategies/view">
             <DeleteIcon />
           </Link>
         </div>
