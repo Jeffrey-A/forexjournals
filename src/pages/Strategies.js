@@ -25,6 +25,7 @@ class Strategies extends React.Component {
 
     return (
       <div className="container">
+       
         <div className="strategies-header-container">
           <div>
             <h1>Strategies</h1>
