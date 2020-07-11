@@ -154,6 +154,7 @@
 
 .modal-container {
   padding-top: 1rem;
+  position: relative;
   width: 450px;
   border: 1px solid black;
   z-index: 1000;
@@ -187,14 +188,14 @@
   z-index: 1000;
 }
 
+.close-modal-btn-container {
+  text-align: end;
+  padding-right: 10px;
+}
+
 .close-modal-btn {
   cursor: pointer;
-  position: absolute;
-  top: 15%;
-  margin-right: 50vh;
   font-size: 1.5rem;
-  right: 0;
-  color: #fff;
 }
 
 /* Tagger */
