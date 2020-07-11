@@ -1,6 +1,6 @@
 import React from "react";
 import Tagger from "./elements/Tagger";
-import { suggestedIndicators, suggestedTimeFrames } from '../utils/constants';
+import { suggestedIndicators, suggestedTimeFrames } from "../utils/constants";
 
 class CreateStrategy extends React.Component {
   constructor(props) {
@@ -25,8 +25,12 @@ class CreateStrategy extends React.Component {
     this.createStrategy = this.createStrategy.bind(this);
     this.updateIndicators = this.updateIndicators.bind(this);
     this.updateTimeFrames = this.updateTimeFrames.bind(this);
-    this.updateIndicatorSuggestions = this.updateIndicatorSuggestions.bind(this);
-    this.updateTimeFrameSuggestions = this.updateTimeFrameSuggestions.bind(this); 
+    this.updateIndicatorSuggestions = this.updateIndicatorSuggestions.bind(
+      this
+    );
+    this.updateTimeFrameSuggestions = this.updateTimeFrameSuggestions.bind(
+      this
+    );
   }
 
   toggleModal() {
@@ -63,7 +67,7 @@ class CreateStrategy extends React.Component {
   }
 
   updateIndicatorSuggestions(indicators) {
-    this.setState({indicators_suggestions: indicators});
+    this.setState({ indicators_suggestions: indicators });
   }
 
   updateTimeFrames(time_frames) {
@@ -71,7 +75,7 @@ class CreateStrategy extends React.Component {
   }
 
   updateTimeFrameSuggestions(timeFrames) {
-    this.setState({time_frames_suggestions: timeFrames});
+    this.setState({ time_frames_suggestions: timeFrames });
   }
 
   render() {
@@ -84,7 +88,11 @@ class CreateStrategy extends React.Component {
     } = this.state;
 
     if (!isShowingModal) {
-      return <button className='create-strategy-flat-btn' onClick={this.toggleModal}>Create Strategy</button>;
+      return (
+        <button className="create-strategy-flat-btn" onClick={this.toggleModal}>
+          Create Strategy
+        </button>
+      );
     }
 
     return (
@@ -92,58 +100,71 @@ class CreateStrategy extends React.Component {
         <span className="close-modal-btn" onClick={this.toggleModal}>
           X
         </span>
-        <div className="modal-container">
-          <h1 className="modal-header">Create Strategy</h1>
-          <div className="create-strategy-inputs-container">
-            <input
-              onChange={(e) => this.handleTextFieldChange(e, "name")}
-              className="modal-input"
-              placeholder="Name"
-            />
-            <textarea
-              onChange={(e) => this.handleTextFieldChange(e, 'description')}
-              className="modal-textarea"
-              placeholder="Description"
-            ></textarea>
-            <Tagger
-              placeholder="Indicators"
-              updateSelectedOptions={this.updateIndicators}
-              updateSuggestions={this.updateIndicatorSuggestions}
-              selectedOptions={indicators}
-              suggestions={indicators_suggestions}
-              defaultSuggestions={suggestedIndicators}
-            />
-            <Tagger
-              placeholder="Times Frames"
-              updateSelectedOptions={this.updateTimeFrames}
-              updateSuggestions={this.updateTimeFrameSuggestions}
-              selectedOptions={time_frames}
-              suggestions={time_frames_suggestions}
-              defaultSuggestions={suggestedTimeFrames}
-            />
-            <textarea
-              onChange={(e) => this.handleTextFieldChange(e, 'entry_conditions')}
-              className="modal-textarea"
-              placeholder="Entry conditions"
-            ></textarea>
-            <textarea
-              onChange={(e) => this.handleTextFieldChange(e, 'exit_conditions')}
-              className="modal-textarea"
-              placeholder="Exit conditions"
-            ></textarea>
-            <input
-              onChange={(e) => this.handleTextFieldChange(e, "risk_per_trade")}
-              className="modal-input"
-              placeholder="Risk per trade"
-            />
-            <input
-              onChange={(e) => this.handleTextFieldChange(e, "risk_to_reward")}
-              className="modal-input"
-              placeholder="Risk to reward"
-            />
-            <button onClick={this.createStrategy} className="modal-create-btn">
-              Create
-            </button>
+        <div className='modal-wrapper'>
+          <div className="modal-container">
+            <h1 className="modal-header">Create Strategy</h1>
+            <div className="create-strategy-inputs-container">
+              <input
+                onChange={(e) => this.handleTextFieldChange(e, "name")}
+                className="modal-input"
+                placeholder="Name"
+              />
+              <textarea
+                onChange={(e) => this.handleTextFieldChange(e, "description")}
+                className="modal-textarea"
+                placeholder="Description"
+              ></textarea>
+              <Tagger
+                placeholder="Indicators"
+                updateSelectedOptions={this.updateIndicators}
+                updateSuggestions={this.updateIndicatorSuggestions}
+                selectedOptions={indicators}
+                suggestions={indicators_suggestions}
+                defaultSuggestions={suggestedIndicators}
+              />
+              <Tagger
+                placeholder="Times Frames"
+                updateSelectedOptions={this.updateTimeFrames}
+                updateSuggestions={this.updateTimeFrameSuggestions}
+                selectedOptions={time_frames}
+                suggestions={time_frames_suggestions}
+                defaultSuggestions={suggestedTimeFrames}
+              />
+              <textarea
+                onChange={(e) =>
+                  this.handleTextFieldChange(e, "entry_conditions")
+                }
+                className="modal-textarea"
+                placeholder="Entry conditions"
+              ></textarea>
+              <textarea
+                onChange={(e) =>
+                  this.handleTextFieldChange(e, "exit_conditions")
+                }
+                className="modal-textarea"
+                placeholder="Exit conditions"
+              ></textarea>
+              <input
+                onChange={(e) =>
+                  this.handleTextFieldChange(e, "risk_per_trade")
+                }
+                className="modal-input"
+                placeholder="Risk per trade"
+              />
+              <input
+                onChange={(e) =>
+                  this.handleTextFieldChange(e, "risk_to_reward")
+                }
+                className="modal-input"
+                placeholder="Risk to reward"
+              />
+              <button
+                onClick={this.createStrategy}
+                className="modal-create-btn"
+              >
+                Create
+              </button>
+            </div>
           </div>
         </div>
       </div>

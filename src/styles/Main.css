@@ -143,16 +143,20 @@
   display: inline-block;
 }
 
+.modal-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
 .modal-container {
   padding-top: 1rem;
   width: 450px;
   border: 1px solid black;
   z-index: 1000;
-  position: absolute;
-  margin-top: 50vh;
-  margin-left: 50vh;
-  transform: translateY(-50%);
-
   overflow-y: auto;
   max-height: 600px;
   background-color: #fff;
@@ -173,6 +177,7 @@
   margin-top: -6rem; /* this is the top margin of the container class */
 }
 
+
 .modal-main-container {
   position: absolute;
   left: 0;
@@ -186,7 +191,7 @@
   cursor: pointer;
   position: absolute;
   top: 15%;
-  margin-right: 5rem;
+  margin-right: 50vh;
   font-size: 1.5rem;
   right: 0;
   color: #fff;
