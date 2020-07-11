@@ -1,8 +1,10 @@
 import React from "react";
+import ViewStrategy from "../pages/ViewStrategy";
+import { Link } from "react-router-dom";
 
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 class StrategyCard extends React.Component {
   render() {
@@ -14,9 +16,17 @@ class StrategyCard extends React.Component {
           <span>{name}</span>
         </div>
         <div className="strategy-card-icons-container">
-          <VisibilityIcon />
-          <EditIcon />
-          <DeleteIcon />
+          <Link to="/strategies/view">
+            <VisibilityIcon />
+          </Link>
+
+          <Link to="/strategies/view">
+            <EditIcon />
+          </Link>
+
+          <Link to="/strategies/view">
+            <DeleteIcon />
+          </Link>
         </div>
       </div>
     );
