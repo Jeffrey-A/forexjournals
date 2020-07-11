@@ -12,6 +12,7 @@
 
 .container {
   margin-top: 6rem;
+  position: relative;
 }
 
 .center-text {
@@ -144,12 +145,17 @@
 
 .modal-container {
   padding-top: 1rem;
-  width: 60%;
+  width: 450px;
   border: 1px solid black;
   z-index: 1000;
   position: absolute;
-  top: 20%;
-  left: 20%;
+  margin-top: 50vh;
+  margin-left: 50vh;
+  transform: translateY(-50%);
+
+  overflow-y: auto;
+  max-height: 600px;
+  background-color: #fff;
 }
 
 .create-strategy-inputs-container {
@@ -162,13 +168,18 @@
 .modal-overlay {
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0,0,0,0.5);
   z-index: 500;
   margin-top: -6rem; /* this is the top margin of the container class */
 }
 
 .modal-main-container {
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
 }
 
 .close-modal-btn {
@@ -178,6 +189,7 @@
   margin-right: 5rem;
   font-size: 1.5rem;
   right: 0;
+  color: #fff;
 }
 
 /* Tagger */
