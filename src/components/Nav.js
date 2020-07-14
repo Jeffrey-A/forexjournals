@@ -39,9 +39,6 @@ class Nav extends React.Component {
     if (isAuthenticated) {
       return [
         <li key={nextId()}>
-          <Link onClick={this.closeMobileNav} to="/journals">Journals</Link>
-        </li>,
-        <li key={nextId()}>
           <Link onClick={this.closeMobileNav} to="/strategies">Strategies</Link>
         </li>,
         <li key={nextId()}>
