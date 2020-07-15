@@ -1,11 +1,27 @@
-import React from 'react';
+import React from "react";
 
 class ViewStrategy extends React.Component {
-    render() {
-        return (
-            <h1>ViewStrategy</h1>
-        )
-    }
-}
+  constructor(props) {
+    super(props);
+  }
 
+  render() {
+    const {
+      name,
+      description,
+      entry_conditions,
+      exit_conditions,
+      time_frames,
+      indicators,
+      indicators_suggestions,
+      time_frames_suggestions,
+    } = this.props;
+
+    return (
+      <div className='container'>
+        <h1>Strategy name here</h1>
+      </div>
+    );
+  }
+}
 export default ViewStrategy;

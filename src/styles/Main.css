@@ -12,6 +12,9 @@
 
 .container {
   margin-top: 6rem;
+  position: relative;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .center-text {
@@ -27,7 +30,7 @@
   display: flex;
   justify-content: space-between;
   background-color: #1f2833;
-  padding: 1rem;
+  padding: 1rem 3rem;
   position: fixed;
   top: 0;
   width: 100%;
@@ -138,14 +141,35 @@
   margin-bottom: 1rem;
 }
 
+.create-strategy-flat-btn {
+  display: inline-block;
+  font-size: 1rem;
+  background-color: #1f2833;
+  color: #66fcf1;
+  border-style: none;
+  padding: 0.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.modal-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
 .modal-container {
   padding-top: 1rem;
-  width: 60%;
+  position: relative;
+  width: 450px;
   border: 1px solid black;
   z-index: 1000;
-  position: absolute;
-  top: 20%;
-  left: 20%;
+  overflow-y: auto;
+  max-height: 600px;
+  background-color: #fff;
 }
 
 .create-strategy-inputs-container {
@@ -158,22 +182,29 @@
 .modal-overlay {
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0,0,0,0.5);
   z-index: 500;
   margin-top: -6rem; /* this is the top margin of the container class */
 }
 
+
 .modal-main-container {
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.close-modal-btn-container {
+  text-align: end;
+  padding-right: 10px;
 }
 
 .close-modal-btn {
   cursor: pointer;
-  position: absolute;
-  top: 15%;
-  margin-right: 5rem;
   font-size: 1.5rem;
-  right: 0;
 }
 
 /* Tagger */
@@ -266,6 +297,47 @@
   padding: 2px 5px;
   height: 27px;
 }
+
+/*Strategy Card */
+.strategy-card-main-container {
+  display:flex;
+  justify-content: space-between;
+  width: 375px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding: 2px 5px;
+  box-shadow: 0 4px 2px -2px gray;
+}
+
+.strategy-card-icons-container svg {
+  margin-left: 10px;
+}
+
+.strategy-card-link {
+  text-decoration: none;
+  color: black;
+}
+
+.strategy-card-title {
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.strategy-card-link{
+  text-decoration: none;
+}
+
+/*Strategies */
+.strategies-header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.strategies-container {
+  margin-top: 3rem;
+}
+
 
 /* Media */
 

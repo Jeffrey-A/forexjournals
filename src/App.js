@@ -6,9 +6,7 @@ import "./styles/Main.css";
 import HomePage from "./pages/HomePage";
 import Journals from "./pages/Journals";
 import Strategies from "./pages/Strategies";
-import CreateJournal from "./pages/CreateJournal";
 import ViewJournal from "./pages/ViewJournal";
-import CreateStrategy from "./pages/CreateStrategy";
 import ViewStrategy from "./pages/ViewStrategy";
 import NoFound from "./pages/NoFound";
 import Login from "./pages/Login";
@@ -20,7 +18,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={(props) =>
       rest.isAuthenticated === true ? (
-        <Component {...props} />
+        <Component {...rest} />
       ) : (
         <Redirect
           to={{
@@ -136,14 +134,6 @@ class App extends React.Component {
 
           <ProtectedRoute
             exact
-            path="/journals/create"
-            isAuthenticated={isAuthenticated}
-            user={user}
-            component={CreateJournal}
-          />
-
-          <ProtectedRoute
-            exact
             path="/journals/view"
             user={user}
             isAuthenticated={isAuthenticated}
@@ -156,14 +146,6 @@ class App extends React.Component {
             user={user}
             isAuthenticated={isAuthenticated}
             component={Strategies}
-          />
-
-          <ProtectedRoute
-            exact
-            user={user}
-            path="/strategies/create"
-            isAuthenticated={isAuthenticated}
-            component={CreateStrategy}
           />
 
           <ProtectedRoute
