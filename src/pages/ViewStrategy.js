@@ -18,8 +18,24 @@ class ViewStrategy extends React.Component {
     } = this.props;
 
     return (
-      <div className='container'>
-        <h1>Strategy name here</h1>
+      <div className="container">
+        <div>
+          <h1>{name}</h1>
+          <div>
+            <p>Overview</p>
+            <p>{description}</p>
+          </div>
+
+          <div>
+            <p>Entry Conditions</p>
+            <p>{entry_conditions}</p>
+          </div>
+
+          <div>
+            <p>Exit Conditions</p>
+            <p>{exit_conditions}</p>
+          </div>
+        </div>
       </div>
     );
   }
