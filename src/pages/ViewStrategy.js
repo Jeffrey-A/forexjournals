@@ -13,9 +13,10 @@ class ViewStrategy extends React.Component {
       exit_conditions,
       time_frames,
       indicators,
-      indicators_suggestions,
-      time_frames_suggestions,
-    } = this.props;
+      risk_to_reward,
+      strategy_id,
+      risk_per_trade
+    } = this.props.location.state.strategyInfo;
 
     return (
       <div className="container">

@@ -38,7 +38,7 @@ class Strategies extends React.Component {
 
         <div className="strategies-container">
           {strategies.map((strategy) => (
-            <StrategyCard name={strategy.name} />
+            <StrategyCard strategyInfo={strategy} />
           ))}
         </div>
       </div>
