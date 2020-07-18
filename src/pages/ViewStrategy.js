@@ -21,7 +21,7 @@ class ViewStrategy extends React.Component {
     return (
       <div className="container">
         <div>
-          <h1>{name}</h1>
+          <h1 className='view-strategy-header'>{name}</h1>
           <div>
             <p>Overview</p>
             <p>{description}</p>
