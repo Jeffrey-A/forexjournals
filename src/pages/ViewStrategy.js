@@ -23,7 +23,8 @@ class ViewStrategy extends React.Component {
         <div>
           <div className="view-strategy-header-container">
             <h1 className="view-strategy-header">{name}</h1>
-            <div className='view-strategy-header-btn-container'>
+
+            <div className="view-strategy-header-btn-container">
               <span className="go-to-journal">Go To Journal</span>
             </div>
           </div>
@@ -41,6 +42,26 @@ class ViewStrategy extends React.Component {
           <div>
             <p>Exit Conditions</p>
             <p>{exit_conditions}</p>
+          </div>
+
+          <div>
+            <p>Time Frames</p>
+            <p>{time_frames}</p>
+          </div>
+
+          <div>
+            <p>Indicators</p>
+            <p>{indicators}</p>
+          </div>
+
+          <div>
+            <p>Risk to reward</p>
+            <p>{risk_to_reward}</p>
+          </div>
+
+          <div>
+            <p>Risk per trade</p>
+            <p>{risk_per_trade}</p>
           </div>
         </div>
       </div>
