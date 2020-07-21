@@ -30,37 +30,37 @@ class ViewStrategy extends React.Component {
           </div>
 
           <div>
-            <p>Overview</p>
+            <h3 className='view-strategy-field-header'>Overview</h3>
             <p>{description}</p>
           </div>
 
           <div>
-            <p>Entry Conditions</p>
+            <h3 className='view-strategy-field-header'>Entry Conditions</h3>
             <p>{entry_conditions}</p>
           </div>
 
           <div>
-            <p>Exit Conditions</p>
+            <h3 className='view-strategy-field-header'>Exit Conditions</h3>
             <p>{exit_conditions}</p>
           </div>
 
           <div>
-            <p>Time Frames</p>
+            <h3 className='view-strategy-field-header'>Time Frames</h3>
             <p>{time_frames}</p>
           </div>
 
           <div>
-            <p>Indicators</p>
+            <h3 className='view-strategy-field-header'>Indicators</h3>
             <p>{indicators}</p>
           </div>
 
           <div>
-            <p>Risk to reward</p>
+            <h3 className='view-strategy-field-header'>Risk to reward</h3>
             <p>{risk_to_reward}</p>
           </div>
 
           <div>
-            <p>Risk per trade</p>
+            <h3 className='view-strategy-field-header'>Risk per trade</h3>
             <p>{risk_per_trade}</p>
           </div>
         </div>
