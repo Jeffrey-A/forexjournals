@@ -15,13 +15,19 @@ class ViewStrategy extends React.Component {
       indicators,
       risk_to_reward,
       strategy_id,
-      risk_per_trade
+      risk_per_trade,
     } = this.props.location.state.strategyInfo;
 
     return (
       <div className="container">
         <div>
-          <h1 className='view-strategy-header'>{name}</h1>
+          <div className="view-strategy-header-container">
+            <h1 className="view-strategy-header">{name}</h1>
+            <div className='view-strategy-header-btn-container'>
+              <span className="go-to-journal">Go To Journal</span>
+            </div>
+          </div>
+
           <div>
             <p>Overview</p>
             <p>{description}</p>

@@ -141,7 +141,7 @@
   margin-bottom: 1rem;
 }
 
-.create-strategy-flat-btn {
+.create-strategy-flat-btn, .go-to-journal {
   display: inline-block;
   font-size: 1rem;
   background-color: #1f2833;
@@ -342,6 +342,20 @@
 .view-strategy-header {
   text-transform: capitalize;
   font-weight: 600;
+}
+
+.view-strategy-header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.view-strategy-header-container > div {
+  width: 60%;
+}
+
+.view-strategy-header-btn-container {
+  display: flex;
+  justify-content: flex-end;
 }
 
 
