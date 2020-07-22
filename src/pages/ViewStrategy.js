@@ -29,7 +29,7 @@ class ViewStrategy extends React.Component {
             </div>
           </div>
 
-          <div>
+          <div className='content-container'>
             <h3 className='view-strategy-field-header'>Overview</h3>
             <p>{description}</p>
           </div>
