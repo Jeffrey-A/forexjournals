@@ -14,7 +14,7 @@ class StrategyCard extends React.Component {
         <div className="strategy-card-name-container">
           <Link
             className="strategy-card-link"
-            to={{ pathname: "/strategies/view", state: { strategyInfo } }}
+            to={{ pathname: `/strategies/view/${strategyInfo.strategy_id}`, state: { strategyInfo } }}
           >
             <span className="strategy-card-title">{strategyInfo.name}</span>
           </Link>
