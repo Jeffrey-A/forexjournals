@@ -347,6 +347,7 @@
 .view-strategy-header-container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .view-strategy-header-container > div {
@@ -360,6 +361,15 @@
 
 .content-container {
   margin-top: 3rem;
+}
+
+.view-strategy-field-header {
+  margin-bottom: 0.5rem;;
+  margin-top: 0.5rem;;
+}
+
+.view-strategy-content-container {
+  margin-bottom: 2.5rem;
 }
 
 /* Media */
