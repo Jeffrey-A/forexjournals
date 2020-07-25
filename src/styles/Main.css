@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html, body {
+  position: relative;
+}
+
 /* Utils */
 
 .hide {
@@ -34,6 +38,7 @@
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1000;
 }
 
 .mobile-nav-right-container {
