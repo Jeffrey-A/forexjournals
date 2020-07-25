@@ -370,6 +370,7 @@
 
 .view-strategy-content-container {
   margin-bottom: 2.5rem;
+  border-top: 1px solid #eee;
 }
 
 .view-strategy-content-container p::first-letter {
