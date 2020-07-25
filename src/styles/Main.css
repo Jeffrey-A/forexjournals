@@ -372,6 +372,10 @@
   margin-bottom: 2.5rem;
 }
 
+.view-strategy-content-container p::first-letter {
+  text-transform: uppercase;
+}
+
 /* Media */
 
 /* Small-Medium devices*/
