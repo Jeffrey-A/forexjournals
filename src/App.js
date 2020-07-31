@@ -151,7 +151,7 @@ class App extends React.Component {
           <ProtectedRoute
             exact
             user={user}
-            path="/strategies/view"
+            path="/strategies/view/:id"
             isAuthenticated={isAuthenticated}
             component={ViewStrategy}
           />

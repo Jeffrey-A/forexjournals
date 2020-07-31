@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html, body {
+  position: relative;
+}
+
 /* Utils */
 
 .hide {
@@ -34,6 +38,7 @@
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1000;
 }
 
 .mobile-nav-right-container {
@@ -141,7 +146,7 @@
   margin-bottom: 1rem;
 }
 
-.create-strategy-flat-btn {
+.create-strategy-flat-btn, .go-to-journal {
   display: inline-block;
   font-size: 1rem;
   background-color: #1f2833;
@@ -338,6 +343,44 @@
   margin-top: 3rem;
 }
 
+/*View strategy*/
+.view-strategy-header {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.view-strategy-header-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.view-strategy-header-container > div {
+  width: 60%;
+}
+
+.view-strategy-header-btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content-container {
+  margin-top: 3rem;
+}
+
+.view-strategy-field-header {
+  margin-bottom: 0.5rem;;
+  margin-top: 0.5rem;;
+}
+
+.view-strategy-content-container {
+  margin-bottom: 2.5rem;
+  border-top: 1px solid #eee;
+}
+
+.view-strategy-content-container p::first-letter {
+  text-transform: uppercase;
+}
 
 /* Media */
 

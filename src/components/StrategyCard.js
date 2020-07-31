@@ -7,25 +7,31 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 
 class StrategyCard extends React.Component {
   render() {
-    const { name } = this.props;
+    const { strategyInfo } = this.props;
 
     return (
       <div className="strategy-card-main-container">
         <div className="strategy-card-name-container">
-          <Link className='strategy-card-link' to="/strategies/view">
-            <span className="strategy-card-title">{name}</span>
+          <Link
+            className="strategy-card-link"
+            to={{ pathname: `/strategies/view/${strategyInfo.strategy_id}`, state: { strategyInfo } }}
+          >
+            <span className="strategy-card-title">{strategyInfo.name}</span>
           </Link>
         </div>
         <div className="strategy-card-icons-container">
-          <Link className='strategy-card-link' to="/strategies/view">
+        <Link
+            className="strategy-card-link"
+            to={{ pathname: `/strategies/view/${strategyInfo.strategy_id}`, state: { strategyInfo } }}
+          >
             <VisibilityIcon />
           </Link>
 
-          <Link className='strategy-card-link' to="/strategies/view">
+          <Link className="strategy-card-link" to="/strategies/view">
             <EditIcon />
           </Link>
 
-          <Link className='strategy-card-link' to="/strategies/view">
+          <Link className="strategy-card-link" to="/strategies/view">
             <DeleteIcon />
           </Link>
         </div>
