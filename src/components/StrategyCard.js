@@ -14,20 +14,32 @@ class StrategyCard extends React.Component {
         <div className="strategy-card-name-container">
           <Link
             className="strategy-card-link"
-            to={{ pathname: `/strategies/view/${strategyInfo.strategy_id}`, state: { strategyInfo } }}
+            to={{
+              pathname: `/strategies/view/${strategyInfo.strategy_id}`,
+              state: { strategyInfo },
+            }}
           >
             <span className="strategy-card-title">{strategyInfo.name}</span>
           </Link>
         </div>
         <div className="strategy-card-icons-container">
-        <Link
+          <Link
             className="strategy-card-link"
-            to={{ pathname: `/strategies/view/${strategyInfo.strategy_id}`, state: { strategyInfo } }}
+            to={{
+              pathname: `/strategies/view/${strategyInfo.strategy_id}`,
+              state: { strategyInfo },
+            }}
           >
             <VisibilityIcon />
           </Link>
 
-          <Link className="strategy-card-link"  to={{ pathname: `/strategies/edit/${strategyInfo.strategy_id}`, state: { strategyInfo } }}>
+          <Link
+            className="strategy-card-link"
+            to={{
+              pathname: `/strategies/edit/${strategyInfo.strategy_id}`,
+              state: { strategyInfo },
+            }}
+          >
             <EditIcon />
           </Link>
 
