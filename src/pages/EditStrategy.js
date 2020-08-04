@@ -50,7 +50,7 @@ class EditStrategy extends React.Component {
     payload.indicators = payload.indicators.join(",");
     payload.time_frames = payload.time_frames.join(",");
 
-    fetch("/strategies/11", {
+    fetch(`/strategies/${user.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
