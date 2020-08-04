@@ -27,7 +27,7 @@ class StrategyCard extends React.Component {
             <VisibilityIcon />
           </Link>
 
-          <Link className="strategy-card-link" to="/strategies/view">
+          <Link className="strategy-card-link"  to={{ pathname: `/strategies/edit/${strategyInfo.strategy_id}`, state: { strategyInfo } }}>
             <EditIcon />
           </Link>
 
