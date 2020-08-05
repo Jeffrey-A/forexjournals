@@ -21,6 +21,7 @@ class EditStrategy extends React.Component {
       name,
       description,
       entry_conditions,
+      strategy_id,
       exit_conditions,
       time_frames: time_frames ? time_frames.split(',') : [],
       risk_per_trade,
@@ -50,8 +51,8 @@ class EditStrategy extends React.Component {
     payload.indicators = payload.indicators.join(",");
     payload.time_frames = payload.time_frames.join(",");
 
-    fetch(`/strategies/${user.id}`, {
-      method: "POST",
+    fetch(`/strategies/${this.props.user.id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
