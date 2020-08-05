@@ -1,5 +1,6 @@
 import React from "react";
-// import Tagger from "./elements/Tagger";
+import Tagger from "../components/elements/Tagger";
+import { suggestedIndicators, suggestedTimeFrames } from "../utils/constants";
 
 class EditStrategy extends React.Component {
   constructor(props) {
@@ -23,10 +24,12 @@ class EditStrategy extends React.Component {
       entry_conditions,
       strategy_id,
       exit_conditions,
-      time_frames: time_frames ? time_frames.split(',') : [],
+      time_frames: time_frames ? time_frames.split(",") : [],
       risk_per_trade,
       risk_to_reward,
-      indicators: indicators ? indicators.split(',') : [],
+      indicators: indicators ? indicators.split(",") : [],
+      indicators_suggestions: suggestedIndicators,
+      time_frames_suggestions: suggestedTimeFrames,
     };
 
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
@@ -84,14 +87,16 @@ class EditStrategy extends React.Component {
 
   render() {
     const {
-        name,
-        description,
-        entry_conditions,
-        exit_conditions,
-        time_frames,
-        risk_per_trade,
-        risk_to_reward,
-        indicators,
+      name,
+      description,
+      entry_conditions,
+      exit_conditions,
+      time_frames,
+      risk_per_trade,
+      risk_to_reward,
+      indicators,
+      indicators_suggestions,
+      time_frames_suggestions,
     } = this.state;
 
     return (
@@ -105,13 +110,13 @@ class EditStrategy extends React.Component {
               className="edit-strategy-input"
               defaultValue={name}
             />
-             <p>Description</p>
+            <p>Description</p>
             <textarea
               onChange={(e) => this.handleTextFieldChange(e, "description")}
               className="edit-strategy-textarea"
               defaultValue={description}
             ></textarea>
-            {/* <Tagger
+            <Tagger
               placeholder="Indicators"
               updateSelectedOptions={this.updateIndicators}
               updateSuggestions={this.updateIndicatorSuggestions}
@@ -126,8 +131,8 @@ class EditStrategy extends React.Component {
               selectedOptions={time_frames}
               suggestions={time_frames_suggestions}
               defaultSuggestions={suggestedTimeFrames}
-            /> */}
-             <p>Entry conditions</p>
+            />
+            <p>Entry conditions</p>
             <textarea
               onChange={(e) =>
                 this.handleTextFieldChange(e, "entry_conditions")
@@ -135,19 +140,19 @@ class EditStrategy extends React.Component {
               className="edit-strategy-textarea"
               defaultValue={entry_conditions}
             ></textarea>
-             <p>Exit conditions</p>
+            <p>Exit conditions</p>
             <textarea
               onChange={(e) => this.handleTextFieldChange(e, "exit_conditions")}
               className="edit-strategy-textarea"
               defaultValue={exit_conditions}
             ></textarea>
-             <p>Risk per trade</p>
+            <p>Risk per trade</p>
             <input
               onChange={(e) => this.handleTextFieldChange(e, "risk_per_trade")}
               className="edit-strategy-input"
               defaultValue={risk_per_trade}
             />
-             <p>Risk to reward</p>
+            <p>Risk to reward</p>
             <input
               onChange={(e) => this.handleTextFieldChange(e, "risk_to_reward")}
               className="edit-strategy-input"
