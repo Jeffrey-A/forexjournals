@@ -102,7 +102,7 @@ class EditStrategy extends React.Component {
     return (
       <div className="container">
         <div className="edit-strategy-wrapper">
-          <h1 className="view-strategy-header">{name}</h1>
+          <h3 className="edit-strategy-header">Editing: {name}</h3>
           <div className="edit-strategy-inputs-container">
             <p className='edit-label'>Name</p>
             <input
@@ -161,7 +161,7 @@ class EditStrategy extends React.Component {
             />
             <button
               onClick={this.editStrategy}
-              className="edit-strategy-create-btn"
+              className="edit-strategy-btn"
             >
               Edit
             </button>
