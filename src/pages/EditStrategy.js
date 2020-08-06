@@ -110,7 +110,7 @@ class EditStrategy extends React.Component {
               className="edit-strategy-input"
               defaultValue={name}
             />
-            <p>Description</p>
+            <p className='edit-label'>Description</p>
             <textarea
               onChange={(e) => this.handleTextFieldChange(e, "description")}
               className="edit-strategy-textarea"
