@@ -103,8 +103,8 @@ class EditStrategy extends React.Component {
       <div className="container">
         <div className="edit-strategy-wrapper">
           <h1 className="view-strategy-header">{name}</h1>
-          <div className="create-strategy-inputs-container">
-            <p>Name</p>
+          <div className="edit-strategy-inputs-container">
+            <p className='edit-label'>Name</p>
             <input
               onChange={(e) => this.handleTextFieldChange(e, "name")}
               className="edit-strategy-input"
@@ -132,7 +132,7 @@ class EditStrategy extends React.Component {
               suggestions={time_frames_suggestions}
               defaultSuggestions={suggestedTimeFrames}
             />
-            <p>Entry conditions</p>
+            <p className='edit-label'>Entry conditions</p>
             <textarea
               onChange={(e) =>
                 this.handleTextFieldChange(e, "entry_conditions")
@@ -140,23 +140,24 @@ class EditStrategy extends React.Component {
               className="edit-strategy-textarea"
               defaultValue={entry_conditions}
             ></textarea>
-            <p>Exit conditions</p>
+            <p className='edit-label'>Exit conditions</p>
             <textarea
               onChange={(e) => this.handleTextFieldChange(e, "exit_conditions")}
               className="edit-strategy-textarea"
               defaultValue={exit_conditions}
             ></textarea>
-            <p>Risk per trade</p>
+            <p className='edit-label'>Risk per trade</p>
             <input
               onChange={(e) => this.handleTextFieldChange(e, "risk_per_trade")}
               className="edit-strategy-input"
               defaultValue={risk_per_trade}
             />
-            <p>Risk to reward</p>
+            <p className='edit-label'>Risk to reward</p>
             <input
               onChange={(e) => this.handleTextFieldChange(e, "risk_to_reward")}
               className="edit-strategy-input"
               defaultValue={risk_to_reward}
+              className="edit-strategy-input"
             />
             <button
               onClick={this.editStrategy}
