@@ -12,6 +12,7 @@ import NoFound from "./pages/NoFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Nav from "./components/Nav";
+import EditStrategy from './pages/EditStrategy';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -154,6 +155,13 @@ class App extends React.Component {
             path="/strategies/view/:id"
             isAuthenticated={isAuthenticated}
             component={ViewStrategy}
+          />
+          <ProtectedRoute
+            exact
+            user={user}
+            path="/strategies/edit/:id"
+            isAuthenticated={isAuthenticated}
+            component={EditStrategy}
           />
           <Route path="*" render={(props) => <NoFound user={user} />} />
         </Switch>

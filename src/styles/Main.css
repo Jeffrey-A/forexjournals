@@ -223,7 +223,7 @@ html, body {
 .tagger-add-btn {
   width: 30%;
   text-align: center;
-  background-color: white;
+  /* background-color: white; */
   cursor: pointer;
   height: 27px;
   padding: 2px;
@@ -258,6 +258,18 @@ html, body {
 .tagger-selected-option {
   display: flex !important;
   justify-content: space-around;
+  border: 1px solid #eee;
+  padding: 2px 5px;
+}
+
+.tagger-selected-option .tagger-remove-btn {
+  width: 30%;
+  text-align: center;
+}
+
+.tagger-selected-option .tagger-selected-option-text {
+  width: 70%;
+  padding-left: 5px;
 }
 
 .tagger-remove-btn {
@@ -380,6 +392,35 @@ html, body {
 
 .view-strategy-content-container p::first-letter {
   text-transform: uppercase;
+}
+
+.edit-strategy-inputs-container {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-strategy-input, 
+.edit-strategy-textarea,
+.edit-strategy-btn {
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 2px 5px;
+}
+
+.edit-strategy-inputs-container .tagger-top-container {
+  width: 100%;
+}
+
+.edit-strategy-header {
+  text-transform: capitalize;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.edit-label {
+  margin-bottom: 0.5rem;
 }
 
 /* Media */

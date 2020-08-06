@@ -49,7 +49,7 @@ class Tagger extends React.Component {
     const { selectedOptions } = this.props;
     const listItems = selectedOptions.map((option) => (
       <li className="tagger-selected-option" key={nextId()}>
-        <span>{option}</span>
+        <span className='tagger-selected-option-text'>{option}</span>
         <span
           className="tagger-remove-btn"
           onClick={this.removeOptionFromTagger}
@@ -173,7 +173,7 @@ class Tagger extends React.Component {
                 ))
               : null}
           </ul>
-          <ul>{this.displaySelectedOptions()}</ul>
+          <ul className='tagger-selected-options-ul'>{this.displaySelectedOptions()}</ul>
         </div>
       </div>
     );
