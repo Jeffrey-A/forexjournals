@@ -423,6 +423,10 @@ html, body {
   margin-bottom: 0.5rem;
 }
 
+.delete-strategy-icon {
+  cursor: pointer;
+}
+
 /* Media */
 
 /* Small-Medium devices*/

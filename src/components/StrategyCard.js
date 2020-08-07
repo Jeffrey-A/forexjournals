@@ -43,7 +43,7 @@ class StrategyCard extends React.Component {
             <EditIcon />
           </Link>
 
-            <DeleteIcon onClick={() => deleteStrategy(strategyInfo.strategy_id)} />
+            <DeleteIcon className='delete-strategy-icon' onClick={() => deleteStrategy(strategyInfo.strategy_id)} />
         </div>
       </div>
     );
