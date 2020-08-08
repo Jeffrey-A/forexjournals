@@ -6,7 +6,9 @@ if (require.main === module) {
     port: process.env.DB_PORT,
     password: process.env.DB_PASSWORD,
   };
-  const { Client } = require("pg");
+  // eslint-disable-next-line global-require
+  const { Client } = require('pg');
+  const db = new Client(dbCredentials);
 
   const buildQueryExecutor = (client) => (query) =>
     db
@@ -16,8 +18,6 @@ if (require.main === module) {
         console.error(err);
         console.error(err.stack);
       });
-
-  const db = new Client(dbCredentials);
 
   db.connect();
 
@@ -92,7 +92,7 @@ if (require.main === module) {
         `insert into journals (pair, comments, user_id, strategy_id, errors) values ('USDJPY','this is a test', 1, 1, 'Item, item 2');`
       );
 
-      console.log("Queries executed!");
+      console.log('Queries executed!');
     } catch (err) {
       console.error();
     }

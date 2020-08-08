@@ -1,5 +1,5 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 /* TO DO:
  * Find a way to store user session in the front-end(using cookies or local-store or something else)
  */
@@ -7,8 +7,8 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      usernameOrEmail: "",
-      password: "",
+      usernameOrEmail: '',
+      password: '',
       isFieldEmptyAfterSubmittingForm: false,
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -30,7 +30,7 @@ class Login extends React.Component {
   }
 
   handleKeyDown(event) {
-    if (event.key == "Enter") {
+    if (event.key == 'Enter') {
       this.performLogin({});
     }
   }
@@ -56,21 +56,21 @@ class Login extends React.Component {
       password,
     } = this.state;
     const { loginFailed } = this.props;
-    let errorMessage = "";
+    let errorMessage = '';
 
     const emailUsernameErrorClass =
       !usernameOrEmail.length && isFieldEmptyAfterSubmittingForm
-        ? "input-error"
+        ? 'input-error'
         : null;
     const passwordErrorClass =
       !password.length && isFieldEmptyAfterSubmittingForm
-        ? "input-error"
+        ? 'input-error'
         : null;
 
     if (isFieldEmptyAfterSubmittingForm) {
-      errorMessage = "All fields are required";
+      errorMessage = 'All fields are required';
     } else if (loginFailed) {
-      errorMessage = "Either email/username or password is not valid";
+      errorMessage = 'Either email/username or password is not valid';
     }
 
     if (this.props.isAuthenticated) {
@@ -92,7 +92,7 @@ class Login extends React.Component {
             placeholder="Password"
             onKeyDown={this.handleKeyDown}
             onChange={this.handlePasswordChange}
-            type='password'
+            type="password"
           />
           <button onClick={this.performLogin}>LogIn</button>
           <p>{errorMessage}</p>

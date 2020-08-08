@@ -1,8 +1,9 @@
-import express from "express";
-import Strategies from "../database/models/strategies";
-import Journals from "../database/models/journals";
+const express = require('express');
+const Strategies = require('../database/models/strategies');
+const Journals = require('../database/models/journals');
 
-const logErrorMessage = require("../server-utils/utils");
+const logErrorMessage = require('../server-utils/utils');
+
 const router = express.Router();
 
 function getStrategies(req, res) {
@@ -11,7 +12,7 @@ function getStrategies(req, res) {
       res.json(strategies);
     })
     .catch((err) => {
-      logErrorMessage("Error getting strategies", err);
+      logErrorMessage('Error getting strategies', err);
       res.sendStatus(500);
     });
 }
@@ -34,14 +35,13 @@ function createStrategy(req, res) {
       res.sendStatus(201);
     })
     .catch((err) => {
-      logErrorMessage("Error creating strategy", err);
+      logErrorMessage('Error creating strategy', err);
       res.send(500);
     });
 }
 
 function updateStrategy(req, res) {
-  const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
-  const userId = req.params.userId;
+  const { strategy_id, userId } = req.body;
 
   const updatedPayload = {
     name: req.body.name,
@@ -62,26 +62,26 @@ function updateStrategy(req, res) {
       res.sendStatus(204);
     })
     .catch((err) => {
-      logErrorMessage("Error updating strategy", err);
+      logErrorMessage('Error updating strategy', err);
       res.sendStatus(500);
     });
 }
 
 const deleteStrategy = async (req, res) => {
-  const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
-  const userId = req.params.userId;
+  const strategy_id = req.body.strategy_id ? req.body.strategy_id : '';
+  const { userId } = req.params;
   await Journals.destroy({ where: { strategy_id, user_id: userId } });
 
   Strategies.destroy({ where: { strategy_id, user_id: userId } })
     .then(() => res.sendStatus(204))
     .catch((err) => {
-      logErrorMessage("Error deleting strategy", err);
+      logErrorMessage('Error deleting strategy', err);
       res.sendStatus(500);
     });
 };
 
 router
-  .route("/:userId")
+  .route('/:userId')
   .get(getStrategies)
   .post(createStrategy)
   .put(updateStrategy)

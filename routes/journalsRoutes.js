@@ -1,13 +1,14 @@
-import express from "express";
-import Journals from "../database/models/journals";
-const logErrorMessage = require("../server-utils/utils");
+/* eslint-disable no-use-before-define */
+const express = require('express');
+const Journals = require('../database/models/journals');
+const logErrorMessage = require('../server-utils/utils');
 
 const router = express.Router();
 
-router.get("/:userId/:strategyId?", getJournalsForUser);
+router.get('/:userId/:strategyId?', getJournalsForUser);
 
 router
-  .route("/:userId/:strategyId")
+  .route('/:userId/:strategyId')
   .post(createJournal)
   .put(updateJournal)
   .delete(deleteJournal);
@@ -22,7 +23,7 @@ function getJournalsForUser(req, res) {
         res.json(journals);
       })
       .catch((err) => {
-        logErrorMessage("Error getting journals", err);
+        logErrorMessage('Error getting journals', err);
         res.sendStatus(500);
       });
   } else {
@@ -31,7 +32,7 @@ function getJournalsForUser(req, res) {
         res.json(journals);
       })
       .catch((err) => {
-        logErrorMessage("Error getting journals", err);
+        logErrorMessage('Error getting journals', err);
         res.sendStatus(500);
       });
   }
@@ -54,7 +55,7 @@ function createJournal(req, res) {
       res.sendStatus(202);
     })
     .catch((err) => {
-      logErrorMessage("Error creating journal, err");
+      logErrorMessage('Error creating journal, err');
       res.send(err);
     });
 }
@@ -62,7 +63,7 @@ function createJournal(req, res) {
 function updateJournal(req, res) {
   const strategy_id = req.params.strategyId;
   const user_id = req.params.userId;
-  const journal_id = req.body.journal_id ? req.body.journal_id : "";
+  const journal_id = req.body.journal_id ? req.body.journal_id : '';
   const updatedPayload = {
     pair: req.body.pair,
     comments: req.body.comments,
@@ -79,7 +80,7 @@ function updateJournal(req, res) {
       res.sendStatus(204);
     })
     .catch((err) => {
-      logErrorMessage("Error updating journal", err);
+      logErrorMessage('Error updating journal', err);
       res.sendStatus(500);
     });
 }
@@ -87,12 +88,12 @@ function updateJournal(req, res) {
 function deleteJournal(req, res) {
   const strategy_id = req.params.strategyId;
   const user_id = req.params.userId;
-  const journal_id = req.body.journal_id ? req.body.journal_id : "";
+  const journal_id = req.body.journal_id ? req.body.journal_id : '';
 
   Journals.destroy({ where: { journal_id, user_id, strategy_id } })
     .then(() => res.sendStatus(204))
     .catch((err) => {
-      logErrorMessage("Error deleting journal", err);
+      logErrorMessage('Error deleting journal', err);
       res.sendStatus(500);
     });
 }

@@ -1,8 +1,8 @@
 // Tagger
 
-export const suggestedIndicators = ["option 1", "option 2", "option 3"];
+export const suggestedIndicators = ['option 1', 'option 2', 'option 3'];
 
-export const suggestedTimeFrames = ["H1", "H2", "H4"];
+export const suggestedTimeFrames = ['H1', 'H2', 'H4'];
 
 export const orderTypes = [
   'Buy',
@@ -11,161 +11,161 @@ export const orderTypes = [
   'Sell Limit',
   'Buy Stop',
   'Sell Stop',
-]
+];
 
 export const currencies = [
-  "AUDCAD",
-  "AUDCHF",
+  'AUDCAD',
+  'AUDCHF',
 
-  "AUDJPY",
+  'AUDJPY',
 
-  "AUDNZD",
+  'AUDNZD',
 
-  "AUDSGD",
+  'AUDSGD',
 
-  "AUDUSD",
+  'AUDUSD',
 
-  "CADCHF",
+  'CADCHF',
 
-  "CADJPY",
+  'CADJPY',
 
-  "CHFJPY",
+  'CHFJPY',
 
-  "CHFSGD",
+  'CHFSGD',
 
-  "EURAUD",
+  'EURAUD',
 
-  "EURCAD",
+  'EURCAD',
 
-  "EURCHF",
-  "EURCZK",
-  "EURGBP",
+  'EURCHF',
+  'EURCZK',
+  'EURGBP',
 
-  "EURHUF",
+  'EURHUF',
 
-  "EURJPY",
+  'EURJPY',
 
-  "EURMXN",
+  'EURMXN',
 
-  "EURNOK",
+  'EURNOK',
 
-  "EURNZD",
+  'EURNZD',
 
-  "EURPLN",
+  'EURPLN',
 
-  "EURSEK",
+  'EURSEK',
 
-  "EURSGD",
+  'EURSGD',
 
-  "EURTRY",
+  'EURTRY',
 
-  "EURUSD",
+  'EURUSD',
 
-  "EURX",
+  'EURX',
 
-  "EURZAR",
+  'EURZAR',
 
-  "GBPAUD",
+  'GBPAUD',
 
-  "GBPCAD",
+  'GBPCAD',
 
-  "GBPCHF",
+  'GBPCHF',
 
-  "GBPJPY",
+  'GBPJPY',
 
-  "GBPMXN",
+  'GBPMXN',
 
-  "GBPNOK",
+  'GBPNOK',
 
-  "GBPNZD",
+  'GBPNZD',
 
   ,
-  "GBPSEK",
+  'GBPSEK',
 
-  "GBPSGD",
+  'GBPSGD',
 
-  "GBPTRY",
+  'GBPTRY',
 
-  "GBPUSD",
+  'GBPUSD',
 
-  "JPYX",
+  'JPYX',
 
-  "NOKJPY",
+  'NOKJPY',
 
-  "NOKSEK",
+  'NOKSEK',
 
-  "NZDCAD",
+  'NZDCAD',
 
-  "NZDCHF",
+  'NZDCHF',
 
-  "NZDJPY",
+  'NZDJPY',
 
-  "NZDUSD",
+  'NZDUSD',
 
-  "SEKJPY",
+  'SEKJPY',
 
-  "SGDJPY",
+  'SGDJPY',
 
-  "USDCAD",
+  'USDCAD',
 
-  "USDCHF",
+  'USDCHF',
 
-  "USDCNH",
+  'USDCNH',
 
-  "USDCZK",
+  'USDCZK',
 
-  "USDHKD",
+  'USDHKD',
 
-  "USDHUF",
+  'USDHUF',
 
-  "USDJPY",
+  'USDJPY',
 
-  "USDMXN",
+  'USDMXN',
 
-  "USDNOK",
+  'USDNOK',
 
-  "USDPLN",
+  'USDPLN',
 
-  "USDRUB",
+  'USDRUB',
 
-  "USDSEK",
+  'USDSEK',
 
-  "USDSGD",
+  'USDSGD',
 
-  "USDTHB",
+  'USDTHB',
 
-  "USDTRY",
+  'USDTRY',
 
-  "USDX",
+  'USDX',
 
-  "USDZAR",
+  'USDZAR',
 
-  "VIX",
+  'VIX',
 
-  "XAGAUD",
+  'XAGAUD',
 
-  "XAGEUR",
+  'XAGEUR',
 
-  "XAGUSD",
+  'XAGUSD',
 
-  "XAUAUD",
+  'XAUAUD',
 
-  "XAUCHF",
+  'XAUCHF',
 
-  "XAUEUR",
-  "XAUGBP",
+  'XAUEUR',
+  'XAUGBP',
 
-  "XAUUSD",
+  'XAUUSD',
 
-  "XBRUSD",
+  'XBRUSD',
 
-  "XNGUSD",
+  'XNGUSD',
 
-  "XPDUSD",
+  'XPDUSD',
 
-  "XPTUSD",
+  'XPTUSD',
 
-  "XTIUSD",
+  'XTIUSD',
 
-  "ZARJPY",
+  'ZARJPY',
 ];

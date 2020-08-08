@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const database = require("../db");
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const Journals = database.define(
-  "journals",
+  'journals',
   {
     journal_id: {
       type: Sequelize.INTEGER,
@@ -30,15 +30,15 @@ const Journals = database.define(
     user_id: {
       type: Sequelize.INTEGER,
       references: {
-        model: "users",
-        key: "id",
+        model: 'users',
+        key: 'id',
       },
     },
     strategy_id: {
       type: Sequelize.INTEGER,
       references: {
-        model: "strategies",
-        key: "strategy_id",
+        model: 'strategies',
+        key: 'strategy_id',
       },
     },
   },

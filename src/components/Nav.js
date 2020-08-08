@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import MenuIcon from "../assets/menu.png";
-import nextId from "react-id-generator";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import MenuIcon from '../assets/menu.png';
+import nextId from 'react-id-generator';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -25,13 +25,13 @@ class Nav extends React.Component {
   }
 
   closeMobileNav() {
-    this.setState({isMobileMenuExpanded: false})
+    this.setState({ isMobileMenuExpanded: false });
   }
 
   closeMobileNavAndLogout() {
-    this.setState({isMobileMenuExpanded: false}, () => {
-      this.props.logout()
-    })
+    this.setState({ isMobileMenuExpanded: false }, () => {
+      this.props.logout();
+    });
   }
 
   displayLinks() {
@@ -39,7 +39,9 @@ class Nav extends React.Component {
     if (isAuthenticated) {
       return [
         <li key={nextId()}>
-          <Link onClick={this.closeMobileNav} to="/strategies">Strategies</Link>
+          <Link onClick={this.closeMobileNav} to="/strategies">
+            Strategies
+          </Link>
         </li>,
         <li key={nextId()}>
           <Link onClick={this.closeMobileNavAndLogout} to="/">
@@ -50,10 +52,14 @@ class Nav extends React.Component {
     }
     return [
       <li key={nextId()}>
-        <Link onClick={this.closeMobileNav} to="/register">Register</Link>
+        <Link onClick={this.closeMobileNav} to="/register">
+          Register
+        </Link>
       </li>,
       <li key={nextId()}>
-        <Link onClick={this.closeMobileNav} to="/login">Log in</Link>
+        <Link onClick={this.closeMobileNav} to="/login">
+          Log in
+        </Link>
       </li>,
     ];
   }
@@ -62,16 +68,21 @@ class Nav extends React.Component {
     const { isMobileMenuExpanded } = this.state;
 
     const mobileNavClasses = !isMobileMenuExpanded
-      ? "mobile-nav-right-container hide"
-      : "mobile-nav-right-container";
+      ? 'mobile-nav-right-container hide'
+      : 'mobile-nav-right-container';
 
     return (
       <div className="nav-main-container">
         <ul className="nav-left-container">
           <li>
-            <Link  onClick={this.closeMobileNav} to="/">FX JOURNALS</Link>
+            <Link onClick={this.closeMobileNav} to="/">
+              FX JOURNALS
+            </Link>
           </li>
-          <span className="show-links-in-mobile" onClick={this.expandCloseMobileNav}>
+          <span
+            className="show-links-in-mobile"
+            onClick={this.expandCloseMobileNav}
+          >
             <img src={MenuIcon} alt="show nav links" />
           </span>
         </ul>

@@ -1,5 +1,5 @@
-import React from "react";
-import nextId from "react-id-generator";
+import React from 'react';
+import nextId from 'react-id-generator';
 
 class Tagger extends React.Component {
   constructor(props) {
@@ -7,7 +7,7 @@ class Tagger extends React.Component {
 
     this.state = {
       isExpanded: false,
-      inputText: "",
+      inputText: '',
     };
 
     this.hideSuggestions = this.hideSuggestions.bind(this);
@@ -28,12 +28,12 @@ class Tagger extends React.Component {
 
   componentDidMount() {
     // For some reason the event was binding twice.
-    document.removeEventListener("click", () => {});
+    document.removeEventListener('click', () => {});
 
     // Hide tagger's suggestions when click outside
-    document.addEventListener("click", (e) => {
+    document.addEventListener('click', (e) => {
       const shouldHideSuggestions =
-        e.target.tagName.toLowerCase() !== "input" ||
+        e.target.tagName.toLowerCase() !== 'input' ||
         e.target.placeholder !== this.props.placeholder;
       if (shouldHideSuggestions) {
         this.hideSuggestions();
@@ -49,7 +49,7 @@ class Tagger extends React.Component {
     const { selectedOptions } = this.props;
     const listItems = selectedOptions.map((option) => (
       <li className="tagger-selected-option" key={nextId()}>
-        <span className='tagger-selected-option-text'>{option}</span>
+        <span className="tagger-selected-option-text">{option}</span>
         <span
           className="tagger-remove-btn"
           onClick={this.removeOptionFromTagger}
@@ -103,7 +103,7 @@ class Tagger extends React.Component {
     if (inputText.length) {
       this.setState(
         {
-          inputText: "",
+          inputText: '',
           isExpanded: false,
         },
         () => {
@@ -123,7 +123,7 @@ class Tagger extends React.Component {
         return suggestion.toLowerCase().includes(inputValue.toLowerCase());
       });
 
-      if (inputValue != "") {
+      if (inputValue != '') {
         updateSuggestions(filteredSuggestions);
       } else {
         updateSuggestions(defaultSuggestions);
@@ -132,7 +132,7 @@ class Tagger extends React.Component {
   }
 
   handleInputKeyDown(e) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       this.appendSuggestionAndResetSuggestions();
     }
   }
@@ -173,7 +173,9 @@ class Tagger extends React.Component {
                 ))
               : null}
           </ul>
-          <ul className='tagger-selected-options-ul'>{this.displaySelectedOptions()}</ul>
+          <ul className="tagger-selected-options-ul">
+            {this.displaySelectedOptions()}
+          </ul>
         </div>
       </div>
     );

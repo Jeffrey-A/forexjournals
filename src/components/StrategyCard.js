@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
-import VisibilityIcon from "@material-ui/icons/Visibility";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 class StrategyCard extends React.Component {
   render() {
@@ -43,7 +43,10 @@ class StrategyCard extends React.Component {
             <EditIcon />
           </Link>
 
-            <DeleteIcon className='delete-strategy-icon' onClick={() => deleteStrategy(strategyInfo.strategy_id)} />
+          <DeleteIcon
+            className="delete-strategy-icon"
+            onClick={() => deleteStrategy(strategyInfo.strategy_id)}
+          />
         </div>
       </div>
     );

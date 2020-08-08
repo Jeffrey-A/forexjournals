@@ -1,36 +1,37 @@
-const path = require("path");
-const webpackNodeExternals = require("webpack-node-externals");
+const path = require('path');
+const webpackNodeExternals = require('webpack-node-externals');
+
 module.exports = {
-  target: "node",
-  entry: "./server.js",
+  target: 'node',
+  entry: './server.js',
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "build"),
-    publicPath: "build",
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'build'),
+    publicPath: 'build',
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ["css-loader"],
+        use: ['css-loader'],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: [{loader: "url-loader"}],
+        use: [{ loader: 'url-loader' }],
       },
       {
         test: /\.js/,
-        loader: "babel-loader",
-        exclude: "/node_modules/",
+        loader: 'babel-loader',
+        exclude: '/node_modules/',
         options: {
           presets: [
-            "react",
-            "stage-0",
+            'react',
+            'stage-0',
             [
-              "env",
+              'env',
               {
                 target: {
-                  browsers: ["last 2 versions"],
+                  browsers: ['last 2 versions'],
                 },
               },
             ],

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 class ViewStrategy extends React.Component {
   constructor(props) {
@@ -7,7 +7,7 @@ class ViewStrategy extends React.Component {
 
   displayAltTextIfEmpty(text) {
     if (!text) {
-      return "No content to show";
+      return 'No content to show';
     }
     return text;
   }
