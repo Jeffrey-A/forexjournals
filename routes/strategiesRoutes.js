@@ -1,7 +1,9 @@
 import express from "express";
-const router = express.Router();
 import Strategies from "../database/models/strategies";
+import Journals from "../database/models/journals";
+
 const logErrorMessage = require("../server-utils/utils");
+const router = express.Router();
 
 function getStrategies(req, res) {
   Strategies.findAll({ where: { user_id: req.params.userId } })
