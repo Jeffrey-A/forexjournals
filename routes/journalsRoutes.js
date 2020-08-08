@@ -1,5 +1,6 @@
 import express from "express";
 import Journals from "../database/models/journals";
+const logErrorMessage = require("../server-utils/utils");
 
 const router = express.Router();
 
