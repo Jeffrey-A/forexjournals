@@ -8,8 +8,9 @@ import App from "./src/App";
 import { Helmet } from "react-helmet";
 import db from "./database/db";
 import ensureAuthenticated from "./config/auth";
-var session = require("express-session");
-var passport = require("passport");
+const session = require("express-session");
+const passport = require("passport");
+const dotenv = require('dotenv');
 const logErrorMessage = require("./server-utils/utils");
 const strategyRouter = require("./routes/strategiesRoutes");
 const journalRouter = require("./routes/journalsRoutes");
@@ -18,6 +19,9 @@ const morgan = require("morgan");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+dotenv.config({path:'./config.env'})
+
 
 // Middlewares
 
