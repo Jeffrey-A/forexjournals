@@ -8,14 +8,14 @@ import App from "./src/App";
 import { Helmet } from "react-helmet";
 import db from "./database/db";
 import Users from "./database/models/users";
-import Strategies from "./database/models/strategies";
 import Journals from "./database/models/journals";
 import { Sequelize } from "sequelize";
 import ensureAuthenticated from "./config/auth";
 var session = require("express-session");
 var passport = require("passport");
 const bcrypt = require("bcrypt");
-const logErrorMessage = require('./server-utils/utils');
+const logErrorMessage = require("./server-utils/utils");
+const strategyRouter = require("./routes/strategiesRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -43,6 +43,7 @@ app.use(passport.session());
 // Check database connection
 db.sync().then(() => console.log("connected to database successfully"));
 
+app.use("/strategies", strategyRouter);
 // Routes
 app.post("/login", passport.authenticate("local"), (req, res) => {
   const { id, user_name, email } = req.user;
@@ -55,14 +56,14 @@ app.post("/register", async (req, res) => {
   const usersWithUserName = await Users.findAll({ where: { user_name } });
 
   if (usersWithUserName.length) {
-    logErrorMessage('Error: username already in use')
+    logErrorMessage("Error: username already in use");
     return res.sendStatus(409);
   }
 
   const usersUsingEmail = await Users.findAll({ where: { email } });
 
   if (usersUsingEmail.length) {
-    logErrorMessage('Error: email already in use');
+    logErrorMessage("Error: email already in use");
     return res.sendStatus(409);
   }
   // Create the user with hashed password
@@ -75,7 +76,7 @@ app.post("/register", async (req, res) => {
           res.sendStatus(200);
         })
         .catch((err) => {
-          logErrorMessage('Error creating user', err);
+          logErrorMessage("Error creating user", err);
           res.send(500);
         });
     })
@@ -92,7 +93,7 @@ app.get("/journals/:userId/:strategyId?", ensureAuthenticated, (req, res) => {
         res.json(journals);
       })
       .catch((err) => {
-        logErrorMessage('Error getting journals', err);
+        logErrorMessage("Error getting journals", err);
         res.sendStatus(500);
       });
   } else {
@@ -101,7 +102,7 @@ app.get("/journals/:userId/:strategyId?", ensureAuthenticated, (req, res) => {
         res.json(journals);
       })
       .catch((err) => {
-        logErrorMessage('Error getting journals', err);
+        logErrorMessage("Error getting journals", err);
         res.sendStatus(500);
       });
   }
@@ -150,8 +151,8 @@ app
         res.sendStatus(200);
       })
       .catch((err) => {
-        logErrorMessage('Error updating journal', err);
-        res.sendStatus(500)
+        logErrorMessage("Error updating journal", err);
+        res.sendStatus(500);
       });
   })
   .delete(ensureAuthenticated, (req, res) => {
@@ -162,86 +163,12 @@ app
     Journals.destroy({ where: { journal_id, user_id, strategy_id } })
       .then(() => res.sendStatus(200))
       .catch((err) => {
-        logErrorMessage('Error deleting journal', err);
-        res.sendStatus(500)
-      });
-  });
-
-app
-  .route("/strategies/:userId")
-  .get(ensureAuthenticated, (req, res) => {
-    Strategies.findAll({ where: { user_id: req.params.userId } })
-      .then((strategies) => {
-        res.json(strategies);
-      })
-      .catch((err) => {
-        logErrorMessage('Error getting strategies', err);
-        res.sendStatus(500);
-      });
-  })
-  .post(ensureAuthenticated, (req, res) => {
-    const payload = {
-      user_id: req.params.userId,
-      name: req.body.name,
-      description: req.body.description,
-      entry_conditions: req.body.entry_conditions,
-      exit_conditions: req.body.exit_conditions,
-      time_frames: req.body.time_frames,
-      risk_per_trade: req.body.risk_per_trade,
-      risk_to_reward: req.body.risk_to_reward,
-      indicators: req.body.indicators,
-    };
-
-    Strategies.create(payload)
-      .then((strategies) => {
-        res.sendStatus(200);
-      })
-      .catch((err) => {
-        logErrorMessage('Error creating strategy', err);
-        res.send(500);
-      });
-  })
-  .put(ensureAuthenticated, (req, res) => {
-    const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
-    const userId = req.params.userId;
-
-    const updatedPayload = {
-      name: req.body.name,
-      description: req.body.description,
-      entry_conditions: req.body.entry_conditions,
-      exit_conditions: req.body.exit_conditions,
-      market_conditions: req.body.market_conditions,
-      time_frames: req.body.time_frames,
-      risk_per_trade: req.body.risk_per_trade,
-      risk_to_reward: req.body.risk_to_reward,
-      indicators: req.body.indicators,
-    };
-
-    Strategies.update(updatedPayload, {
-      where: { strategy_id, user_id: userId },
-    })
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch((err) => {
-        logErrorMessage('Error updating strategy', err)
-        res.sendStatus(500)
-      });
-  })
-  .delete(ensureAuthenticated, async (req, res) => {
-    const strategy_id = req.body.strategy_id ? req.body.strategy_id : "";
-    const userId = req.params.userId;
-    await Journals.destroy({ where: { strategy_id, user_id: userId } });
-
-    Strategies.destroy({ where: { strategy_id, user_id: userId } })
-      .then(() => res.sendStatus(200))
-      .catch((err) => {
-        logErrorMessage('Error deleting strategy', err);
+        logErrorMessage("Error deleting journal", err);
         res.sendStatus(500);
       });
   });
 
-// Handle react-router routes 
+// Handle react-router routes
 app.get("*", (req, res) => {
   const context = {};
   const content = ReactDOMServer.renderToString(
