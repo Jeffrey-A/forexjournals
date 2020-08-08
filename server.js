@@ -7,21 +7,21 @@ import bodyParser from "body-parser";
 import App from "./src/App";
 import { Helmet } from "react-helmet";
 import db from "./database/db";
-import Users from "./database/models/users";
-import Journals from "./database/models/journals";
-import { Sequelize } from "sequelize";
 import ensureAuthenticated from "./config/auth";
 var session = require("express-session");
 var passport = require("passport");
-const bcrypt = require("bcrypt");
 const logErrorMessage = require("./server-utils/utils");
 const strategyRouter = require("./routes/strategiesRoutes");
 const journalRouter = require("./routes/journalsRoutes");
+const userRouter = require("./routes/usersRoutes");
+const morgan = require("morgan");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
+
+app.use(morgan("tiny"));
 
 // Passport Config
 require("./config/passport")(passport);
@@ -44,46 +44,10 @@ app.use(passport.session());
 // Check database connection
 db.sync().then(() => console.log("connected to database successfully"));
 
+// Routes
+app.use("/users", userRouter);
 app.use("/strategies", strategyRouter);
 app.use("/journals", journalRouter);
-// Routes
-app.post("/login", passport.authenticate("local"), (req, res) => {
-  const { id, user_name, email } = req.user;
-  res.send({ id, user_name, email });
-});
-
-app.post("/register", async (req, res) => {
-  const { user_name, email, pass_word } = req.body;
-
-  const usersWithUserName = await Users.findAll({ where: { user_name } });
-
-  if (usersWithUserName.length) {
-    logErrorMessage("Error: username already in use");
-    return res.sendStatus(409);
-  }
-
-  const usersUsingEmail = await Users.findAll({ where: { email } });
-
-  if (usersUsingEmail.length) {
-    logErrorMessage("Error: email already in use");
-    return res.sendStatus(409);
-  }
-  // Create the user with hashed password
-  bcrypt.genSalt(10, (err, salt) =>
-    bcrypt.hash(pass_word, salt, (err, hashedPassword) => {
-      if (err) throw err;
-
-      Users.create({ user_name, email, pass_word: hashedPassword })
-        .then(() => {
-          res.sendStatus(200);
-        })
-        .catch((err) => {
-          logErrorMessage("Error creating user", err);
-          res.send(500);
-        });
-    })
-  );
-});
 
 // Handle react-router routes
 app.get("*", (req, res) => {
