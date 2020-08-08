@@ -47,7 +47,7 @@ class CreateStrategy extends React.Component {
     payload.indicators = payload.indicators.join(",");
     payload.time_frames = payload.time_frames.join(",");
 
-    fetch("/strategies/11", {
+    fetch(`/strategies/${this.props.user.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,10 @@ class CreateStrategy extends React.Component {
       <div className="modal-main-container modal-overlay ">
         <div className="modal-wrapper">
           <div className="modal-container">
-            <div className="close-modal-btn-container" onClick={this.toggleModal}>
+            <div
+              className="close-modal-btn-container"
+              onClick={this.toggleModal}
+            >
               <span className="close-modal-btn">X</span>
             </div>
             <h1 className="modal-header">Create Strategy</h1>

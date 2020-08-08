@@ -9,9 +9,15 @@ class Strategies extends React.Component {
     this.state = {
       strategies: [],
     };
+
+    this.deleteStrategy = this.deleteStrategy.bind(this);
   }
 
   componentDidMount() {
+    this.getStrategies();
+  }
+
+  getStrategies() {
     const { user } = this.props;
     fetch(`/strategies/${user.id}`)
       .then((response) => response.json())
@@ -20,25 +26,43 @@ class Strategies extends React.Component {
       });
   }
 
+  deleteStrategy(strategy_id) {
+    fetch(`/strategies/${this.props.user.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ strategy_id }),
+    }).then((response) => {
+      if (response.status == 200) {
+        this.getStrategies();
+      } else {
+        console.log("failed");
+      }
+    });
+  }
+
   render() {
     const { strategies } = this.state;
 
     return (
       <div className="container">
-       
         <div className="strategies-header-container">
           <div>
             <h1>Strategies</h1>
           </div>
 
           <div>
-            <CreateStrategy />
+            <CreateStrategy user={this.props.user} />
           </div>
         </div>
 
         <div className="strategies-container">
           {strategies.map((strategy) => (
-            <StrategyCard strategyInfo={strategy} />
+            <StrategyCard
+              deleteStrategy={this.deleteStrategy}
+              strategyInfo={strategy}
+            />
           ))}
         </div>
       </div>

@@ -7,7 +7,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 
 class StrategyCard extends React.Component {
   render() {
-    const { strategyInfo } = this.props;
+    const { strategyInfo, deleteStrategy } = this.props;
 
     return (
       <div className="strategy-card-main-container">
@@ -43,9 +43,7 @@ class StrategyCard extends React.Component {
             <EditIcon />
           </Link>
 
-          <Link className="strategy-card-link" to="/strategies/view">
-            <DeleteIcon />
-          </Link>
+            <DeleteIcon className='delete-strategy-icon' onClick={() => deleteStrategy(strategyInfo.strategy_id)} />
         </div>
       </div>
     );
