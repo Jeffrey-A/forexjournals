@@ -52,8 +52,8 @@ db.sync().then(() => console.log('connected to database successfully'));
 
 // Routes
 app.use('/users', userRouter);
-app.use('/strategies', strategyRouter);
-app.use('/journals', journalRouter);
+app.use('/strategies', ensureAuthenticated, strategyRouter);
+app.use('/journals', ensureAuthenticated, journalRouter);
 
 // Handle react-router routes
 app.get('*', (req, res) => {
