@@ -41,7 +41,8 @@ function createStrategy(req, res) {
 }
 
 function updateStrategy(req, res) {
-  const { strategy_id, userId } = req.body;
+  const { userId } = req.params;
+  const { strategy_id } = req.body;
 
   const updatedPayload = {
     name: req.body.name,
