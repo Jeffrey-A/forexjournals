@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const database = require("../db");
+const Sequelize = require('sequelize');
+const database = require('../db');
 
 const Users = database.define(
-  "users",
+  'users',
   {
     id: {
       type: Sequelize.INTEGER,

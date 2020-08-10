@@ -1,6 +1,6 @@
-import React from "react";
-import StrategyCard from "../components/StrategyCard";
-import CreateStrategy from "../components/CreateStrategy";
+import React from 'react';
+import StrategyCard from '../components/StrategyCard';
+import CreateStrategy from '../components/CreateStrategy';
 
 class Strategies extends React.Component {
   constructor(props) {
@@ -28,16 +28,16 @@ class Strategies extends React.Component {
 
   deleteStrategy(strategy_id) {
     fetch(`/strategies/${this.props.user.id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ strategy_id }),
     }).then((response) => {
       if (response.status == 200) {
         this.getStrategies();
       } else {
-        console.log("failed");
+        console.log('failed');
       }
     });
   }

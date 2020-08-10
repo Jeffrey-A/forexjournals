@@ -1,14 +1,14 @@
-import React from "react";
-import { Redirect } from "react-router";
+import React from 'react';
+import { Redirect } from 'react-router';
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      email: "",
-      password: "",
-      confirmed_password: "",
+      username: '',
+      email: '',
+      password: '',
+      confirmed_password: '',
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,7 +26,7 @@ class Register extends React.Component {
   }
 
   handleKeyDown(event) {
-    if (event.key == "Enter") {
+    if (event.key == 'Enter') {
       this.createUser({});
     }
   }
@@ -43,18 +43,18 @@ class Register extends React.Component {
       return true;
     }
 
-    document.getElementById("username").classList.add("input-error");
+    document.getElementById('username').classList.add('input-error');
     return false;
   }
 
   isEmailValid() {
     const { email } = this.state;
-    if ( /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return true;
     }
 
-    const emailInput = document.getElementById("email");
-    emailInput.classList.add("input-error");
+    const emailInput = document.getElementById('email');
+    emailInput.classList.add('input-error');
     return false;
   }
 
@@ -62,10 +62,10 @@ class Register extends React.Component {
     const { password, confirmed_password } = this.state;
 
     if (password !== confirmed_password || !password.length > 4) {
-      document.getElementById("password").classList.add("input-error");
+      document.getElementById('password').classList.add('input-error');
       document
-        .getElementById("confirmed_password")
-        .classList.add("input-error");
+        .getElementById('confirmed_password')
+        .classList.add('input-error');
       return false;
     }
     return true;
@@ -91,27 +91,27 @@ class Register extends React.Component {
             id="username"
             onKeyDown={this.handleKeyDown}
             placeholder="Username"
-            onChange={(e) => this.handleInputChange(e, "username")}
+            onChange={(e) => this.handleInputChange(e, 'username')}
           />
           <input
             id="email"
             onKeyDown={this.handleKeyDown}
             placeholder="Email address"
-            onChange={(e) => this.handleInputChange(e, "email")}
+            onChange={(e) => this.handleInputChange(e, 'email')}
           />
           <input
             id="password"
             onKeyDown={this.handleKeyDown}
             placeholder="Password"
-            onChange={(e) => this.handleInputChange(e, "password")}
-            type='password'
+            onChange={(e) => this.handleInputChange(e, 'password')}
+            type="password"
           />
           <input
             id="confirmed_password"
-            type='password'
+            type="password"
             placeholder="Confirm password"
             onKeyDown={this.handleKeyDown}
-            onChange={(e) => this.handleInputChange(e, "confirmed_password")}
+            onChange={(e) => this.handleInputChange(e, 'confirmed_password')}
           />
           <button onClick={this.createUser}>Create</button>
         </div>

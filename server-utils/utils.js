@@ -1,6 +1,8 @@
-function logErrorMessage(msg, err=null) {
-    console.log(msg);
-    err ? console.log(e) : null;
+function logErrorMessage(msg, err = null) {
+  console.log(msg);
+  if (err) {
+    console.log(err);
+  }
 }
 
 module.exports = logErrorMessage;

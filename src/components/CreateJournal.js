@@ -1,5 +1,5 @@
-import React from "react";
-import { currencies, orderTypes } from "../utils/constants";
+import React from 'react';
+import { currencies, orderTypes } from '../utils/constants';
 
 // TODO: add input validation and perform API request
 class CreateJournal extends React.Component {
@@ -7,12 +7,12 @@ class CreateJournal extends React.Component {
     super(props);
     this.state = {
       isShowingModal: false,
-      pair: "",
-      comments: "",
-      order_type: "",
-      pips_gained_lost: "",
-      img_link: "",
-      errors: "",
+      pair: '',
+      comments: '',
+      order_type: '',
+      pips_gained_lost: '',
+      img_link: '',
+      errors: '',
     };
 
     this.toggleModal = this.toggleModal.bind(this);
@@ -42,17 +42,17 @@ class CreateJournal extends React.Component {
     // TODO: Perform input Validation
     const payload = Object.assign({}, this.state);
 
-    fetch("/journals/2/1", {
-      method: "POST",
+    fetch('/journals/2/1', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
     }).then((response) => {
       if (response.status > 200) {
-        console.log("success");
+        console.log('success');
       } else {
-        console.log("failed");
+        console.log('failed');
       }
     });
   }
@@ -73,7 +73,7 @@ class CreateJournal extends React.Component {
       signs = input.previousSibling.options;
     }
 
-    let selectedSign = "";
+    let selectedSign = '';
 
     for (let i = 0; i < signs.length; i++) {
       if (signs[i].selected) {
@@ -85,7 +85,7 @@ class CreateJournal extends React.Component {
     if (input.value.length) {
       this.setState({ pips_gained_lost: selectedSign + input.value });
     } else {
-      this.setState({ pips_gained_lost: "" });
+      this.setState({ pips_gained_lost: '' });
     }
   }
 
@@ -106,7 +106,7 @@ class CreateJournal extends React.Component {
           <h1 className="modal-header">Create Journal</h1>
           <div className="create-journal-input-container">
             <select
-              onChange={(e) => this.handleSelectChange(e, "pair")}
+              onChange={(e) => this.handleSelectChange(e, 'pair')}
               className="journal-select"
             >
               <option selected="true" disabled="disabled">
@@ -118,7 +118,7 @@ class CreateJournal extends React.Component {
             </select>
             <select
               className="journal-select"
-              onChange={(e) => this.handleSelectChange(e, "order_type")}
+              onChange={(e) => this.handleSelectChange(e, 'order_type')}
             >
               <option selected="true" disabled="disabled">
                 Order type
@@ -130,18 +130,18 @@ class CreateJournal extends React.Component {
             <input
               className="journal-input"
               placeholder="chart link"
-              onChange={(e) => this.handleTextFieldChange(e, "img_link")}
+              onChange={(e) => this.handleTextFieldChange(e, 'img_link')}
               type="url"
             />
             <textarea
               className="journal-textarea"
               placeholder="Errors made"
-              onChange={(e) => this.handleTextFieldChange(e, "errors")}
+              onChange={(e) => this.handleTextFieldChange(e, 'errors')}
             ></textarea>
             <textarea
               className="journal-textarea"
               placeholder="Comments"
-              onChange={(e) => this.handleTextFieldChange(e, "comments")}
+              onChange={(e) => this.handleTextFieldChange(e, 'comments')}
             ></textarea>
             <div className="pips-gain-lost-container">
               <select
@@ -151,9 +151,7 @@ class CreateJournal extends React.Component {
                 <option selected="true" value="+">
                   +
                 </option>
-                <option value="-">
-                  -
-                </option>
+                <option value="-">-</option>
               </select>
               <input
                 type="number"

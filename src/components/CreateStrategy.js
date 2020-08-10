@@ -1,6 +1,6 @@
-import React from "react";
-import Tagger from "./elements/Tagger";
-import { suggestedIndicators, suggestedTimeFrames } from "../utils/constants";
+import React from 'react';
+import Tagger from './elements/Tagger';
+import { suggestedIndicators, suggestedTimeFrames } from '../utils/constants';
 
 class CreateStrategy extends React.Component {
   constructor(props) {
@@ -8,13 +8,13 @@ class CreateStrategy extends React.Component {
 
     this.state = {
       isShowingModal: false,
-      name: "",
-      description: "",
-      entry_conditions: "",
-      exit_conditions: "",
+      name: '',
+      description: '',
+      entry_conditions: '',
+      exit_conditions: '',
       time_frames: [],
-      risk_per_trade: "",
-      risk_to_reward: "",
+      risk_per_trade: '',
+      risk_to_reward: '',
       indicators: [],
       indicators_suggestions: suggestedIndicators,
       time_frames_suggestions: suggestedTimeFrames,
@@ -44,20 +44,20 @@ class CreateStrategy extends React.Component {
 
   createStrategy() {
     const payload = Object.assign({}, this.state);
-    payload.indicators = payload.indicators.join(",");
-    payload.time_frames = payload.time_frames.join(",");
+    payload.indicators = payload.indicators.join(',');
+    payload.time_frames = payload.time_frames.join(',');
 
     fetch(`/strategies/${this.props.user.id}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
     }).then((response) => {
       if (response.status > 200) {
-        console.log("success");
+        console.log('success');
       } else {
-        console.log("failed");
+        console.log('failed');
       }
     });
   }
@@ -108,12 +108,12 @@ class CreateStrategy extends React.Component {
             <h1 className="modal-header">Create Strategy</h1>
             <div className="create-strategy-inputs-container">
               <input
-                onChange={(e) => this.handleTextFieldChange(e, "name")}
+                onChange={(e) => this.handleTextFieldChange(e, 'name')}
                 className="modal-input"
                 placeholder="Name"
               />
               <textarea
-                onChange={(e) => this.handleTextFieldChange(e, "description")}
+                onChange={(e) => this.handleTextFieldChange(e, 'description')}
                 className="modal-textarea"
                 placeholder="Description"
               ></textarea>
@@ -135,28 +135,28 @@ class CreateStrategy extends React.Component {
               />
               <textarea
                 onChange={(e) =>
-                  this.handleTextFieldChange(e, "entry_conditions")
+                  this.handleTextFieldChange(e, 'entry_conditions')
                 }
                 className="modal-textarea"
                 placeholder="Entry conditions"
               ></textarea>
               <textarea
                 onChange={(e) =>
-                  this.handleTextFieldChange(e, "exit_conditions")
+                  this.handleTextFieldChange(e, 'exit_conditions')
                 }
                 className="modal-textarea"
                 placeholder="Exit conditions"
               ></textarea>
               <input
                 onChange={(e) =>
-                  this.handleTextFieldChange(e, "risk_per_trade")
+                  this.handleTextFieldChange(e, 'risk_per_trade')
                 }
                 className="modal-input"
                 placeholder="Risk per trade"
               />
               <input
                 onChange={(e) =>
-                  this.handleTextFieldChange(e, "risk_to_reward")
+                  this.handleTextFieldChange(e, 'risk_to_reward')
                 }
                 className="modal-input"
                 placeholder="Risk to reward"

@@ -1,17 +1,17 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 // Styles
-import "./styles/Main.css";
+import './styles/Main.css';
 // Pages
-import HomePage from "./pages/HomePage";
-import Journals from "./pages/Journals";
-import Strategies from "./pages/Strategies";
-import ViewJournal from "./pages/ViewJournal";
-import ViewStrategy from "./pages/ViewStrategy";
-import NoFound from "./pages/NoFound";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Nav from "./components/Nav";
+import HomePage from './pages/HomePage';
+import Journals from './pages/Journals';
+import Strategies from './pages/Strategies';
+import ViewJournal from './pages/ViewJournal';
+import ViewStrategy from './pages/ViewStrategy';
+import NoFound from './pages/NoFound';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Nav from './components/Nav';
 import EditStrategy from './pages/EditStrategy';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
@@ -23,7 +23,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: "/login",
+            pathname: '/login',
             state: { from: props.location },
           }}
         />
@@ -38,7 +38,7 @@ class App extends React.Component {
     this.state = {
       isAuthenticated: false,
       loginFailed: false,
-      user: {}
+      user: {},
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -48,10 +48,10 @@ class App extends React.Component {
   register(userInfo) {
     const { username, email, password } = userInfo;
 
-    fetch("/register", {
-      method: "POST",
+    fetch('/register', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ user_name: username, pass_word: password, email }),
     }).then((response) => {
@@ -66,10 +66,10 @@ class App extends React.Component {
   login(userInfo) {
     const { usernameOrEmail, password } = userInfo;
 
-    fetch("/login", {
-      method: "POST",
+    fetch('/login', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username: usernameOrEmail, password }),
     })
