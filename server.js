@@ -54,9 +54,10 @@ db.sync().then(() => console.log('connected to database successfully'));
 app.use('/users', userRouter);
 app.use('/strategies', ensureAuthenticated, strategyRouter);
 app.use('/journals', ensureAuthenticated, journalRouter);
+// eslint-disable-next-line no-use-before-define
+app.get('*', serveReactCode);
 
-// Handle react-router routes
-app.get('*', (req, res) => {
+function serveReactCode(req, res) {
   const context = {};
   const content = ReactDOMServer.renderToString(
     // eslint-disable-next-line react/jsx-filename-extension
@@ -82,7 +83,7 @@ app.get('*', (req, res) => {
           </html>
       `;
   res.send(html);
-});
+}
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
