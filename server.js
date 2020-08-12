@@ -16,7 +16,6 @@ const dotenv = require('dotenv');
 
 const db = require('./database/db');
 const ensureAuthenticated = require('./config/auth');
-const logErrorMessage = require('./server-utils/utils');
 const strategyRouter = require('./routes/strategiesRoutes');
 const journalRouter = require('./routes/journalsRoutes');
 const userRouter = require('./routes/usersRoutes');
@@ -84,7 +83,7 @@ function serveReactCode(req, res) {
           </html>
       `;
   res.send(html);
-});
+}
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
