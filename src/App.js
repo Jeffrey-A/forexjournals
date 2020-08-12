@@ -48,7 +48,7 @@ class App extends React.Component {
   register(userInfo) {
     const { username, email, password } = userInfo;
 
-    fetch('/register', {
+    fetch('/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ class App extends React.Component {
   login(userInfo) {
     const { usernameOrEmail, password } = userInfo;
 
-    fetch('/login', {
+    fetch('/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
