@@ -22,22 +22,21 @@ module.exports = function (passport) {
 
           if (isMatch) {
             return done(null, user);
-          } else {
-            return done(null, false);
           }
+          return done(null, false);
         });
       });
 
-      passport.serializeUser(function (user, done) {
-        done(null, user.id);
+      passport.serializeUser(function (user, serializeUserDone) {
+        serializeUserDone(null, user.id);
       });
 
-      passport.deserializeUser(function (id, done) {
+      passport.deserializeUser(function (id, deserializeUserDone) {
         Users.findByPk(id).then(function (user) {
           if (user) {
-            done(null, user.get());
+            deserializeUserDone(null, user.get());
           } else {
-            done(user.errors, null);
+            deserializeUserDone(user.errors, null);
           }
         });
       });

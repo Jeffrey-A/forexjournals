@@ -1,4 +1,11 @@
+// For some reason using require leads to `Element type is invalid` error
+import App from './src/App';
+
 require('babel-polyfill');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const { StaticRouter } = require('react-router-dom');
+const { Helmet } = require('react-helmet');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -7,18 +14,11 @@ const session = require('express-session');
 const passport = require('passport');
 const dotenv = require('dotenv');
 
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const { StaticRouter } = require('react-router-dom');
-const { Helmet } = require('react-helmet');
-
 const db = require('./database/db');
 const ensureAuthenticated = require('./config/auth');
-const logErrorMessage = require('./server-utils/utils');
 const strategyRouter = require('./routes/strategiesRoutes');
 const journalRouter = require('./routes/journalsRoutes');
 const userRouter = require('./routes/usersRoutes');
-const App = require('./src/App');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -62,7 +62,7 @@ function serveReactCode(req, res) {
   const content = ReactDOMServer.renderToString(
     // eslint-disable-next-line react/jsx-filename-extension
     <StaticRouter location={req.url} context={context}>
-      <App jeff={req} />
+      <App />
     </StaticRouter>
   );
   const helmet = Helmet.renderStatic();
