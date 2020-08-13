@@ -35,6 +35,7 @@ class ViewJournal extends React.Component {
     return journals.map((journal) => {
       return (
         <tr>
+          <input type="checkbox" />
           <td>{journal.pair}</td>
           <td>{journal.order_type}</td>
           <td>{journal.pips_gained_lost}</td>
@@ -53,7 +54,10 @@ class ViewJournal extends React.Component {
           <h3>Strategy Name</h3>
         </div>
         <table>
-          <tr>{this.displayColumns()}</tr>
+          <tr>
+            <input type="checkbox" />
+            {this.displayColumns()}
+          </tr>
           {this.displayRows()}
         </table>
       </div>
