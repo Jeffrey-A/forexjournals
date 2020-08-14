@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 
 const journalTableColumns = [
   'Pair',
@@ -34,7 +35,7 @@ class ViewJournal extends React.Component {
     const { journals } = this.state;
     return journals.map((journal) => {
       return (
-        <tr className="journal-body-row">
+        <tr className="journal-body-row" key={nextId()}>
           <input type="checkbox" />
           <td className="journal-body-cell">{journal.pair}</td>
           <td className="journal-body-cell">{journal.order_type}</td>
