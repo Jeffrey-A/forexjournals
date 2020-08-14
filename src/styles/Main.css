@@ -427,6 +427,52 @@ html, body {
   cursor: pointer;
 }
 
+/*View Journal*/
+.journal-header-container {
+  margin-bottom: 1.5rem;
+}
+
+.journal-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.journal-table td, .journal-table th {
+  border: 1px solid #1f2833;
+  padding: 10px;
+  padding-right: 20px;
+  text-align: left;
+}
+
+.journal-checkbox {
+  margin-right: 0.5rem;
+}
+
+.large-cell-container {
+   padding-right: 0px !important;
+}
+
+.journal-cell-large {
+  max-width: 18.75rem;
+  max-height: 5.6rem;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  padding-right: 0.31rem;
+  margin-right: -4rem;
+}
+
+.large-cell-container ::-webkit-scrollbar {
+  width: 5px;
+}
+
+.large-cell-container ::-webkit-scrollbar-track {
+  
+}
+/* Media */
+.large-cell-container ::-webkit-scrollbar-thumb {
+  background-color: #eee;
+}
 /* Media */
 
 /* Small-Medium devices*/
