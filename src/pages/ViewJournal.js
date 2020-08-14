@@ -26,18 +26,26 @@ class ViewJournal extends React.Component {
   }
 
   displayColumns() {
-    return journalTableColumns.map((columnName) => {
-      return <th className="journal-head-cell">{columnName}</th>;
+    return journalTableColumns.map((columnName, index) => {
+      return (
+        <th className="journal-head-cell">
+          {index === 0 ? <input type="checkbox" /> : null}
+          {columnName}
+        </th>
+      );
     });
   }
 
   displayRows() {
     const { journals } = this.state;
-    return journals.map((journal) => {
+    return journals.map((journal, index) => {
+      const checkbox = <input type="checkbox" />;
       return (
         <tr className="journal-body-row" key={nextId()}>
-          <input type="checkbox" />
-          <td className="journal-body-cell">{journal.pair}</td>
+          <td className="journal-body-cell">
+            {checkbox}
+            {journal.pair}
+          </td>
           <td className="journal-body-cell">{journal.order_type}</td>
           <td className="journal-body-cell">{journal.pips_gained_lost}</td>
           <td className="journal-body-cell">{journal.img_link}</td>
@@ -56,10 +64,7 @@ class ViewJournal extends React.Component {
         </div>
         <table className="journal-table">
           <thead className="journal-table-head-container">
-            <tr className="journal-head-row">
-              <input type="checkbox" />
-              {this.displayColumns()}
-            </tr>
+            <tr className="journal-head-row">{this.displayColumns()}</tr>
           </thead>
 
           <tbody className="journal-table-body-container">
