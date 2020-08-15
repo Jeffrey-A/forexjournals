@@ -1,5 +1,6 @@
 import React from 'react';
 import nextId from 'react-id-generator';
+import CheckBox from '../components/elements/CheckBox';
 
 const journalTableColumns = [
   'Pair',
@@ -10,11 +11,19 @@ const journalTableColumns = [
   'Extra Comments',
 ];
 
+const checkAllName = 'checked-all';
+
 class ViewJournal extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { journals: [] };
+    this.state = {
+      journals: [],
+      checkedAll: false,
+      checkedItems: {},
+    };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -25,12 +34,33 @@ class ViewJournal extends React.Component {
       });
   }
 
+  handleChange(event) {
+    const checkbox = event.target.name;
+    const isChecked = event.target.checked;
+    const checkedAll = isChecked && checkbox === checkAllName;
+
+    this.setState((preState) => {
+      return {
+        checkedItems: Object.assign(preState.checkedItems, {
+          [checkbox]: isChecked,
+        }),
+        checkedAll,
+      };
+    });
+  }
+
   displayColumns() {
+    const { checkedAll, checkedItems } = this.state;
+
     return journalTableColumns.map((columnName, index) => {
       return (
         <th className="journal-head-cell">
           {index === 0 ? (
-            <input className="journal-checkbox" type="checkbox" />
+            <CheckBox
+              name={checkAllName}
+              handleChange={this.handleChange}
+              checked={checkedAll || checkedItems[checkAllName]}
+            />
           ) : null}
           {columnName}
         </th>
@@ -39,13 +69,17 @@ class ViewJournal extends React.Component {
   }
 
   displayRows() {
-    const { journals } = this.state;
+    const { journals, checkedAll, checkedItems } = this.state;
     return journals.map((journal) => {
-      const checkbox = <input className="journal-checkbox" type="checkbox" />;
+      const checkBoxName = journal.journal_id;
       return (
         <tr className="journal-body-row" key={nextId()}>
           <td className="journal-body-cell">
-            {checkbox}
+            <CheckBox
+              name={checkBoxName}
+              handleChange={this.handleChange}
+              checked={checkedAll || checkedItems[checkBoxName]}
+            />
             {journal.pair}
           </td>
           <td className="journal-body-cell">{journal.order_type}</td>
