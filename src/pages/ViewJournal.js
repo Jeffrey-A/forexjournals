@@ -67,6 +67,10 @@ class ViewJournal extends React.Component {
       <div className="container">
         <div className="journal-header-container">
           <h3>Strategy Name</h3>
+          <div>
+            <button className="journal-btn">Delete</button>
+            <button className="journal-btn">Add Entry</button>
+          </div>
         </div>
         <table className="journal-table">
           <thead className="journal-table-head-container">
