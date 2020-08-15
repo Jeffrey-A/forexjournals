@@ -466,9 +466,15 @@ html, body {
   width: 5px;
 }
 
-.large-cell-container ::-webkit-scrollbar-track {
-  
+.journal-btn {
+  display: inline-block;
 }
+
+.journal-header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Media */
 .large-cell-container ::-webkit-scrollbar-thumb {
   background-color: #eee;
