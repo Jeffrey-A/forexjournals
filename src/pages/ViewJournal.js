@@ -40,6 +40,8 @@ class ViewJournal extends React.Component {
     const checkedAll = isChecked && checkbox === checkAllName;
     const unCheckedAll = !checkedAll && checkbox === checkAllName;
 
+    //TODO: unselect `Pair` checkbox when one body checkbox is unselected.
+
     this.setState((preState) => {
       let updatedCheckedItems = {
         checkedItems: Object.assign(preState.checkedItems, {
