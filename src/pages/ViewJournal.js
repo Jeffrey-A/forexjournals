@@ -38,14 +38,21 @@ class ViewJournal extends React.Component {
     const checkbox = event.target.name;
     const isChecked = event.target.checked;
     const checkedAll = isChecked && checkbox === checkAllName;
+    const unCheckedAll = !checkedAll && checkbox === checkAllName;
 
     this.setState((preState) => {
-      return {
+      let updatedCheckedItems = {
         checkedItems: Object.assign(preState.checkedItems, {
           [checkbox]: isChecked,
         }),
         checkedAll,
       };
+
+      if (unCheckedAll) {
+        updatedCheckedItems = { checkedItems: {}, checkedAll };
+      }
+
+      return updatedCheckedItems;
     });
   }
 
