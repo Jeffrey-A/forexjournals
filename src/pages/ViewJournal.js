@@ -24,6 +24,7 @@ class ViewJournal extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +33,25 @@ class ViewJournal extends React.Component {
       .then((data) => {
         this.setState({ journals: data.data });
       });
+  }
+
+  delete() {
+    const { checkedAll, checkedItems, journals } = this.state;
+
+    if (checkedAll) {
+      console.log(journals.map((journal) => journal.journal_id));
+    } else {
+      const keys = Object.keys(checkedItems);
+      const itemsToDelete = [];
+
+      keys.forEach((journalId) => {
+        if (checkedItems[journalId]) {
+          itemsToDelete.push(journalId);
+        }
+      });
+
+      console.log(itemsToDelete);
+    }
   }
 
   handleChange(event) {
@@ -110,7 +130,9 @@ class ViewJournal extends React.Component {
         <div className="journal-header-container">
           <h3>Strategy Name</h3>
           <div>
-            <button className="journal-btn">Delete</button>
+            <button onClick={this.delete} className="journal-btn">
+              Delete
+            </button>
             <button className="journal-btn">Add Entry</button>
           </div>
         </div>
