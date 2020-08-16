@@ -38,9 +38,8 @@ class ViewJournal extends React.Component {
     const checkbox = event.target.name;
     const isChecked = event.target.checked;
     const checkedAll = isChecked && checkbox === checkAllName;
-    const unCheckedAll = !checkedAll && checkbox === checkAllName;
-
-    //TODO: unselect `Pair` checkbox when one body checkbox is unselected.
+    const unCheckedAll =
+      (!checkedAll && checkbox === checkAllName) || checkedAll;
 
     this.setState((preState) => {
       let updatedCheckedItems = {
@@ -59,7 +58,7 @@ class ViewJournal extends React.Component {
   }
 
   displayColumns() {
-    const { checkedAll, checkedItems } = this.state;
+    const { checkedAll } = this.state;
 
     return journalTableColumns.map((columnName, index) => {
       return (
@@ -68,7 +67,7 @@ class ViewJournal extends React.Component {
             <CheckBox
               name={checkAllName}
               handleChange={this.handleChange}
-              checked={checkedAll || checkedItems[checkAllName]}
+              checked={checkedAll}
             />
           ) : null}
           {columnName}
