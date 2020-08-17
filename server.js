@@ -51,9 +51,9 @@ app.use(passport.session());
 db.sync().then(() => console.log('connected to database successfully'));
 
 // Routes
-app.use('/users', userRouter);
-app.use('/strategies', ensureAuthenticated, strategyRouter);
-app.use('/journals', ensureAuthenticated, journalRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/strategies', ensureAuthenticated, strategyRouter);
+app.use('/api/v1/journals', ensureAuthenticated, journalRouter);
 // eslint-disable-next-line no-use-before-define
 app.get('*', serveReactCode);
 
