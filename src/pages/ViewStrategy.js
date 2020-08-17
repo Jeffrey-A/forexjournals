@@ -33,7 +33,15 @@ class ViewStrategy extends React.Component {
             <h1 className="view-strategy-header">{name}</h1>
 
             <div className="view-strategy-header-btn-container">
-              <Link className="go-to-journal" to={`/journals/view/${strategy_id}`}>Go To Journal</Link>
+              <Link
+                className="go-to-journal"
+                to={{
+                  pathname: `/journals/view/${strategy_id}`,
+                  state: { strategy_id },
+                }}
+              >
+                Go To Journal
+              </Link>
             </div>
           </div>
 

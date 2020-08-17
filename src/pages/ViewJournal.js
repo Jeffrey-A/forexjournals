@@ -28,10 +28,13 @@ class ViewJournal extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/dev_data')
+    const userId = this.props.user.id;
+    const strategyId = this.props.location.state.strategy_id;
+
+    fetch(`/api/v1/journals/${userId}/${strategyId}`)
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ journals: data.data });
+        this.setState({ journals: data });
       });
   }
 
@@ -79,7 +82,6 @@ class ViewJournal extends React.Component {
 
   displayColumns() {
     const { checkedAll } = this.state;
-
     return journalTableColumns.map((columnName, index) => {
       return (
         <th className="journal-head-cell">
