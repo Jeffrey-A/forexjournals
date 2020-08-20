@@ -54,7 +54,7 @@ class EditStrategy extends React.Component {
     payload.indicators = payload.indicators.join(',');
     payload.time_frames = payload.time_frames.join(',');
 
-    fetch(`/strategies/${this.props.user.id}`, {
+    fetch(`/api/v1/strategies/${this.props.user.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

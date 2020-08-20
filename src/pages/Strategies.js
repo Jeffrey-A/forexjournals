@@ -19,7 +19,7 @@ class Strategies extends React.Component {
 
   getStrategies() {
     const { user } = this.props;
-    fetch(`/strategies/${user.id}`)
+    fetch(`/api/v1/strategies/${user.id}`)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ strategies: data });
@@ -27,7 +27,7 @@ class Strategies extends React.Component {
   }
 
   deleteStrategy(strategy_id) {
-    fetch(`/strategies/${this.props.user.id}`, {
+    fetch(`/api/v1/strategies/${this.props.user.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

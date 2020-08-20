@@ -48,7 +48,7 @@ class App extends React.Component {
   register(userInfo) {
     const { username, email, password } = userInfo;
 
-    fetch('/users/register', {
+    fetch('/api/v1/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ class App extends React.Component {
   login(userInfo) {
     const { usernameOrEmail, password } = userInfo;
 
-    fetch('/users/login', {
+    fetch('/api/v1/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -135,7 +135,7 @@ class App extends React.Component {
 
           <ProtectedRoute
             exact
-            path="/journals/view"
+            path="/journals/view/:strategyId"
             user={user}
             isAuthenticated={isAuthenticated}
             component={ViewJournal}

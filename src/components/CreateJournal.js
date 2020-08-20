@@ -42,7 +42,7 @@ class CreateJournal extends React.Component {
     // TODO: Perform input Validation
     const payload = Object.assign({}, this.state);
 
-    fetch('/journals/2/1', {
+    fetch('/api/v1/journals/2/1', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
