@@ -37,7 +37,7 @@ class ViewStrategy extends React.Component {
                 className="go-to-journal"
                 to={{
                   pathname: `/journals/view/${strategy_id}`,
-                  state: { strategy_id },
+                  state: { strategy_name: name, strategy_id },
                 }}
               >
                 Go To Journal

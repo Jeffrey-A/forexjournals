@@ -161,15 +161,19 @@ class ViewJournal extends React.Component {
   }
 
   render() {
+    const strategy_name = this.props.location.state.strategy_name;
+
     return (
       <div className="container">
         <div className="journal-header-container">
-          <h3>Strategy Name</h3>
+          <h3>{strategy_name}</h3>
           <div>
-            <button onClick={this.delete} className="journal-btn">
+            <button type="button" onClick={this.delete} className="journal-btn">
               Delete
             </button>
-            <button className="journal-btn">Add Entry</button>
+            <button type="button" className="journal-btn">
+              Add Entry
+            </button>
           </div>
         </div>
         <table className="journal-table">
