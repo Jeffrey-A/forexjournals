@@ -25,9 +25,15 @@ class ViewJournal extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.delete = this.delete.bind(this);
+    this.getIdsOfSelectedEntries = this.getIdsOfSelectedEntries.bind(this);
+    this.getJournals = this.getJournals.bind(this);
   }
 
   componentDidMount() {
+    this.getJournals();
+  }
+
+  getJournals() {
     const userId = this.props.user.id;
     const strategyId = this.props.location.state.strategy_id;
 
@@ -38,23 +44,51 @@ class ViewJournal extends React.Component {
       });
   }
 
-  delete() {
+  getIdsOfSelectedEntries() {
     const { checkedAll, checkedItems, journals } = this.state;
 
     if (checkedAll) {
-      console.log(journals.map((journal) => journal.journal_id));
-    } else {
-      const keys = Object.keys(checkedItems);
-      const itemsToDelete = [];
-
-      keys.forEach((journalId) => {
-        if (checkedItems[journalId]) {
-          itemsToDelete.push(journalId);
-        }
-      });
-
-      console.log(itemsToDelete);
+      return journals.map((journal) => journal.journal_id);
     }
+    const keys = Object.keys(checkedItems);
+    const itemsToDelete = [];
+
+    keys.forEach((journalId) => {
+      if (checkedItems[journalId]) {
+        itemsToDelete.push(journalId);
+      }
+    });
+
+    return itemsToDelete;
+  }
+
+  runAll(promises) {
+    Promise.all(promises)
+      .then((results) => {
+        this.getJournals();
+      })
+      .catch((err) => {
+        alert('Error');
+      });
+  }
+
+  delete() {
+    const idsOfSelectedItems = this.getIdsOfSelectedEntries();
+
+    const apiCalls = idsOfSelectedItems.map((id) => {
+      const userId = this.props.user.id;
+      const strategyId = this.props.location.state.strategy_id;
+
+      return fetch(`/api/v1/journals/${userId}/${strategyId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'DELETE',
+        body: JSON.stringify({ journal_id: parseInt(id, 10) }),
+      });
+    });
+
+    this.runAll(apiCalls);
   }
 
   handleChange(event) {
