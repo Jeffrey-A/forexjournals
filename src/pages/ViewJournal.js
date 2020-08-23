@@ -94,7 +94,10 @@ class ViewJournal extends React.Component {
   handleChange(event) {
     const checkbox = event.target.name;
     const isChecked = event.target.checked;
+
     const checkedAll = isChecked && checkbox === checkAllName;
+
+    // Unchecked all if all the items are selected and any checkbox was clicked
     const unCheckedAll =
       (!checkedAll && checkbox === checkAllName) || checkedAll;
 
