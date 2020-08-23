@@ -29,7 +29,7 @@ function getJournalsForUser(req, res) {
   } else {
     Journals.findAll({ where: { user_id } })
       .then((journals) => {
-        res.json(journals);
+        res.json({ data: journals });
       })
       .catch((err) => {
         logErrorMessage('Error getting journals', err);

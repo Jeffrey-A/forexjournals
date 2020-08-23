@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class ViewStrategy extends React.Component {
   constructor(props) {
@@ -32,7 +33,15 @@ class ViewStrategy extends React.Component {
             <h1 className="view-strategy-header">{name}</h1>
 
             <div className="view-strategy-header-btn-container">
-              <span className="go-to-journal">Go To Journal</span>
+              <Link
+                className="go-to-journal"
+                to={{
+                  pathname: `/journals/view/${strategy_id}`,
+                  state: { strategy_name: name, strategy_id },
+                }}
+              >
+                Go To Journal
+              </Link>
             </div>
           </div>
 
