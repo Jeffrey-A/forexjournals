@@ -1,12 +1,11 @@
 const express = require('express');
-const passport = require('passport');
 const bcrypt = require('bcrypt');
 const Users = require('../database/models/users');
 const logErrorMessage = require('../server-utils/utils');
 
 const router = express.Router();
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
+router.post('/login', (req, res) => {
   const { id, user_name, email } = req.user;
   res.send({ id, user_name, email });
 });

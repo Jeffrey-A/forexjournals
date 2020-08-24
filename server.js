@@ -11,7 +11,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const session = require('express-session');
-const passport = require('passport');
 const dotenv = require('dotenv');
 
 const db = require('./database/db');
@@ -29,8 +28,6 @@ dotenv.config({ path: './config.env' });
 
 app.use(morgan('tiny'));
 
-// Passport Config
-require('./config/passport')(passport);
 
 app.use(bodyParser.json());
 app.use(express.static('build/public'));
@@ -43,17 +40,13 @@ app.use(
   })
 );
 
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Check database connection
 db.sync().then(() => console.log('connected to database successfully'));
 
 // Routes
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/strategies', ensureAuthenticated, strategyRouter);
-app.use('/api/v1/journals', ensureAuthenticated, journalRouter);
+app.use('/api/v1/strategies',strategyRouter);
+app.use('/api/v1/journals',journalRouter);
 // eslint-disable-next-line no-use-before-define
 app.get('*', serveReactCode);
 
