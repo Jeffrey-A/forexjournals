@@ -71,7 +71,7 @@ class App extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username: usernameOrEmail, password }),
+      body: JSON.stringify({ user_name: usernameOrEmail, password }),
     })
       .then((response) => {
         if (response.status > 200) {
