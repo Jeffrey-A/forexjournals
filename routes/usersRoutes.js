@@ -30,7 +30,20 @@ router.post('/login', async (req, res) => {
     },
   });
 
-  res.status(200).json({ data: userData });
+  if (!userData) {
+    res.status(500).json({
+      status: 'fail',
+      message: 'Incorrect username/email and/or password',
+    });
+  }
+
+  const match = await bcrypt.compare(pass_word, userData.pass_word);
+
+  if (match) {
+    res.status(200).json({ data: userData });
+  } else {
+    res.status(401).json({ data: userData });
+  }
 });
 
 router.post('/register', async (req, res) => {
