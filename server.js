@@ -45,8 +45,8 @@ db.sync().then(() => console.log('connected to database successfully'));
 
 // Routes
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/strategies',strategyRouter);
-app.use('/api/v1/journals',journalRouter);
+app.use('/api/v1/strategies', ensureAuthenticated, strategyRouter);
+app.use('/api/v1/journals', ensureAuthenticated, journalRouter);
 // eslint-disable-next-line no-use-before-define
 app.get('*', serveReactCode);
 
