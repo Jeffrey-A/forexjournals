@@ -1,4 +1,5 @@
 import React from 'react';
+import { withCookies, Cookies } from 'react-cookie';
 import { Switch, Route, Redirect } from 'react-router-dom';
 // Styles
 import './styles/Main.css';
@@ -39,10 +40,18 @@ class App extends React.Component {
       isAuthenticated: false,
       loginFailed: false,
       user: {},
+      token: null,
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.register = this.register.bind(this);
+  }
+
+  componentDidMount() {
+    const { cookies } = this.props;
+    const token = cookies.get('jwt');
+
+    this.setState({ token });
   }
 
   register(userInfo) {
@@ -65,6 +74,7 @@ class App extends React.Component {
 
   login(userInfo) {
     const { usernameOrEmail, password } = userInfo;
+    const { cookies } = this.props;
 
     fetch('/api/v1/users/login', {
       method: 'POST',
@@ -73,16 +83,16 @@ class App extends React.Component {
       },
       body: JSON.stringify({ user_name: usernameOrEmail, pass_word: password }),
     })
-      .then((response) => {
-        if (response.status > 200) {
-          this.setState({ loginFailed: true });
-          return;
-        }
-        return response.json();
-      })
-      .then((user) => {
-        if (user.id) {
-          this.setState({ isAuthenticated: true, loginFailed: false, user });
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.token) {
+          cookies.set('jtw', data.token, { path: '/' });
+          this.setState({
+            isAuthenticated: true,
+            loginFailed: false,
+            user: data.userData,
+            token: data.token,
+          });
         } else {
           this.setState({ loginFailed: true });
         }
@@ -170,4 +180,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withCookies(App);
