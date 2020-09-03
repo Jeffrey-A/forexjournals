@@ -10,7 +10,6 @@ const { Helmet } = require('react-helmet');
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const session = require('express-session');
 const dotenv = require('dotenv');
 
 const db = require('./database/db');
@@ -28,17 +27,8 @@ dotenv.config({ path: './config.env' });
 
 app.use(morgan('tiny'));
 
-
 app.use(bodyParser.json());
 app.use(express.static('build/public'));
-// Express session
-app.use(
-  session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true,
-  })
-);
 
 // Check database connection
 db.sync().then(() => console.log('connected to database successfully'));
