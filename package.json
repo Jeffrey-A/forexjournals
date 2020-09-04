@@ -10,6 +10,7 @@
     "webpack:start": "nodemon --watch build --exec node build/bundle.js",
     "format": "npx prettier --write \"**/*.js\"",
     "dev": "npx npm-run-all --parallel webpack:*",
+    "lint": "npx eslint --fix src/",
     "build": "webpack --config webpack.client.js && webpack --config webpack.server.js"
   },
   "dependencies": {
@@ -54,6 +55,7 @@
     "sequelize": "^5.21.8",
     "sequelize-cli": "^5.5.1",
     "style-loader": "^1.2.1",
+    "universal-cookie-express": "^4.0.3",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
