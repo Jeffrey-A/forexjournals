@@ -1,8 +1,9 @@
 import React from 'react';
 import { withCookies, Cookies } from 'react-cookie';
 import { Switch, Route, Redirect } from 'react-router-dom';
-// Styles
-import './styles/Main.css';
+
+import ProtectedRoute from './components/elements/ProtectedRoute';
+
 // Pages
 import HomePage from './pages/HomePage';
 import Journals from './pages/Journals';
@@ -15,23 +16,8 @@ import Register from './pages/Register';
 import Nav from './components/Nav';
 import EditStrategy from './pages/EditStrategy';
 
-const ProtectedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      rest.isAuthenticated === true ? (
-        <Component {...rest} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: props.location },
-          }}
-        />
-      )
-    }
-  />
-);
+// Styles
+import './styles/Main.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -45,6 +31,7 @@ class App extends React.Component {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.register = this.register.bind(this);
+    this.performAPICall = this.performAPICall.bind(this);
   }
 
   componentDidMount() {
@@ -54,48 +41,60 @@ class App extends React.Component {
     this.setState({ token });
   }
 
-  register(userInfo) {
-    const { username, email, password } = userInfo;
+  performAPICall(data) {
+    const { token } = this.state;
+    const { url, method, payload } = data;
 
-    fetch('/api/v1/users/register', {
-      method: 'POST',
+    return fetch(url, {
+      method: method.toUpperCase(),
       headers: {
         'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : null),
       },
-      body: JSON.stringify({ user_name: username, pass_word: password, email }),
-    }).then((response) => {
-      if (response.status > 200) {
-        this.setState({ wasRegistrationSuccessful: false });
-      } else {
+      ...(payload ? { body: JSON.stringify(payload) } : null),
+    }).then((response) => response.json());
+  }
+
+  register(userInfo) {
+    const { username, email, password } = userInfo;
+    this.performAPICall({
+      url: '/api/v1/users/register',
+      method: 'POST',
+      payload: { user_name: username, pass_word: password, email },
+    })
+      .then((data) => {
         this.setState({ wasRegistrationSuccessful: true });
-      }
-    });
+      })
+      .catch((err) => {
+        this.setState({ wasRegistrationSuccessful: false });
+      });
   }
 
   login(userInfo) {
     const { usernameOrEmail, password } = userInfo;
     const { cookies } = this.props;
 
-    fetch('/api/v1/users/login', {
+    this.performAPICall({
+      url: '/api/v1/users/login',
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user_name: usernameOrEmail, pass_word: password }),
+      payload: { user_name: usernameOrEmail, pass_word: password },
     })
-      .then((response) => response.json())
       .then((data) => {
         if (data.token) {
           cookies.set('jtw', data.token, { path: '/' });
+
           this.setState({
             isAuthenticated: true,
             loginFailed: false,
-            user: data.userData,
+            user: data.data,
             token: data.token,
           });
         } else {
           this.setState({ loginFailed: true });
         }
+      })
+      .catch((err) => {
+        this.setState({ loginFailed: true });
       });
   }
 
