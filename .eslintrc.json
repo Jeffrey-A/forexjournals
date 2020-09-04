@@ -4,6 +4,9 @@
   "parserOptions": {
     "sourceType": "module"
   },
+  "globals": {
+    "fetch": false
+  },
   "rules": {
     "prettier/prettier": "error",
     "spaced-comment": "off",
