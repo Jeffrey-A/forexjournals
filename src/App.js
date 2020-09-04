@@ -38,7 +38,9 @@ class App extends React.Component {
     const { cookies } = this.props;
     const token = cookies.get('jwt');
 
-    this.setState({ token });
+    if (token) {
+      this.setState({ token, isAuthenticated: true });
+    }
   }
 
   performAPICall(data) {
