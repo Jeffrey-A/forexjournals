@@ -81,7 +81,7 @@ class App extends React.Component {
     })
       .then((data) => {
         if (data.token) {
-          cookies.set('jtw', data.token, { path: '/' });
+          cookies.set('jwt', data.token, { path: '/' });
 
           this.setState({
             isAuthenticated: true,
@@ -99,6 +99,8 @@ class App extends React.Component {
   }
 
   logout() {
+    const { cookies } = this.props;
+    cookies.remove('jwt', { path: '/' });
     this.setState({ isAuthenticated: false });
   }
 
