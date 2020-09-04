@@ -45,12 +45,12 @@ class EditStrategy extends React.Component {
   }
 
   handleTextFieldChange(event, fieldName) {
-    const value = event.target.value;
+    const { value } = event.target;
     this.setState({ [fieldName]: value.trim() });
   }
 
   editStrategy() {
-    const payload = Object.assign({}, this.state);
+    const payload = { ...this.state };
     payload.indicators = payload.indicators.join(',');
     payload.time_frames = payload.time_frames.join(',');
 
@@ -102,7 +102,10 @@ class EditStrategy extends React.Component {
     return (
       <div className="container">
         <div className="edit-strategy-wrapper">
-          <h3 className="edit-strategy-header">Editing: {name}</h3>
+          <h3 className="edit-strategy-header">
+            Editing:
+            {name}
+          </h3>
           <div className="edit-strategy-inputs-container">
             <p className="edit-label">Name</p>
             <input
@@ -115,7 +118,7 @@ class EditStrategy extends React.Component {
               onChange={(e) => this.handleTextFieldChange(e, 'description')}
               className="edit-strategy-textarea"
               defaultValue={description}
-            ></textarea>
+            />
             <Tagger
               placeholder="Indicators"
               updateSelectedOptions={this.updateIndicators}
@@ -139,13 +142,13 @@ class EditStrategy extends React.Component {
               }
               className="edit-strategy-textarea"
               defaultValue={entry_conditions}
-            ></textarea>
+            />
             <p className="edit-label">Exit conditions</p>
             <textarea
               onChange={(e) => this.handleTextFieldChange(e, 'exit_conditions')}
               className="edit-strategy-textarea"
               defaultValue={exit_conditions}
-            ></textarea>
+            />
             <p className="edit-label">Risk per trade</p>
             <input
               onChange={(e) => this.handleTextFieldChange(e, 'risk_per_trade')}

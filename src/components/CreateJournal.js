@@ -23,12 +23,12 @@ class CreateJournal extends React.Component {
   }
 
   handleTextFieldChange(event, fieldName) {
-    const value = event.target.value;
+    const { value } = event.target;
     this.setState({ [fieldName]: value.trim() });
   }
 
   handleSelectChange(event, selectType) {
-    const options = event.target.options;
+    const { options } = event.target;
 
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
@@ -40,7 +40,7 @@ class CreateJournal extends React.Component {
 
   performAPICall() {
     // TODO: Perform input Validation
-    const payload = Object.assign({}, this.state);
+    const payload = { ...this.state };
 
     fetch('/api/v1/journals/2/1', {
       method: 'POST',
@@ -98,7 +98,7 @@ class CreateJournal extends React.Component {
 
     return (
       <div className="modal-main-container">
-        <div className="modal-overlay"></div>
+        <div className="modal-overlay" />
         <span className="close-modal-btn" onClick={this.toggleModal}>
           X
         </span>
@@ -137,12 +137,12 @@ class CreateJournal extends React.Component {
               className="journal-textarea"
               placeholder="Errors made"
               onChange={(e) => this.handleTextFieldChange(e, 'errors')}
-            ></textarea>
+            />
             <textarea
               className="journal-textarea"
               placeholder="Comments"
               onChange={(e) => this.handleTextFieldChange(e, 'comments')}
-            ></textarea>
+            />
             <div className="pips-gain-lost-container">
               <select
                 className="pips-gain-lost-sign"

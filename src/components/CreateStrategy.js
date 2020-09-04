@@ -38,12 +38,12 @@ class CreateStrategy extends React.Component {
   }
 
   handleTextFieldChange(event, fieldName) {
-    const value = event.target.value;
+    const { value } = event.target;
     this.setState({ [fieldName]: value.trim() });
   }
 
   createStrategy() {
-    const payload = Object.assign({}, this.state);
+    const payload = { ...this.state };
     payload.indicators = payload.indicators.join(',');
     payload.time_frames = payload.time_frames.join(',');
 
@@ -116,7 +116,7 @@ class CreateStrategy extends React.Component {
                 onChange={(e) => this.handleTextFieldChange(e, 'description')}
                 className="modal-textarea"
                 placeholder="Description"
-              ></textarea>
+              />
               <Tagger
                 placeholder="Indicators"
                 updateSelectedOptions={this.updateIndicators}
@@ -139,14 +139,14 @@ class CreateStrategy extends React.Component {
                 }
                 className="modal-textarea"
                 placeholder="Entry conditions"
-              ></textarea>
+              />
               <textarea
                 onChange={(e) =>
                   this.handleTextFieldChange(e, 'exit_conditions')
                 }
                 className="modal-textarea"
                 placeholder="Exit conditions"
-              ></textarea>
+              />
               <input
                 onChange={(e) =>
                   this.handleTextFieldChange(e, 'risk_per_trade')

@@ -21,7 +21,7 @@ class Register extends React.Component {
   }
 
   handleInputChange(event, inputName) {
-    const value = event.target.value;
+    const { value } = event.target;
     this.setState({ [inputName]: value.trim() });
   }
 

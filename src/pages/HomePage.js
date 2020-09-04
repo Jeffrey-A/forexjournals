@@ -13,6 +13,7 @@ export default class HomePage extends React.Component {
       </Helmet>
     );
   }
+
   render() {
     const { user, isAuthenticated } = this.props;
     return (

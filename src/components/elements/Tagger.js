@@ -164,12 +164,12 @@ class Tagger extends React.Component {
             {this.state.isExpanded
               ? suggestions.map((content) => (
                   <l1
-                    className="tagger-suggestion-li"
-                    onClick={this.selectOptionAndUpdateSelectedOptions}
-                    key={nextId()}
-                  >
-                    {content}
-                  </l1>
+                  className="tagger-suggestion-li"
+                  onClick={this.selectOptionAndUpdateSelectedOptions}
+                  key={nextId()}
+                >
+                  {content}
+                </l1>
                 ))
               : null}
           </ul>

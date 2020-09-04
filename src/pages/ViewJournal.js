@@ -164,7 +164,7 @@ class ViewJournal extends React.Component {
   }
 
   render() {
-    const strategy_name = this.props.location.state.strategy_name;
+    const { strategy_name } = this.props.location.state;
 
     return (
       <div className="container">
