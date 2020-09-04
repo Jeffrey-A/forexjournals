@@ -105,7 +105,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, wasRegistrationSuccessful, user } = this.state;
+    const {
+      isAuthenticated,
+      wasRegistrationSuccessful,
+      user,
+      loginFailed,
+    } = this.state;
 
     return (
       <div>
@@ -118,7 +123,7 @@ class App extends React.Component {
             render={(props) => (
               <Login
                 isAuthenticated={isAuthenticated}
-                loginFailed={this.state.loginFailed}
+                loginFailed={loginFailed}
                 login={this.login}
                 {...props}
               />
