@@ -58,7 +58,8 @@ class CreateJournal extends React.Component {
   }
 
   toggleModal() {
-    this.setState({ isShowingModal: !this.state.isShowingModal });
+    const { isShowingModal } = this.state;
+    this.setState({ isShowingModal: !isShowingModal });
   }
 
   handlePipsChance(e, isSelectEvent = false) {
@@ -93,13 +94,21 @@ class CreateJournal extends React.Component {
     const { isShowingModal } = this.state;
 
     if (!isShowingModal) {
-      return <button onClick={this.toggleModal}>Create Journal</button>;
+      return (
+        <button type="button" onClick={this.toggleModal}>
+          Create Journal
+        </button>
+      );
     }
 
     return (
       <div className="modal-main-container">
         <div className="modal-overlay" />
-        <span className="close-modal-btn" onClick={this.toggleModal}>
+        <span
+          role="button"
+          className="close-modal-btn"
+          onClick={this.toggleModal}
+        >
           X
         </span>
         <div className="modal-container">
@@ -160,7 +169,11 @@ class CreateJournal extends React.Component {
                 onChange={(e) => this.handlePipsChance(e)}
               />
             </div>
-            <button onClick={this.performAPICall} className="journal-btn">
+            <button
+              type="button"
+              onClick={this.performAPICall}
+              className="journal-btn"
+            >
               Create Journal
             </button>
           </div>

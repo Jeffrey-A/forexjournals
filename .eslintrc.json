@@ -1,11 +1,13 @@
 {
-  "extends": ["airbnb", "prettier"],
+  "extends": ["prettier"],
   "plugins": ["prettier"],
   "parserOptions": {
     "sourceType": "module"
   },
   "globals": {
-    "fetch": false
+    "fetch": false,
+    "document": false,
+    "alert": false
   },
   "rules": {
     "prettier/prettier": "error",
@@ -22,6 +24,8 @@
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "no-unused-vars": ["warn", { "argsIgnorePattern": "req|res|next|val" }],
     "camelcase": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "click-events-have-key-events": "off",
+    "react/destructuring-assignment": [0, "never"]
   }
 }

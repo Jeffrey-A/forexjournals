@@ -1,9 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const Users = require('../database/models/users');
-const logErrorMessage = require('../server-utils/utils');
 const jwt = require('jsonwebtoken');
 const sequelizeOperators = require('sequelize').Op;
+
+const Users = require('../database/models/users');
+const logErrorMessage = require('../server-utils/utils');
 
 const jwtSecret = process.env.JWT_SECRET;
 
