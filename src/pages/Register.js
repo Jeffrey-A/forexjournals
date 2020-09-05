@@ -72,13 +72,15 @@ class Register extends React.Component {
   }
 
   createUser(event) {
+    const { register } = this.props;
     if (this.areInputsValid()) {
-      this.props.register(this.state);
+      register(this.state);
     }
   }
 
   render() {
-    if (this.props.wasRegistrationSuccessful) {
+    const { wasRegistrationSuccessful } = this.props;
+    if (wasRegistrationSuccessful) {
       return <Redirect from="register" to="/login" />;
     }
     return (
