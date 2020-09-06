@@ -34,14 +34,22 @@ class App extends React.Component {
     this.register = this.register.bind(this);
     this.performAPICall = this.performAPICall.bind(this);
     this.getAllStrategies = this.getAllStrategies.bind(this);
+    this.createStrategy = this.createStrategy.bind(this);
+    this.updateStrategy = this.updateStrategy.bind(this);
+    this.deleteStrategy = this.deleteStrategy.bind(this);
   }
 
   componentDidMount() {
     const { cookies } = this.props;
     const token = cookies.get('jwt');
+    const userId = cookies.get('user');
 
     if (token) {
-      this.setState({ token, isAuthenticated: true });
+      this.setState({
+        token,
+        isAuthenticated: true,
+        user: { id: parseInt(userId) },
+      });
     }
   }
 
@@ -94,6 +102,7 @@ class App extends React.Component {
       .then((data) => {
         if (data.token) {
           cookies.set('jwt', data.token, { path: '/' });
+          cookies.set('user', data.data.id, { path: '/' });
 
           this.setState({
             isAuthenticated: true,
@@ -113,33 +122,33 @@ class App extends React.Component {
   logout() {
     const { cookies } = this.props;
     cookies.remove('jwt', { path: '/' });
+    cookies.remove('user', { path: '/' });
     this.setState({ isAuthenticated: false });
   }
 
   getAllStrategies() {
     const { user } = this.state;
 
-    this.performAPICall({ url: `/api/v1/strategies/${user.id}` }).then((data) => {
-      this.setState({ strategies: data });
+    this.performAPICall({ url: `/api/v1/strategies/${user.id}` }).then(
+      (data) => {
+        this.setState({ strategies: data });
+      }
+    );
+  }
+
+  createStrategy(payload) {
+    const { user } = this.state;
+
+    this.performAPICall({
+      url: `/api/v1/strategies/${user.id}`,
+      method: 'POST',
+      payload,
     });
   }
-  
-  getStrategy() {
 
-  }
+  updateStrategy() {}
 
-  createStrategy() {
-    
-  }
-
-  updateStrategy(){
-
-  }
-
-  deleteStrategy() {
-
-  }
-
+  deleteStrategy() {}
 
   render() {
     const {
@@ -202,6 +211,7 @@ class App extends React.Component {
             path="/strategies"
             user={user}
             strategies={strategies}
+            createStrategy={this.createStrategy}
             getAllStrategies={this.getAllStrategies}
             isAuthenticated={isAuthenticated}
             component={Strategies}
