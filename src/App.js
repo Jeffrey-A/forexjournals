@@ -148,7 +148,15 @@ class App extends React.Component {
 
   updateStrategy() {}
 
-  deleteStrategy() {}
+  deleteStrategy(strategy_id) {
+    const { user } = this.state;
+
+    this.performAPICall({
+      url: `/api/v1/strategies/${user.id}`,
+      method: 'DELETE',
+      payload: { strategy_id },
+    });
+  }
 
   render() {
     const {
@@ -211,6 +219,7 @@ class App extends React.Component {
             path="/strategies"
             user={user}
             strategies={strategies}
+            deleteStrategy={this.deleteStrategy}
             createStrategy={this.createStrategy}
             getAllStrategies={this.getAllStrategies}
             isAuthenticated={isAuthenticated}
