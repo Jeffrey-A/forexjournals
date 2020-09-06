@@ -37,6 +37,10 @@ class App extends React.Component {
     this.createStrategy = this.createStrategy.bind(this);
     this.updateStrategy = this.updateStrategy.bind(this);
     this.deleteStrategy = this.deleteStrategy.bind(this);
+    this.getAllJournals = this.getAllJournals.bind(this);
+    this.createStrategy = this.createStrategy.bind(this);
+    this.deleteJournal = this.deleteJournal.bind(this);
+    this.updateJournal = this.updateJournal.bind(this);
   }
 
   componentDidMount() {
@@ -166,6 +170,46 @@ class App extends React.Component {
     });
   }
 
+  getAllJournals(strategy_id) {
+    const { user } = this.state;
+
+    this.performAPICall({
+      url: `/api/v1/journals/${user.id}/${strategy_id}`,
+    }).then((data) => {
+      this.setState({ journals: data });
+    });
+  }
+
+  createJournal(strategy_id, payload) {
+    const { user } = this.state;
+
+    this.performAPICall({
+      url: `/api/v1/journals/${strategy_id}/${user.id}`,
+      method: 'POST',
+      payload,
+    });
+  }
+
+  updateJournal(strategy_id, payload) {
+    const { user } = this.state;
+
+    this.performAPICall({
+      url: `/api/v1/journals/${strategy_id}/${user.id}`,
+      method: 'PUT',
+      payload,
+    });
+  }
+
+  deleteJournal(strategy_id, payload) {
+    const { user } = this.state;
+
+    this.performAPICall({
+      url: `/api/v1/journals/${strategy_id}/${user.id}`,
+      method: 'DELETE',
+      payload,
+    });
+  }
+
   render() {
     const {
       isAuthenticated,
@@ -207,6 +251,10 @@ class App extends React.Component {
           <ProtectedRoute
             exact
             path="/journals"
+            createJournal={this.createJournal}
+            getAllJournals={this.getAllJournals}
+            deleteJournal={this.deleteJournal}
+            updateJournal={this.updateJournal}
             performAPICall={this.performAPICall}
             user={user}
             isAuthenticated={isAuthenticated}
@@ -216,6 +264,10 @@ class App extends React.Component {
           <ProtectedRoute
             exact
             path="/journals/view/:strategyId"
+            createJournal={this.createJournal}
+            getAllJournals={this.getAllJournals}
+            deleteJournal={this.deleteJournal}
+            updateJournal={this.updateJournal}
             user={user}
             performAPICall={this.performAPICall}
             isAuthenticated={isAuthenticated}
