@@ -27,11 +27,13 @@ class App extends React.Component {
       loginFailed: false,
       user: {},
       token: null,
+      strategies: [],
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.register = this.register.bind(this);
     this.performAPICall = this.performAPICall.bind(this);
+    this.getAllStrategies = this.getAllStrategies.bind(this);
   }
 
   componentDidMount() {
@@ -114,12 +116,38 @@ class App extends React.Component {
     this.setState({ isAuthenticated: false });
   }
 
+  getAllStrategies() {
+    const { user } = this.state;
+
+    this.performAPICall({ url: `/api/v1/strategies/${user.id}` }).then((data) => {
+      this.setState({ strategies: data });
+    });
+  }
+  
+  getStrategy() {
+
+  }
+
+  createStrategy() {
+    
+  }
+
+  updateStrategy(){
+
+  }
+
+  deleteStrategy() {
+
+  }
+
+
   render() {
     const {
       isAuthenticated,
       wasRegistrationSuccessful,
       user,
       loginFailed,
+      strategies,
     } = this.state;
 
     return (
@@ -130,7 +158,6 @@ class App extends React.Component {
           <Route
             exact
             path="/login"
-            performAPICall={this.performAPICall}
             render={(props) => (
               <Login
                 isAuthenticated={isAuthenticated}
@@ -143,7 +170,6 @@ class App extends React.Component {
           <Route
             exact
             path="/register"
-            performAPICall={this.performAPICall}
             render={(props) => (
               <Register
                 wasRegistrationSuccessful={wasRegistrationSuccessful}
@@ -175,7 +201,8 @@ class App extends React.Component {
             exact
             path="/strategies"
             user={user}
-            performAPICall={this.performAPICall}
+            strategies={strategies}
+            getAllStrategies={this.getAllStrategies}
             isAuthenticated={isAuthenticated}
             component={Strategies}
           />
