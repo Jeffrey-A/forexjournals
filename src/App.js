@@ -146,7 +146,15 @@ class App extends React.Component {
     });
   }
 
-  updateStrategy() {}
+  updateStrategy(payload) {
+    const { user } = this.state;
+
+    this.performAPICall({
+      url: `/api/v1/strategies/${user.id}`,
+      method: 'PUT',
+      payload,
+    });
+  }
 
   deleteStrategy(strategy_id) {
     const { user } = this.state;
@@ -240,6 +248,7 @@ class App extends React.Component {
             performAPICall={this.performAPICall}
             path="/strategies/edit/:id"
             isAuthenticated={isAuthenticated}
+            updateStrategy={this.updateStrategy}
             component={EditStrategy}
           />
           <Route path="*" render={(props) => <NoFound user={user} />} />
