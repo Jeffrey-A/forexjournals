@@ -45,7 +45,7 @@ class App extends React.Component {
 
   performAPICall(data) {
     const { token } = this.state;
-    const { url, method, payload } = data;
+    const { url, method = 'GET', payload } = data;
 
     return fetch(url, {
       method: method.toUpperCase(),
@@ -65,7 +65,15 @@ class App extends React.Component {
       payload: { user_name: username, pass_word: password, email },
     })
       .then((data) => {
-        this.setState({ wasRegistrationSuccessful: true });
+        cookies.set('jwt', data.token, { path: '/' });
+
+        this.setState({
+          isAuthenticated: true,
+          loginFailed: false,
+          user: data.data,
+          token: data.token,
+          wasRegistrationSuccessful: true,
+        });
       })
       .catch((err) => {
         this.setState({ wasRegistrationSuccessful: false });
@@ -122,6 +130,7 @@ class App extends React.Component {
           <Route
             exact
             path="/login"
+            performAPICall={this.performAPICall}
             render={(props) => (
               <Login
                 isAuthenticated={isAuthenticated}
@@ -134,6 +143,7 @@ class App extends React.Component {
           <Route
             exact
             path="/register"
+            performAPICall={this.performAPICall}
             render={(props) => (
               <Register
                 wasRegistrationSuccessful={wasRegistrationSuccessful}
@@ -146,6 +156,7 @@ class App extends React.Component {
           <ProtectedRoute
             exact
             path="/journals"
+            performAPICall={this.performAPICall}
             user={user}
             isAuthenticated={isAuthenticated}
             component={Journals}
@@ -155,6 +166,7 @@ class App extends React.Component {
             exact
             path="/journals/view/:strategyId"
             user={user}
+            performAPICall={this.performAPICall}
             isAuthenticated={isAuthenticated}
             component={ViewJournal}
           />
@@ -163,6 +175,7 @@ class App extends React.Component {
             exact
             path="/strategies"
             user={user}
+            performAPICall={this.performAPICall}
             isAuthenticated={isAuthenticated}
             component={Strategies}
           />
@@ -171,12 +184,14 @@ class App extends React.Component {
             exact
             user={user}
             path="/strategies/view/:id"
+            performAPICall={this.performAPICall}
             isAuthenticated={isAuthenticated}
             component={ViewStrategy}
           />
           <ProtectedRoute
             exact
             user={user}
+            performAPICall={this.performAPICall}
             path="/strategies/edit/:id"
             isAuthenticated={isAuthenticated}
             component={EditStrategy}
