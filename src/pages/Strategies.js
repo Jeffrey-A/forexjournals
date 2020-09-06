@@ -3,47 +3,13 @@ import StrategyCard from '../components/StrategyCard';
 import CreateStrategy from '../components/CreateStrategy';
 
 class Strategies extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      strategies: [],
-    };
-
-    this.deleteStrategy = this.deleteStrategy.bind(this);
-  }
 
   componentDidMount() {
-    this.getStrategies();
-  }
-
-  getStrategies() {
-    const { user } = this.props;
-    fetch(`/api/v1/strategies/${user.id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ strategies: data });
-      });
-  }
-
-  deleteStrategy(strategy_id) {
-    fetch(`/api/v1/strategies/${this.props.user.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ strategy_id }),
-    }).then((response) => {
-      if (response.status == 200) {
-        this.getStrategies();
-      } else {
-        console.log('failed');
-      }
-    });
+    this.props.getAllStrategies()
   }
 
   render() {
-    const { strategies } = this.state;
+    const { user, strategies, createStrategy, deleteStrategy } = this.props;
 
     return (
       <div className="container">
@@ -53,14 +19,14 @@ class Strategies extends React.Component {
           </div>
 
           <div>
-            <CreateStrategy user={this.props.user} />
+            <CreateStrategy createStrategy={createStrategy} user={user} />
           </div>
         </div>
 
         <div className="strategies-container">
           {strategies.map((strategy) => (
             <StrategyCard
-              deleteStrategy={this.deleteStrategy}
+              deleteStrategy={deleteStrategy}
               strategyInfo={strategy}
             />
           ))}

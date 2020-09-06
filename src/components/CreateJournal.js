@@ -41,20 +41,7 @@ class CreateJournal extends React.Component {
   performAPICall() {
     // TODO: Perform input Validation
     const payload = { ...this.state };
-
-    fetch('/api/v1/journals/2/1', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    }).then((response) => {
-      if (response.status > 200) {
-        console.log('success');
-      } else {
-        console.log('failed');
-      }
-    });
+    
   }
 
   toggleModal() {

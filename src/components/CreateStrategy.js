@@ -43,23 +43,11 @@ class CreateStrategy extends React.Component {
   }
 
   createStrategy() {
+    const { createStrategy } = this.props;
     const payload = { ...this.state };
     payload.indicators = payload.indicators.join(',');
     payload.time_frames = payload.time_frames.join(',');
-
-    fetch(`/api/v1/strategies/${this.props.user.id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    }).then((response) => {
-      if (response.status > 200) {
-        console.log('success');
-      } else {
-        console.log('failed');
-      }
-    });
+    createStrategy(payload);
   }
 
   updateIndicators(indicators) {

@@ -81,8 +81,9 @@ class Register extends React.Component {
   render() {
     const { wasRegistrationSuccessful } = this.props;
     if (wasRegistrationSuccessful) {
-      return <Redirect from="register" to="/login" />;
+      return <Redirect from="register" to="/" />;
     }
+
     return (
       <div className="login-register-container container">
         <div>

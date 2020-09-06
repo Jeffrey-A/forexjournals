@@ -50,23 +50,11 @@ class EditStrategy extends React.Component {
   }
 
   editStrategy() {
+    const { updateStrategy } = this.props;
     const payload = { ...this.state };
     payload.indicators = payload.indicators.join(',');
     payload.time_frames = payload.time_frames.join(',');
-
-    fetch(`/api/v1/strategies/${this.props.user.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    }).then((response) => {
-      if (response.status > 200) {
-        console.log('success');
-      } else {
-        console.log('failed');
-      }
-    });
+    updateStrategy(payload);
   }
 
   updateIndicators(indicators) {
