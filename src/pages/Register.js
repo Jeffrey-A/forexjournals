@@ -21,7 +21,7 @@ class Register extends React.Component {
   }
 
   handleInputChange(event, inputName) {
-    const value = event.target.value;
+    const { value } = event.target;
     this.setState({ [inputName]: value.trim() });
   }
 
@@ -72,15 +72,18 @@ class Register extends React.Component {
   }
 
   createUser(event) {
+    const { register } = this.props;
     if (this.areInputsValid()) {
-      this.props.register(this.state);
+      register(this.state);
     }
   }
 
   render() {
-    if (this.props.wasRegistrationSuccessful) {
-      return <Redirect from="register" to="/login" />;
+    const { wasRegistrationSuccessful } = this.props;
+    if (wasRegistrationSuccessful) {
+      return <Redirect from="register" to="/" />;
     }
+
     return (
       <div className="login-register-container container">
         <div>

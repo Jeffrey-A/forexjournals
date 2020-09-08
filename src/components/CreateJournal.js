@@ -23,12 +23,12 @@ class CreateJournal extends React.Component {
   }
 
   handleTextFieldChange(event, fieldName) {
-    const value = event.target.value;
+    const { value } = event.target;
     this.setState({ [fieldName]: value.trim() });
   }
 
   handleSelectChange(event, selectType) {
-    const options = event.target.options;
+    const { options } = event.target;
 
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
@@ -40,25 +40,13 @@ class CreateJournal extends React.Component {
 
   performAPICall() {
     // TODO: Perform input Validation
-    const payload = Object.assign({}, this.state);
-
-    fetch('/api/v1/journals/2/1', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    }).then((response) => {
-      if (response.status > 200) {
-        console.log('success');
-      } else {
-        console.log('failed');
-      }
-    });
+    const payload = { ...this.state };
+    
   }
 
   toggleModal() {
-    this.setState({ isShowingModal: !this.state.isShowingModal });
+    const { isShowingModal } = this.state;
+    this.setState({ isShowingModal: !isShowingModal });
   }
 
   handlePipsChance(e, isSelectEvent = false) {
@@ -93,13 +81,21 @@ class CreateJournal extends React.Component {
     const { isShowingModal } = this.state;
 
     if (!isShowingModal) {
-      return <button onClick={this.toggleModal}>Create Journal</button>;
+      return (
+        <button type="button" onClick={this.toggleModal}>
+          Create Journal
+        </button>
+      );
     }
 
     return (
       <div className="modal-main-container">
-        <div className="modal-overlay"></div>
-        <span className="close-modal-btn" onClick={this.toggleModal}>
+        <div className="modal-overlay" />
+        <span
+          role="button"
+          className="close-modal-btn"
+          onClick={this.toggleModal}
+        >
           X
         </span>
         <div className="modal-container">
@@ -137,12 +133,12 @@ class CreateJournal extends React.Component {
               className="journal-textarea"
               placeholder="Errors made"
               onChange={(e) => this.handleTextFieldChange(e, 'errors')}
-            ></textarea>
+            />
             <textarea
               className="journal-textarea"
               placeholder="Comments"
               onChange={(e) => this.handleTextFieldChange(e, 'comments')}
-            ></textarea>
+            />
             <div className="pips-gain-lost-container">
               <select
                 className="pips-gain-lost-sign"
@@ -160,7 +156,11 @@ class CreateJournal extends React.Component {
                 onChange={(e) => this.handlePipsChance(e)}
               />
             </div>
-            <button onClick={this.performAPICall} className="journal-btn">
+            <button
+              type="button"
+              onClick={this.performAPICall}
+              className="journal-btn"
+            >
               Create Journal
             </button>
           </div>

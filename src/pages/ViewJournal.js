@@ -34,14 +34,10 @@ class ViewJournal extends React.Component {
   }
 
   getJournals() {
-    const userId = this.props.user.id;
-    const strategyId = this.props.location.state.strategy_id;
+    const { getAllJournals, location } = this.props;
+    const { strategy_id } = location.state;
 
-    fetch(`/api/v1/journals/${userId}/${strategyId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ journals: data });
-      });
+    getAllJournals(strategy_id);
   }
 
   getIdsOfSelectedEntries() {
@@ -73,19 +69,12 @@ class ViewJournal extends React.Component {
   }
 
   delete() {
+    const { deleteJournal, location } = this.props;
+    const strategy_id = location.state.strategy_id;
     const idsOfSelectedItems = this.getIdsOfSelectedEntries();
 
     const apiCalls = idsOfSelectedItems.map((id) => {
-      const userId = this.props.user.id;
-      const strategyId = this.props.location.state.strategy_id;
-
-      return fetch(`/api/v1/journals/${userId}/${strategyId}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'DELETE',
-        body: JSON.stringify({ journal_id: parseInt(id, 10) }),
-      });
+      return deleteJournal(strategy_id, { journal_id: parseInt(id, 10) });
     });
 
     this.runAll(apiCalls);
@@ -164,7 +153,7 @@ class ViewJournal extends React.Component {
   }
 
   render() {
-    const strategy_name = this.props.location.state.strategy_name;
+    const { strategy_name } = this.props.location.state;
 
     return (
       <div className="container">

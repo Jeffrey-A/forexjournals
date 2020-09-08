@@ -1,8 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-/* TO DO:
- * Find a way to store user session in the front-end(using cookies or local-store or something else)
- */
+
 class Login extends React.Component {
   constructor(props) {
     super(props);

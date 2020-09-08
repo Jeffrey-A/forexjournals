@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MenuIcon from '../assets/menu.png';
 import nextId from 'react-id-generator';
+import MenuIcon from '../assets/menu.png';
 
 class Nav extends React.Component {
   constructor(props) {
