@@ -24,7 +24,9 @@ function getJournalsForUser(req, res) {
       })
       .catch((err) => {
         logErrorMessage('Error getting journals', err);
-        res.sendStatus(500);
+        res
+          .status(500)
+          .json({ status: 'fail', message: 'Sorry, something went wrong!' });
       });
   } else {
     Journals.findAll({ where: { user_id } })
@@ -33,7 +35,9 @@ function getJournalsForUser(req, res) {
       })
       .catch((err) => {
         logErrorMessage('Error getting journals', err);
-        res.sendStatus(500);
+        res
+          .status(500)
+          .json({ status: 'fail', message: 'Sorry, something went wrong!' });
       });
   }
 }
@@ -51,8 +55,8 @@ function createJournal(req, res) {
   };
 
   Journals.create(payload)
-    .then(() => {
-      res.sendStatus(202);
+    .then((data) => {
+      res.status(202).json({ status: 'success', data });
     })
     .catch((err) => {
       logErrorMessage('Error creating journal, err');
@@ -77,11 +81,13 @@ function updateJournal(req, res) {
     where: { journal_id, strategy_id, user_id },
   })
     .then(() => {
-      res.sendStatus(204);
+      res.status(204);
     })
     .catch((err) => {
       logErrorMessage('Error updating journal', err);
-      res.sendStatus(500);
+      res
+        .status(500)
+        .json({ status: 'fail', message: 'Sorry, something went wrong!' });
     });
 }
 
@@ -91,10 +97,12 @@ function deleteJournal(req, res) {
   const journal_id = req.body.journal_id ? req.body.journal_id : '';
 
   Journals.destroy({ where: { journal_id, user_id, strategy_id } })
-    .then(() => res.sendStatus(204))
+    .then(() => res.status(204).json({ status: 'success' }))
     .catch((err) => {
       logErrorMessage('Error deleting journal', err);
-      res.sendStatus(500);
+      res
+        .status(500)
+        .json({ status: 'fail', message: 'Sorry, something went wrong!' });
     });
 }
 
