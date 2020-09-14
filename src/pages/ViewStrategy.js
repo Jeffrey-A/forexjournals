@@ -6,6 +6,14 @@ class ViewStrategy extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    const passedState = this.props.location ? this.props.location.state.strategyInfo : null;
+    if (passedState) {
+      alert('hey')
+      localStorage.setItem('strategyInfo', JSON.stringify(passedState));
+    }
+  }
+
   displayAltTextIfEmpty(text) {
     if (!text) {
       return 'No content to show';
